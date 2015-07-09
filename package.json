@@ -1,0 +1,27 @@
+{
+  "name": "react-gsap-hoc",
+  "version": "0.0.0",
+  "description": "A higher order component for applying GSAP animations to React components - draft",
+  "main": "gsap-hoc.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/azazdeaz/react-gsap-hoc.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/azazdeaz/react-gsap-hoc/issues"
+  },
+  "homepage": "https://github.com/azazdeaz/react-gsap-hoc",
+  "devDependencies": {
+    "babel-eslint": "^3.1.23",
+    "eslint": "^0.24.0",
+    "eslint-plugin-react": "^2.6.4"
+  }
+}
