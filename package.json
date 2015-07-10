@@ -20,8 +20,25 @@
   },
   "homepage": "https://github.com/azazdeaz/react-gsap-hoc",
   "devDependencies": {
+    "babel": "^5.6.14",
+    "babel-core": "^5.6.17",
     "babel-eslint": "^3.1.23",
+    "babel-loader": "^5.3.1",
+    "component-playground": "^0.1.1",
     "eslint": "^0.24.0",
-    "eslint-plugin-react": "^2.6.4"
+    "eslint-plugin-react": "^2.6.4",
+    "file-loader": "^0.8.4",
+    "gulp": "^3.9.0",
+    "gulp-gh-pages": "^0.5.2",
+    "gulp-util": "^3.0.6",
+    "lodash": "^3.10.0",
+    "material-ui": "^0.10.0",
+    "node-libs-browser": "^0.5.2",
+    "raw-loader": "^0.5.1",
+    "react": "^0.13.3",
+    "react-router": "^0.13.3",
+    "react-tap-event-plugin": "^0.1.7",
+    "webpack": "^1.10.1",
+    "webpack-dev-server": "^1.10.1"
   }
 }

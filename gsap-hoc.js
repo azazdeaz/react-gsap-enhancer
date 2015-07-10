@@ -1,45 +1,54 @@
 import React, {Component, Children} from 'react'
+import attachRefs from './attachRefs'
+import Animation from './Animation'
 
 export default function (createTimeline) {
   return function (EnhancedCompoent) {
     return class GSAPEnhancer extends Component {
-      constructor(props) {
-        super(props)
-
+      constructor() {
         this.itemTree = new Map()
+        this.activeAnimations = []
       }
 
-      attachRefs(element, itemMap, idx) {
-        var {key} = element
-        if (key === null) {
-          key = idx
-        }
-
-        var item
-        if (itemMap.has(key)) {
-          item = itemMap.get(key)
-        }
-        else {
-          item = itemMap.set(key, {children: new Map()}).get(key)
-        }
-
-        if (!item.ref) {
-          item.ref = (component) => {
-            item.component = component
-            item.node = React.findDOMNode(component)
-          }
-        }
-
-        var children = Children.map(element.props.children, child => {
-          return this.attachRefs(child, item.children)
+      saveInlineStyles() {
+        this.walkItemTree(item => {
+          item.savedStyle = item.node.getAttribute('style')
         })
+      }
 
-        element = React.cloneElement(element, {children, ref: item.ref})
+      saveInlineStyles() {
+        this.walkItemTree(item => {
+          item.node.setAttribute('style', item.savedStyle)
+        })
+      }
+
+      walkItemTree(callback) {
+        function walk(map) {
+          map.forEach(item => {
+            if (item.node) {
+              callback(item)
+              if (item.children) {
+                walk(item.children)
+              }
+            }
+          })
+        }
+        walk(this.itemTree)
+      }
+
+      componentWillUpdate() {
+        this.activeAnimations.forEach(animation = > animation.detach())
+        this.restoreRenderedStyles()
       }
 
       render () {
         var props = {...this.props, timeline: this.timeline}
         return this.attachRefs(<EnhancedCompoent {...props}/>, this.itemTree)
+      }
+
+      componentDidUpdate() {
+        this.saveRenderedStyles()
+        this.activeAnimations.forEach(animation = > animation.attach())
       }
     }
   }

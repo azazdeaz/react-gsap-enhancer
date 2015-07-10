@@ -1,0 +1,7 @@
+.playground {
+  display: flex;
+  width: 100%;
+}
+.playgroundCode, .playgroundPreview {
+  flex: 1;
+}
