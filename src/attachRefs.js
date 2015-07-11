@@ -1,3 +1,5 @@
+import React, {Children} from 'react'
+
 export default function attachRefs(element, itemMap, idx) {
   var {key} = element
   if (key === null) {
@@ -23,5 +25,5 @@ export default function attachRefs(element, itemMap, idx) {
     return attachRefs(child, item.children)
   })
 
-  element = React.cloneElement(element, {children, ref: item.ref})
+  return React.cloneElement(element, {children, ref: item.ref})
 }

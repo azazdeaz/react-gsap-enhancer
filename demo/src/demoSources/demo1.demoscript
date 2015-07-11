@@ -1,0 +1,36 @@
+function createAnim(selectByKeyPath) {
+  var box = selectByKeyPath(['box'])
+
+  return new TimelineLite({repeat: -1})
+    .to(box, 1, {scale: 1.23, y: '+=123'})
+    .to(box, 1, {scale: 1, y: '-=123'})
+}
+
+@GreenSock(createAnim)
+class Demo extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {x: 0, y: 0}
+  }
+
+  componentDidMount() {
+    window.addEventListener('mousemove', e => this.setState({
+      x: e.clientX,
+      y: e.clientY
+    }))
+  }
+
+  render () {
+    var {x, y} = this.state
+    var style = {
+      backgroundColor: '#88ce02',
+      width: 123,
+      height: 123,
+      transform: `translate(${x}px, ${y}px)`
+    }
+
+    return <div key='path' style={style}/>
+  }
+}
+
+React.render(<Demo/>, mountNode)

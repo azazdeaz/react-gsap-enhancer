@@ -1,11 +1,12 @@
-import React, {Component, Children} from 'react'
+import React, {Component} from 'react'
 import attachRefs from './attachRefs'
 import Animation from './Animation'
 
 export default function (createTimeline) {
   return function (EnhancedCompoent) {
     return class GSAPEnhancer extends Component {
-      constructor() {
+      constructor(props) {
+        super(props)
         this.itemTree = new Map()
         this.activeAnimations = []
       }
@@ -37,18 +38,18 @@ export default function (createTimeline) {
       }
 
       componentWillUpdate() {
-        this.activeAnimations.forEach(animation = > animation.detach())
+        this.activeAnimations.forEach(animation => animation.detach())
         this.restoreRenderedStyles()
       }
 
       render () {
         var props = {...this.props, timeline: this.timeline}
-        return this.attachRefs(<EnhancedCompoent {...props}/>, this.itemTree)
+        return attachRefs(<EnhancedCompoent {...props}/>, this.itemTree)
       }
 
       componentDidUpdate() {
         this.saveRenderedStyles()
-        this.activeAnimations.forEach(animation = > animation.attach())
+        this.activeAnimations.forEach(animation => animation.attach())
       }
     }
   }

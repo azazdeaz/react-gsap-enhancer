@@ -12,7 +12,7 @@ module.exports = {
     packageMains: ['main'],
     extensions: ['', '.js', '.jsx'],
     alias: {
-      'gsap-hoc': path.join(__dirname, '../src/gsap-hoc.js'),
+      'react-gsap-hoc': path.join(__dirname, '../src/gsap-hoc.js'),
     }
   },
   module: {

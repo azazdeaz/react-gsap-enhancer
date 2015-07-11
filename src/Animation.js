@@ -5,7 +5,7 @@ export default class Animation {
   }
 
   refreshTimeilne() {
-    var oldTimeline this.timeline
+    var oldTimeline = this.timeline
     this.timeline = this._createTimeline(this.getDOMNodeByKeys)
 
     if (oldTimeline) {
