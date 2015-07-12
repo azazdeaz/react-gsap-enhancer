@@ -8,16 +8,22 @@ export default function (createTimeline) {
       constructor(props) {
         super(props)
         this.itemTree = new Map()
-        this.activeAnimations = []
+        this.runningAnimations = new Set()
       }
 
-      saveInlineStyles() {
+      createAnimation = (create, options) => {
+        var animation = new Animation(create, options)
+        this.runningAnimations.add(animation)
+        return animation
+      }
+
+      saveRenderedStyles() {
         this.walkItemTree(item => {
           item.savedStyle = item.node.getAttribute('style')
         })
       }
 
-      saveInlineStyles() {
+      restoreRenderedStyles() {
         this.walkItemTree(item => {
           item.node.setAttribute('style', item.savedStyle)
         })
@@ -38,18 +44,18 @@ export default function (createTimeline) {
       }
 
       componentWillUpdate() {
-        this.activeAnimations.forEach(animation => animation.detach())
+        this.runningAnimations.forEach(animation => animation.detach())
         this.restoreRenderedStyles()
       }
 
       render () {
-        var props = {...this.props, timeline: this.timeline}
+        var props = {...this.props, createAnimation: this.createAnimation}
         return attachRefs(<EnhancedCompoent {...props}/>, this.itemTree)
       }
 
       componentDidUpdate() {
         this.saveRenderedStyles()
-        this.activeAnimations.forEach(animation => animation.attach())
+        this.runningAnimations.forEach(animation => animation.attach())
       }
     }
   }

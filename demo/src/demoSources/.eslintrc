@@ -1,0 +1,8 @@
+{
+  "globals": {
+    "React": true,
+    "GreenSock": true,
+    "TimelineLite": true,
+    "mountNode": true
+  }
+}

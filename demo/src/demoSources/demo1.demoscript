@@ -2,11 +2,11 @@ function createAnim(selectByKeyPath) {
   var box = selectByKeyPath(['box'])
 
   return new TimelineLite({repeat: -1})
-    .to(box, 1, {scale: 1.23, y: '+=123'})
-    .to(box, 1, {scale: 1, y: '-=123'})
+    .to(box, 1, {scale: 1.23, y: '+=120'})
+    .to(box, 1, {scale: 1, y: '-=120'})
 }
 
-@GreenSock(createAnim)
+@GreenSock()
 class Demo extends React.Component {
   constructor(props) {
     super(props)
@@ -14,14 +14,19 @@ class Demo extends React.Component {
   }
 
   componentDidMount() {
-    window.addEventListener('mousemove', e => this.setState({
-      x: e.clientX,
-      y: e.clientY
+    var rootNode = document.querySelector('.playgroundPreview')
+    var {top, left} = rootNode.getBoundingClientRect()
+    rootNode.addEventListener('mousemove', e => this.setState({
+      x: e.clientX - 60 - left,
+      y: e.clientY - 60 - top
     }))
+
+    this.jumpAnim = this.props.createAnimation(createAnim)
   }
 
   render () {
     var {x, y} = this.state
+    console.log({x, y})
     var style = {
       backgroundColor: '#88ce02',
       width: 123,
