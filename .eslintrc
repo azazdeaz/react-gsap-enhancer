@@ -21,7 +21,6 @@
     "comma-dangle": [0],
     "curly": [0],
     "strict": [0],
-    "no-use-before-define": [2, "nofunc"],
-    "babel/new-cap": [1]
+    "no-use-before-define": [2, "nofunc"]
   }
 }

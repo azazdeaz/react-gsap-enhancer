@@ -2,15 +2,24 @@ import React from 'react'
 import {RouteHandler} from 'react-router'
 import demoSources from './demoSources'
 import map from 'lodash/collection/map'
+import findIndex from 'lodash/array/findIndex'
+import startCase from 'lodash/string/startCase'
 
-import {AppBar, Styles,IconButton, MenuItem, LeftNav, Menu} from 'material-ui'
+import {AppBar, Styles, IconButton, DropDownMenu, MenuItem} from 'material-ui'
 var theme = new Styles.ThemeManager()
 theme.setTheme(theme.types.DARK)
-console.log({demoSources})
+
+theme.setComponentThemes({
+  appBar: {
+    color: '#121212',
+    // textColor: '#88ce02',
+  }
+})
+
 var menuItems = [
-  { type: MenuItem.Types.SUBHEADER, text: 'Demos' },
+  { type: MenuItem.Types.SUBHEADER, text: 'Demos:' },
   ...map(demoSources, (source, name) => {
-    return { route: '/demo/' + name, text: name }
+    return { route: '/demo/' + name, text: startCase(name), name }
   })
 ]
 
@@ -34,24 +43,32 @@ export default class App extends React.Component {
   }
 
   handleNavChange = (e, idx, payload) => {
-    this.context.router.transitionTo(payload.route);
+    this.context.router.transitionTo(payload.route)
+  }
+
+  handleClickGithub = () => {
+    window.open('https://github.com/azazdeaz/react-gsap-enhancer')
   }
 
   render () {
     return (
       <div>
         <AppBar
-          title="GSAP-HoC"
+          title="Demos for react-gsap-enhancer"
           iconElementLeft={
             <IconButton
-              iconClassName='fa fa-paw'
-              onClick={this.showNav}/>
-          }/>
-        <div style={{display: 'flex'}}>
-          <LeftNav ref="leftNav"
+              iconClassName='fa fa-github'
+              onClick={this.handleClickGithub}/>
+          }>
+          <DropDownMenu
+            selectedIndex = {findIndex(menuItems, item => {
+              var {name} = this.context.router.getCurrentParams()
+              return item.name === name
+            })}
             onChange = {this.handleNavChange}
-            docked = {false}
             menuItems = {menuItems} />
+        </AppBar>
+        <div style={{display: 'flex'}}>
           <RouteHandler/>
         </div>
       </div>

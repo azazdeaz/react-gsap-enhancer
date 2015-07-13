@@ -1,7 +1,7 @@
 export default class Animation {
-  constructor(createGSAPAnimation, keyTree) {
-    this._createAnimation = createAnimation
-    this._keyTree = keyTree
+  constructor(createGSAPAnimation, options, getDOMNodeByKeys) {
+    this._createGSAPAnimation = createGSAPAnimation
+    this._getDOMNodeByKeys = getDOMNodeByKeys
     this._time = undefined
   }
 
@@ -13,28 +13,21 @@ export default class Animation {
   }
 
   attach() {
-    this._gsapAnimation = this._createGSAPAnimation(this.getDOMNodeByKeys)
+    this._gsapAnimation = this._createGSAPAnimation(this._getDOMNodeByKeys)
     if (this._time !== undefined) {
       this._gsapAnimation.time(this._time)
     }
   }
-  // 
-  // refreshTimeilne() {
-  //   var oldTimeline = this.timeline
-  //   this.timeline = this._createTimeline(this.getDOMNodeByKeys)
-  //
-  //   if (oldTimeline) {
-  //     this.timeline.time(oldTimeline.time())
-  //   }
-  // }
-
-  getDOMNodeByKeys = (keyPath) => {
-    var item = {children: this._keyTree}
-
-    keyPath.forEach(key => {
-      item = item.children.get(key)
-    })
-
-    return item.node
-  }
 }
+
+// (() => {
+//   ['play'].forEach(fnName => {
+//     Animation.prototype[fnName] = function (...args) {
+//       this._gsapAnimation[fnName](...args)
+//     }
+//   })
+// })()
+
+// Animation.prototype.play = function (...args) {
+//   this._gsapAnimation.play(...args)
+// }

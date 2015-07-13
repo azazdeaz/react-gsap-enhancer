@@ -1,3 +1,3 @@
 export default {
-  demo1: require('raw!./demo1.demoscript')
+  'update-and-animate-transform': require('raw!./update-and-animate-transform.demoscript')
 }

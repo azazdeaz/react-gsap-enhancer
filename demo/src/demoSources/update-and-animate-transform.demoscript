@@ -1,12 +1,16 @@
+//update transform style on every mousemove (x, y)
+//while it's also animating(y, slace, rotate)
+
 function createAnim(selectByKeyPath) {
   var box = selectByKeyPath(['box'])
 
-  return new TimelineLite({repeat: -1})
+  return new TimelineMax({repeat: -1})
     .to(box, 1, {scale: 1.23, y: '+=120'})
     .to(box, 1, {scale: 1, y: '-=120'})
+    .to(box, 1, {rotation: 90}, 1)
 }
 
-@GreenSock()
+@gsap()
 class Demo extends React.Component {
   constructor(props) {
     super(props)
@@ -21,20 +25,20 @@ class Demo extends React.Component {
       y: e.clientY - 60 - top
     }))
 
-    this.jumpAnim = this.props.createAnimation(createAnim)
+    this.jumpAnim = this.createAnimation(createAnim)
   }
 
   render () {
     var {x, y} = this.state
-    console.log({x, y})
+
     var style = {
-      backgroundColor: '#88ce02',
+      backgroundColor: GS_GREEN,
       width: 123,
       height: 123,
       transform: `translate(${x}px, ${y}px)`
     }
 
-    return <div key='path' style={style}/>
+    return <div key='box' style={style}/>
   }
 }
 
