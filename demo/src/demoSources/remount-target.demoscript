@@ -2,11 +2,11 @@
 //while it's also animating(y, slace, rotate)
 
 function createAnim(selectByKeyPath) {
-  var box = selectByKeyPath(['target'])
+  var target = selectByKeyPath(['target'])
 
   return new TimelineMax({repeat: -1})
-    .to(box, 1, {scale: 1.23, y: '+=120'})
-    .to(box, 1, {scale: 1, y: '-=120'})
+    .to(target, 1, {scale: 1.23, y: '+=120'})
+    .to(target, 1, {scale: 1, y: '-=120'})
 }
 
 @gsap
@@ -17,16 +17,19 @@ class Demo extends React.Component {
   }
 
   componentDidMount() {
-    this.jumpAnim = this.createAnimation(createAnim)
-
     var switchType = () => {
       this.setState({
         type: this.state.type === 'div' ? 'span' : 'div'
       })
 
-      setTimeout(switchType, 800 + 800 * Math.random())
+      this.switchTimeoutId = setTimeout(switchType, 6200)
     }
     switchType()
+    this.jumpAnim = this.createAnimation(createAnim)
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.switchTimeoutId)
   }
 
   render () {
@@ -41,7 +44,7 @@ class Demo extends React.Component {
       padding: 8
     }
 
-    if (type === 'span') {
+    if (type === 'div') {
       return <div key='target' style={style}>{"I'm a DIV!"}</div>
     }
     else {

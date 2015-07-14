@@ -2,7 +2,7 @@ import attachRefs from './attachRefs'
 import Animation from './Animation'
 
 export default function (EnhancedCompoent) {
-  return class GSAPEnhancer extends EnhancedCompoent {
+  class GSAPEnhancer extends EnhancedCompoent {
     constructor(props) {
       super(props)
       this.__itemTree = new Map()
@@ -50,6 +50,37 @@ export default function (EnhancedCompoent) {
       }
     }
   }
+
+
+  // Class inheritance uses Object.create and because of __proto__ issues
+  // with IE <10 any static properties of the superclass aren't inherited and
+  // so need to be manually populated
+  // See http://babeljs.io/docs/advanced/caveats/#classes-10-and-below-
+  var staticKeys = [
+    'defaultProps',
+    'propTypes',
+    'contextTypes',
+    'childContextTypes'
+  ]
+
+  staticKeys.forEach((key) => {
+    if (EnhancedCompoent.hasOwnProperty(key)) {
+      GSAPEnhancer[key] = EnhancedCompoent[key]
+    }
+  })
+
+  if (process.env.NODE_ENV !== 'production') {
+    // This fixes React Hot Loader by exposing the original components top level
+    // prototype methods on the Radium enhanced prototype as discussed in
+    // https://github.com/FormidableLabs/radium/issues/219
+    Object.keys(EnhancedCompoent.prototype).forEach(key => {
+      if (!GSAPEnhancer.prototype.hasOwnProperty(key)) {
+        GSAPEnhancer.prototype[key] = EnhancedCompoent.prototype[key]
+      }
+    })
+  }
+
+  return GSAPEnhancer
 }
 
 function getTargetByKeys(keyPath) {
