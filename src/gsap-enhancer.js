@@ -1,60 +1,58 @@
 import attachRefs from './attachRefs'
 import Animation from './Animation'
 
-export default function () {
-  return function (EnhancedCompoent) {
-    return class GSAPEnhancer extends EnhancedCompoent {
-      constructor(props) {
-        super(props)
-        this.__itemTree = new Map()
-        this.__runningAnimations = new Set()
+export default function (EnhancedCompoent) {
+  return class GSAPEnhancer extends EnhancedCompoent {
+    constructor(props) {
+      super(props)
+      this.__itemTree = new Map()
+      this.__runningAnimations = new Set()
+    }
+
+    createAnimation = (create, options) => {
+      var animation = new Animation(
+        create,
+        options,
+        getTargetByKeys.bind(this)
+      )
+      this.__runningAnimations.add(animation)
+      animation.attach()
+      return animation
+    }
+
+    componentDidMount() {
+      saveRenderedStyles.call(this)
+
+      if (super.componentDidMount) {
+        super.componentDidMount()
       }
+    }
 
-      createAnimation = (create, options) => {
-        var animation = new Animation(
-          create,
-          options,
-          getDOMNodeByKeys.bind(this)
-        )
-        this.__runningAnimations.add(animation)
-        animation.attach()
-        return animation
+    componentWillUpdate() {
+      this.__runningAnimations.forEach(animation => animation.detach())
+      restoreRenderedStyles.call(this)
+
+      if (super.componentWillUpdate) {
+        super.componentWillUpdate()
       }
+    }
 
-      componentDidMount() {
-        saveRenderedStyles.call(this)
+    render () {
+      return attachRefs(super.render(), this.__itemTree)
+    }
 
-        if (super.componentDidMount) {
-          super.componentDidMount()
-        }
-      }
+    componentDidUpdate() {
+      saveRenderedStyles.call(this)
+      this.__runningAnimations.forEach(animation => animation.attach())
 
-      componentWillUpdate() {
-        this.__runningAnimations.forEach(animation => animation.detach())
-        restoreRenderedStyles.call(this)
-
-        if (super.componentWillUpdate) {
-          super.componentWillUpdate()
-        }
-      }
-
-      render () {
-        return attachRefs(super.render(), this.__itemTree)
-      }
-
-      componentDidUpdate() {
-        saveRenderedStyles.call(this)
-        this.__runningAnimations.forEach(animation => animation.attach())
-
-        if (super.componentDidUpdate) {
-          super.componentDidUpdate()
-        }
+      if (super.componentDidUpdate) {
+        super.componentDidUpdate()
       }
     }
   }
 }
 
-function getDOMNodeByKeys(keyPath) {
+function getTargetByKeys(keyPath) {
   var item = {children: this.__itemTree}
 
   keyPath.forEach(key => {

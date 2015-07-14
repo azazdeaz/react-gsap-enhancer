@@ -10,7 +10,7 @@ function createAnim(selectByKeyPath) {
     .to(box, 1, {rotation: 90}, 1)
 }
 
-@gsap()
+@gsap
 class Demo extends React.Component {
   constructor(props) {
     super(props)

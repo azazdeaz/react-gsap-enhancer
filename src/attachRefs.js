@@ -1,4 +1,5 @@
 import React, {Children} from 'react'
+import isArray from 'lodash/lang/isArray'
 
 export default function attachRefs(element, itemMap, idx) {
   var {key} = element
@@ -11,19 +12,41 @@ export default function attachRefs(element, itemMap, idx) {
     item = itemMap.get(key)
   }
   else {
-    item = itemMap.set(key, {children: new Map()}).get(key)
+    item = itemMap.set(key, {
+      children: new Map(),
+      target: [null]
+    }).get(key)
   }
 
   if (!item.ref) {
     item.ref = (component) => {
+      console.log('item.ref', key, component)
+      var node = React.findDOMNode(component)
       item.component = component
-      item.node = React.findDOMNode(component)
+      item.target[0] = node
+      item.node = node
     }
   }
 
-  var children = Children.map(element.props.children, child => {
-    return attachRefs(child, item.children)
-  })
+  var children
+  if (isArray(element.props.children)) {
+    children = Children.map(element.props.children, child => {
+      return cloneChild(child, item.children)
+    })
+  }
+  else {
+    //it's an only child whitout array wraper
+    children = cloneChild(element.props.children)
+  }
+
+  function cloneChild(child) {
+    if (React.isValidElement(child)) {
+      return attachRefs(child, item.children)
+    }
+    else {
+      return child
+    }
+  }
 
   return React.cloneElement(element, {children, ref: item.ref})
 }

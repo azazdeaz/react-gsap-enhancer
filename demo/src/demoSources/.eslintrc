@@ -1,8 +1,10 @@
 {
   "globals": {
     "React": true,
-    "GreenSock": true,
+    "gsap": true,
     "TimelineLite": true,
+    "TimelineMax": true,
+    "GS_GREEN": true,
     "mountNode": true
   }
 }

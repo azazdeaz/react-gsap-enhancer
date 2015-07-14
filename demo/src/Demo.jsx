@@ -4,6 +4,14 @@ import Playground from 'component-playground'
 import demoSources from './demoSources'
 
 export default class Demo extends React.Component {
+  static contextTypes = {
+    router: React.PropTypes.func
+  }
+
+  componentDidMount() {
+    
+  }
+
   render() {
     return <Playground
       noRender = {false}

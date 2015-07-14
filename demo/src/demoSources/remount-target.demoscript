@@ -1,0 +1,53 @@
+//update transform style on every mousemove (x, y)
+//while it's also animating(y, slace, rotate)
+
+function createAnim(selectByKeyPath) {
+  var box = selectByKeyPath(['target'])
+
+  return new TimelineMax({repeat: -1})
+    .to(box, 1, {scale: 1.23, y: '+=120'})
+    .to(box, 1, {scale: 1, y: '-=120'})
+}
+
+@gsap
+class Demo extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {type: 'div'}
+  }
+
+  componentDidMount() {
+    this.jumpAnim = this.createAnimation(createAnim)
+
+    var switchType = () => {
+      this.setState({
+        type: this.state.type === 'div' ? 'span' : 'div'
+      })
+
+      setTimeout(switchType, 800 + 800 * Math.random())
+    }
+    switchType()
+  }
+
+  render () {
+    var {type} = this.state
+
+    var style = {
+      backgroundColor: GS_GREEN,
+      width: 230,
+      height: 62,
+      fontFamily: 'Roboto',
+      fontWeight: 'bold',
+      padding: 8
+    }
+
+    if (type === 'span') {
+      return <div key='target' style={style}>{"I'm a DIV!"}</div>
+    }
+    else {
+      return <span key='target' style={style}>{"I'm a SPAN!"}</span>
+    }
+  }
+}
+
+React.render(<Demo/>, mountNode)

@@ -19,6 +19,7 @@ var routes = (
   </Route>
 )
 
-Router.run(routes, Router.HashLocation, (Root) => {
-  React.render(<Root/>, document.body)
+Router.run(routes, Router.HashLocation, (Root, state) => {
+  React.render(<Root/>, document.querySelector('#react-mount'))
+  console.log(state)
 })
