@@ -21,5 +21,7 @@ var routes = (
 
 Router.run(routes, Router.HashLocation, (Root, state) => {
   React.render(<Root/>, document.querySelector('#react-mount'))
-  console.log(state)
+  if (window.onNameParamChange) {
+    window.onNameParamChange(state.params.name)
+  }
 })
