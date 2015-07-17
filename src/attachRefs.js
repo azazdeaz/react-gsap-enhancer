@@ -20,7 +20,6 @@ export default function attachRefs(element, itemMap, idx) {
 
   if (!item.ref) {
     item.ref = (component) => {
-      console.log('item.ref', key, component)
       var node = React.findDOMNode(component)
       item.component = component
       item.target[0] = node

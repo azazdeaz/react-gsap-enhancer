@@ -83,6 +83,10 @@ export default function (EnhancedCompoent) {
   return GSAPEnhancer
 }
 
+
+//private functions
+//used with fn.call(this, ...)
+
 function getTargetByKeys(keyPath) {
   var item = {children: this.__itemTree}
 
