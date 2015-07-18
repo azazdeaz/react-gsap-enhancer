@@ -1,8 +1,16 @@
 export default class Animation {
-  constructor(createGSAPAnimation, options, getTargetByKeys) {
-    this._createGSAPAnimation = createGSAPAnimation
+  constructor(gsapAnimationFactory, options, getTargetByKeys) {
+    this._gsapAnimationFactory = gsapAnimationFactory
     this._getTargetByKeys = getTargetByKeys
     this._time = undefined
+  }
+
+  replaceGSAPAnimationFactory(gsapAnimationFactory) {
+    if (this._gsapAnimation) {
+      this._time = this._gsapAnimation.time()
+      this._gsapAnimation.kill()
+      this._gsapAnimationFactory = gsapAnimationFactory
+    }
   }
 
   detach() {
@@ -14,7 +22,7 @@ export default class Animation {
 
   attach() {
     if (!this._gsapAnimation) {
-      this._gsapAnimation = this._createGSAPAnimation(this._getTargetByKeys)
+      this._gsapAnimation = this._gsapAnimationFactory(this._getTargetByKeys)
     }
     else {
       this._gsapAnimation

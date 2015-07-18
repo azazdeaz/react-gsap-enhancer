@@ -9,7 +9,7 @@ export default function (EnhancedCompoent) {
       this.__runningAnimations = new Set()
     }
 
-    createAnimation = (create, options) => {
+    addAnimation = (create, options) => {
       var animation = new Animation(
         create,
         options,
@@ -18,6 +18,10 @@ export default function (EnhancedCompoent) {
       this.__runningAnimations.add(animation)
       animation.attach()
       return animation
+    }
+
+    removeAnimation(animation) {
+      this.__runningAnimations.delete(animation)
     }
 
     componentDidMount() {
