@@ -9,9 +9,9 @@ export default function (EnhancedCompoent) {
       this.__runningAnimations = new Set()
     }
 
-    addAnimation = (create, options) => {
+    addAnimation = (createGSAPAnimation, options) => {
       var animation = new Animation(
-        create,
+        createGSAPAnimation,
         options,
         getTargetByKeys.bind(this)
       )
@@ -21,7 +21,15 @@ export default function (EnhancedCompoent) {
     }
 
     removeAnimation(animation) {
+      // animation.invalidate()
+      animation.kill()
       this.__runningAnimations.delete(animation)
+
+      // //restore the original styles and rerender the remaining animations
+      // //to clear the styles added by the removed animaion
+      // restoreRenderedStyles.call(this)
+      // this.__runningAnimations.forEach(anim => anim.render())
+      this.forceUpdate()
     }
 
     componentDidMount() {
