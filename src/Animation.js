@@ -22,7 +22,9 @@ export default class Animation {
 
   attach() {
     if (!this._gsapAnimation) {
-      this._gsapAnimation = this._gsapAnimationFactory(this._getTargetByKeys)
+      this._gsapAnimation = this._gsapAnimationFactory({
+        getTargetByKeys: this._getTargetByKeys
+      })
     }
     else {
       this._gsapAnimation
@@ -38,8 +40,8 @@ export default class Animation {
 
 
 function bindAPI() {
-  var TweenMaxMethods = ["delay", "duration", "endTime", "eventCallback", "invalidate", "isActive", "kill", "pause", "paused", "play", "progress", "repeat", "repeatDelay", "restart", "resume", "reverse", "reversed", "seek", "startTime", "time", "timeScale", "totalDuration", "totalProgress", "totalTime", "updateTo", "yoyo"]
-  var TimelineMaxMethods = ["recent", "add", "addCallback", "addLabel", "addPause", "call", "clear", "currentLabel", "duration", "endTime", "eventCallback", "from", "fromTo", "getActive", "getChildren", "getLabelAfter", "getLabelBefore", "getLabelsArray", "getLabelTime", "getTweensOf", "invalidate", "isActive", "kill", "pause", "paused", "play", "progress", "remove", "removeCallback", "removeLabel", "render", "repeat", "repeatDelay", "restart", "resume", "reverse", "reversed", "seek", "set", "shiftChildren", "staggerFrom", "staggerFromTo", "staggerTo", "startTime", "time", "timeScale", "to", "totalDuration", "totalProgress", "totalTime", "tweenFromTo", "tweenTo", "useFrames", "yoyo"]
+  var TweenMaxMethods = ['delay', 'duration', 'endTime', 'eventCallback', 'invalidate', 'isActive', 'kill', 'pause', 'paused', 'play', 'progress', 'repeat', 'repeatDelay', 'restart', 'resume', 'reverse', 'reversed', 'seek', 'startTime', 'time', 'timeScale', 'totalDuration', 'totalProgress', 'totalTime', 'updateTo', 'yoyo']
+  var TimelineMaxMethods = ['recent', 'add', 'addCallback', 'addLabel', 'addPause', 'call', 'clear', 'currentLabel', 'duration', 'endTime', 'eventCallback', 'from', 'fromTo', 'getActive', 'getChildren', 'getLabelAfter', 'getLabelBefore', 'getLabelsArray', 'getLabelTime', 'getTweensOf', 'invalidate', 'isActive', 'kill', 'pause', 'paused', 'play', 'progress', 'remove', 'removeCallback', 'removeLabel', 'render', 'repeat', 'repeatDelay', 'restart', 'resume', 'reverse', 'reversed', 'seek', 'set', 'shiftChildren', 'staggerFrom', 'staggerFromTo', 'staggerTo', 'startTime', 'time', 'timeScale', 'to', 'totalDuration', 'totalProgress', 'totalTime', 'tweenFromTo', 'tweenTo', 'useFrames', 'yoyo']
 
   TweenMaxMethods.concat(TimelineMaxMethods).forEach(fnName => {
     Animation.prototype[fnName] = function (...args) {
@@ -48,7 +50,7 @@ function bindAPI() {
         return this
       }
       else {
-        throw Error(`Animation source has no method: "${fnName}"`)
+        throw Error(`Animation source has no method: '${fnName}'`)
       }
     }
   })
