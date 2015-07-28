@@ -1,5 +1,6 @@
 import React from 'react'
-import gsap from 'react-gsap-enhancer'
+import GSAP from 'react-gsap-enhancer'
+import Radium from 'radium'
 import Playground from 'component-playground'
 import demoSources from './demoSources'
 
@@ -28,6 +29,6 @@ export default class Demo extends React.Component {
       noRender = {false}
       es6Console = {false}
       codeText = {demoSources[demoName]}
-      scope = {{React, gsap, GS_GREEN: '#88ce02'}}/>
+      scope = {{React, GSAP, Radium, GS_GREEN: '#88ce02'}}/>
   }
 }

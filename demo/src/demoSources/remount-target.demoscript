@@ -1,15 +1,15 @@
 //update transform style on every mousemove (x, y)
 //while it's also animating(y, slace, rotate)
 
-function createAnim(selectByKeyPath) {
-  var target = selectByKeyPath(['target'])
+function createAnim({getTargetByKeys}) {
+  var target = getTargetByKeys(['target'])
 
   return new TimelineMax({repeat: -1})
     .to(target, 1, {scale: 1.23, y: '+=120'})
     .to(target, 1, {scale: 1, y: '-=120'})
 }
 
-@gsap
+@GSAP()
 class Demo extends React.Component {
   constructor(props) {
     super(props)
@@ -25,7 +25,7 @@ class Demo extends React.Component {
       this.switchTimeoutId = setTimeout(switchType, 6200)
     }
     switchType()
-    this.jumpAnim = this.createAnimation(createAnim)
+    this.jumpAnim = this.addAnimation(createAnim)
   }
 
   componentWillUnmount() {
