@@ -5,12 +5,12 @@ export default class Animation {
     this._time = undefined
   }
 
-  replaceanimationSource(animationSource) {
-    if (this._gsapAnimation) {
-      this._time = this._gsapAnimation.time()
-      this._gsapAnimation.kill()
-      this._animationSource = animationSource
-    }
+  replaceAnimationSource(animationSource) {
+    this.detach()
+    this._gsapAnimation.kill()
+    this._gsapAnimation = undefined
+    this._animationSource = animationSource
+    this.attach()
   }
 
   detach() {
