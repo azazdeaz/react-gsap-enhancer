@@ -10,8 +10,8 @@ function createAnim({getTargetByKeys}) {
   //   .to(box, 1, {rotation: 90}, 1)
 }
 
-// @Radium
-@GSAP()
+@Radium
+//@GSAP()
 //@customDrag()
 class Demo extends React.Component {
   constructor() {
@@ -100,13 +100,12 @@ class Demo extends React.Component {
   }
 }
 
-React.render(<Demo/>, mountNode)
-
-const SMALL = '@media screen and (max-width: 700px)'
-const LARGE = '@media screen and (min-width: 600px)'
+const SMALL = '@media screen and (max-width: 1400px)'
+const LARGE = '@media screen and (min-width: 1200px)'
 const styles = {
   root: {
-    backgroundColor: '#33425B',
+    position: 'relative',
+    //ackgroundColor: '#33425B',
     fontFamily: '"Oswald", sans-serif',
   },
 
@@ -148,9 +147,11 @@ const styles = {
   },
 
   boundingBox: {
-    position: 'absolute',
+    position: 'relative',
     top: '0',
     left: '0',
     pointerEvents: 'none',
   }
 }
+
+React.render(<Demo/>, mountNode)
