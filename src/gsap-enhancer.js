@@ -21,7 +21,8 @@ export default function (animationSourceMap) {
         var animation = new Animation(
           createGSAPAnimation,
           options,
-          getTargetByKeys.bind(this)
+          getTargetByKeys.bind(this),
+          reattachAll.bind(this),
         )
         this.__runningAnimations.add(animation)
         animation.attach()
@@ -108,6 +109,12 @@ export default function (animationSourceMap) {
 //private functions
 //used with fn.call(this, ...)
 
+function reattachAll() {
+  this.__runningAnimations.forEach(animation => animation.detach())
+  restoreRenderedStyles.call(this)
+  this.__runningAnimations.forEach(animation => animation.attach())
+}
+
 function getTargetByKeys(keyPath) {
   var item = {children: this.__itemTree}
 
@@ -121,13 +128,13 @@ function getTargetByKeys(keyPath) {
 function saveRenderedStyles() {
   walkItemTree.call(this, item => {
     item.savedStyle = item.node.getAttribute('style')
-    item.node._gsTransform = null
-    item.node._gsTweenID = null
   })
 }
 
 function restoreRenderedStyles() {
   walkItemTree.call(this, item => {
+    item.node._gsTransform = null
+    item.node._gsTweenID = null
     item.node.setAttribute('style', item.savedStyle)
   })
 }

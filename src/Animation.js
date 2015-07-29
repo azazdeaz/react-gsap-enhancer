@@ -1,7 +1,8 @@
 export default class Animation {
-  constructor(animationSource, options, getTargetByKeys) {
+  constructor(animationSource, options, getTargetByKeys, reattachAll) {
     this._animationSource = animationSource
     this._getTargetByKeys = getTargetByKeys
+    this._reattachAll = reattachAll
     this._time = undefined
   }
 
@@ -10,7 +11,7 @@ export default class Animation {
     this._gsapAnimation.kill()
     this._gsapAnimation = undefined
     this._animationSource = animationSource
-    this.attach()
+    this._reattachAll()
   }
 
   detach() {
