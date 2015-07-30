@@ -2,9 +2,15 @@ import React, {Children} from 'react'
 import isArray from 'lodash/lang/isArray'
 
 export default function attachRefs(element, itemMap, idx) {
-  var {key} = element
+  var {key, ref: previousRef} = element
   if (key === null) {
     key = idx
+  }
+
+  if (typeof previousRef === 'string') {
+    throw Error('Cannot connect GSAP Enhancer to an element with an existing string ref. ' +
+    'Please convert it to use a callback ref instead, or wrap it into a <span> or <div>. ' +
+    'Read more: https://facebook.github.io/react/docs/more-about-refs.html#the-ref-callback-attribute')
   }
 
   var item
@@ -24,23 +30,20 @@ export default function attachRefs(element, itemMap, idx) {
       item.component = component
       item.target[0] = node
       item.node = node
+
+      if (typeof previousRef === 'function') {
+        previousRef(component)
+      }
     }
   }
+  //TODO don't turn it into an array if it is a single child
+  var children = Children.map(element.props.children, (child, childIdx) => {
+    return cloneChild(child, childIdx)
+  })
 
-  var children
-  if (isArray(element.props.children)) {
-    children = Children.map(element.props.children, child => {
-      return cloneChild(child, item.children)
-    })
-  }
-  else {
-    //it's an only child whitout array wraper
-    children = cloneChild(element.props.children)
-  }
-
-  function cloneChild(child) {
+  function cloneChild(child, childIdx) {
     if (React.isValidElement(child)) {
-      return attachRefs(child, item.children)
+      return attachRefs(child, item.children, childIdx)
     }
     else {
       return child

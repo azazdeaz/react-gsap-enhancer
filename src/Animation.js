@@ -1,3 +1,5 @@
+import select from './select'
+
 export default class Animation {
   constructor(animationSource, options, getTargetByKeys, reattachAll) {
     this._animationSource = animationSource
@@ -24,6 +26,7 @@ export default class Animation {
   attach() {
     if (!this._gsapAnimation) {
       this._gsapAnimation = this._animationSource({
+        select,
         getTargetByKeys: this._getTargetByKeys
       })
     }

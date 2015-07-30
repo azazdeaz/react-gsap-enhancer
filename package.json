@@ -39,6 +39,7 @@
     "radium": "^0.13.4",
     "raw-loader": "^0.5.1",
     "react": ">=0.13 <0.15.0",
+    "react-matterkit": "0.0.28",
     "react-router": "^0.13.3",
     "react-tap-event-plugin": "^0.1.7",
     "redux": "^0.12.0",

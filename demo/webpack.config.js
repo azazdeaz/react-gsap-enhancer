@@ -13,18 +13,25 @@ module.exports = {
     extensions: ['', '.js', '.jsx'],
     alias: {
       'react-gsap-enhancer': path.join(__dirname, '../src/gsap-enhancer.js'),
+      'react': path.join(__dirname, '../node_modules/react'),
     }
   },
   module: {
     loaders: [
       {
         test: /\.jsx?$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader'
+        loader: 'babel-loader',
+        include: [
+          path.join(__dirname, '../src'),
+          __dirname
+        ]
       }, {
         test: /\.(html|css)/,
-        exclude: /node_modules/,
-        loader: 'file?name=[name].[ext]'
+        loader: 'file?name=[name].[ext]',
+        include: [
+          path.join(__dirname, '../src'),
+          __dirname
+        ]
       }
     ]
   }
