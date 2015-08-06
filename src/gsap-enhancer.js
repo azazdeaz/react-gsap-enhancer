@@ -4,8 +4,8 @@ import select from './select'
 
 export default function (animationSourceMap) {
   //TODO throw error if called with a component
-  return function enhance (EnhancedCompoent) {
-    class GSAPEnhancer extends EnhancedCompoent {
+  return function enhance (ComposedComponent) {
+    class GSAPEnhancer extends ComposedComponent {
       constructor(props) {
         super(props)
         this.__itemTree = new Map()
@@ -89,21 +89,22 @@ export default function (animationSourceMap) {
     // ]
     //
     // staticKeys.forEach((key) => {
-    //   if (EnhancedCompoent.hasOwnProperty(key)) {
-    //     GSAPEnhancer[key] = EnhancedCompoent[key]
+    //   if (ComposedComponent.hasOwnProperty(key)) {
+    //     GSAPEnhancer[key] = ComposedComponent[key]
     //   }
     // })
 
     if (process.env.NODE_ENV !== 'production') {
-      // This fixes React Hot Loader by exposing the original components top level
-      // prototype methods on the Radium enhanced prototype as discussed in
+    // This fixes React Hot Loader by exposing the original components top level
+    // prototype methods on the Radium enhanced prototype as discussed in #219.
       // https://github.com/FormidableLabs/radium/issues/219
-      Object.keys(EnhancedCompoent.prototype).forEach(key => {
-        if (!GSAPEnhancer.prototype.hasOwnProperty(key)) {
-          GSAPEnhancer.prototype[key] = EnhancedCompoent.prototype[key]
-        }
-      })
-    }
+    Object.keys(ComposedComponent.prototype).forEach(key => {
+      if (!GSAPEnhancer.prototype.hasOwnProperty(key)) {
+        var descriptor = Object.getOwnPropertyDescriptor(ComposedComponent.prototype, key)
+        Object.defineProperty(GSAPEnhancer.prototype, key, descriptor)
+      }
+    })
+  }
 
     return GSAPEnhancer
   }
