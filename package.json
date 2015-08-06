@@ -1,6 +1,6 @@
 {
   "name": "react-gsap-enhancer",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A higher order component for applying GSAP animations to React components - draft",
   "main": "lib/gsap-enhancer.js",
   "directories": {
