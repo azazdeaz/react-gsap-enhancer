@@ -1,5 +1,6 @@
 import React, {Children} from 'react'
 import isArray from 'lodash/lang/isArray'
+import ExecutionEnvironment from 'exenv'
 
 export default function attachRefs(element, itemMap, idx) {
   var {key, ref: previousRef} = element
@@ -22,6 +23,14 @@ export default function attachRefs(element, itemMap, idx) {
       children: new Map(),
       target: [null]
     }).get(key)
+
+    //only for server side rendering
+    if (!ExecutionEnvironment.canUseDOM) {
+      if (!element.props.style) {
+        element.props.style = {}
+      }
+      item.styleObject = element.props.style
+    }
   }
 
   if (!item.ref) {

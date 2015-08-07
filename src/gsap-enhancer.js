@@ -1,6 +1,7 @@
 import attachRefs from './attachRefs'
 import Animation from './Animation'
 import getTargetByKeys from './getTargetByKeys'
+import ExecutionEnvironment from 'exenv'
 
 export default function (animationSourceMap) {
   //TODO throw error if called with a component
@@ -27,7 +28,7 @@ export default function (animationSourceMap) {
           reattachAll.bind(this),
         )
         this.__runningAnimations.add(animation)
-        //the animation will ba attached on the next render so force the update
+        //the animation will be attached on the next render so force the update
         this.forceUpdate()
 
         return animation
@@ -45,14 +46,6 @@ export default function (animationSourceMap) {
         this.forceUpdate()
       }
 
-      componentDidMount() {
-        saveRenderedStyles.call(this)
-
-        if (super.componentDidMount) {
-          super.componentDidMount()
-        }
-      }
-
       componentWillUpdate() {
         restoreRenderedStyles.call(this)
 
@@ -62,7 +55,20 @@ export default function (animationSourceMap) {
       }
 
       render() {
-        return attachRefs(super.render(), this.__itemTree)
+        const element = attachRefs(super.render(), this.__itemTree)
+        if (!ExecutionEnvironment.canUseDOM) {
+          attachAll.call(this)
+        }
+        return element
+      }
+
+      componentDidMount() {
+        saveRenderedStyles.call(this)
+        attachAll.call(this)
+
+        if (super.componentDidMount) {
+          super.componentDidMount()
+        }
       }
 
       componentDidUpdate() {
