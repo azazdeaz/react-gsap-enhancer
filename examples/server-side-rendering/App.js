@@ -1,10 +1,12 @@
 var React = require('react')
-var GSAP = require('../../lib/gsap-enhancer')
+var GSAP = require('../../src/gsap-enhancer')
 
 function animationSource(utils) {
   var target = utils.getTargetByKeys(['target'])
+  console.log({target})
   return new TimelineMax({repeat: -1})
     .from(target, 1.2, {scale: 2, rotation: 182, backgroundColor: '#85144b'})
+    .time(0.6)
 }
 
 var App = React.createClass({

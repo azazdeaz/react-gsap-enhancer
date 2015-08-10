@@ -1,6 +1,7 @@
 import React, {Children} from 'react'
 import isArray from 'lodash/lang/isArray'
 import ExecutionEnvironment from 'exenv'
+import InitialStyle from './InitialStyle'
 
 export default function attachRefs(element, itemMap, idx) {
   var {key, ref: previousRef} = element
@@ -29,7 +30,7 @@ export default function attachRefs(element, itemMap, idx) {
       if (!element.props.style) {
         element.props.style = {}
       }
-      item.styleObject = element.props.style
+      item.styleObject = {...InitialStyle, ...element.props.style}
     }
   }
 
