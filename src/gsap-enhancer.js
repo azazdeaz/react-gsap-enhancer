@@ -1,6 +1,6 @@
 import attachRefs from './attachRefs'
 import Animation from './Animation'
-import select from './select'
+import getTargetByKeys from './getTargetByKeys'
 
 export default function (animationSourceMap) {
   //TODO throw error if called with a component
@@ -23,7 +23,7 @@ export default function (animationSourceMap) {
         var animation = new Animation(
           createGSAPAnimation,
           options,
-          getTargetByKeys.bind(this),
+          getTargetByKeys.bind(null, this.__itemTree),
           reattachAll.bind(this),
         )
         this.__runningAnimations.add(animation)
@@ -118,26 +118,6 @@ function reattachAll() {
   this.__runningAnimations.forEach(animation => animation.detach())
   restoreRenderedStyles.call(this)
   this.__runningAnimations.forEach(animation => animation.attach())
-}
-
-function getTargetByKeys(keyPath) {
-  const itemTree = this.__itemTree
-  var item = {children: itemTree}
-
-  keyPath.forEach(key => {
-    if (key === select.ROOT) {
-      itemTree.forEach(_item => {
-        if (_item.node) {
-          item = _item
-        }
-      })
-    }
-    else {
-      item = item.children.get(key)
-    }
-  })
-
-  return item.node
 }
 
 function restoreRenderedStyles() {
