@@ -5,20 +5,25 @@ export default class Animation {
     this._animationSource = animationSource
     this._getTargetByKeys = getTargetByKeys
     this._reattachAll = reattachAll
-    this._time = undefined
+    this._savedTime = undefined
   }
 
   replaceAnimationSource(animationSource) {
-    this.detach()
-    this._gsapAnimation.kill()
-    this._gsapAnimation = undefined
-    this._animationSource = animationSource
-    this._reattachAll()
+    if (this._gsapAnimation) {
+      this.detach()
+      this._gsapAnimation.kill()
+      this._gsapAnimation = undefined
+      this._animationSource = animationSource
+      this._reattachAll()
+    }
+    else {//it's not attached yet
+      this._animationSource = animationSource
+    }
   }
 
   detach() {
     if (this._gsapAnimation) {
-      this._time = this._gsapAnimation.time()
+      this._savedTime = this._gsapAnimation.time()
       this._gsapAnimation.pause()
     }
   }
@@ -29,15 +34,22 @@ export default class Animation {
         select,
         getTargetByKeys: this._getTargetByKeys
       })
+
+      if (this._savedTime !== undefined) {
+        this._gsapAnimation.time(this._savedTime)
+      }
     }
     else {
+      let time = this._gsapAnimation.time()
+      let paused = this._gsapAnimation.paused()
       this._gsapAnimation
         .invalidate()
         .restart()
-    }
-
-    if (this._time !== undefined) {
-      this._gsapAnimation.time(this._time)
+        .time(time)
+        
+      if (paused) {
+        this._gsapAnimation.pause()
+      }
     }
   }
 }
