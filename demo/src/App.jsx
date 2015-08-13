@@ -52,7 +52,11 @@ export default class App extends React.Component {
 
   render () {
     return (
-      <div>
+      <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          height:'100vh',
+        }}>
         <AppBar
           title="Demos for react-gsap-enhancer"
           iconElementLeft={
@@ -68,7 +72,7 @@ export default class App extends React.Component {
             onChange = {this.handleNavChange}
             menuItems = {menuItems} />
         </AppBar>
-        <div style={{display: 'flex'}}>
+        <div style={{display: 'flex', flex: 1}}>
           <RouteHandler/>
         </div>
       </div>

@@ -5,9 +5,11 @@
     "GSAP": true,
     "Power1": true,
     "customDrag": true,
+    "TweenMax": true,
     "TimelineLite": true,
     "TimelineMax": true,
     "GS_GREEN": true,
-    "mountNode": true
+    "mountNode": true,
+    "radDiff": true
   }
 }

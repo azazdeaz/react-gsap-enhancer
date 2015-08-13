@@ -4,6 +4,7 @@
 }
 .playgroundCode, .playgroundPreview {
   flex: 1;
+  overflow: scroll;
 }
 
 /*.playgroundPreview {

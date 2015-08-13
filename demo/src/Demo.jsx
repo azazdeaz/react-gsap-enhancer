@@ -3,7 +3,15 @@ import GSAP from 'react-gsap-enhancer'
 import Radium from 'radium'
 import Playground from 'component-playground'
 import demoSources from './demoSources'
+import {Spring} from 'react-motion'
 import customDrag from 'react-matterkit/lib/custom-drag'
+
+function radDiff(a, b) {
+  var {PI} = Math
+  var diff = b - a
+  diff = ((diff + PI) % PI*2) - PI
+  return diff
+}
 
 export default class Demo extends React.Component {
   static contextTypes = {
@@ -24,12 +32,20 @@ export default class Demo extends React.Component {
   }
   render() {
     var {demoName} = this.state
-console.log('xvvv', {Radium, customDrag})
+
     return <Playground
       key = {demoName}
       noRender = {false}
       es6Console = {false}
       codeText = {demoSources[demoName]}
-      scope = {{React, GSAP, Radium, customDrag, GS_GREEN: '#88ce02'}}/>
+      scope = {{
+        React,
+        GSAP,
+        Radium,
+        Spring,
+        customDrag,
+        radDiff,
+        GS_GREEN: '#88ce02'
+      }}/>
   }
 }

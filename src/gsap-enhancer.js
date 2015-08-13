@@ -54,7 +54,6 @@ export default function (animationSourceMap) {
       }
 
       componentWillUpdate() {
-        this.__runningAnimations.forEach(animation => animation.detach())
         restoreRenderedStyles.call(this)
 
         if (super.componentWillUpdate) {
@@ -68,7 +67,7 @@ export default function (animationSourceMap) {
 
       componentDidUpdate() {
         saveRenderedStyles.call(this)
-        this.__runningAnimations.forEach(animation => animation.attach())
+        attachAll.call(this)
 
         if (super.componentDidUpdate) {
           super.componentDidUpdate()
@@ -115,8 +114,11 @@ export default function (animationSourceMap) {
 //used with fn.call(this, ...)
 
 function reattachAll() {
-  this.__runningAnimations.forEach(animation => animation.detach())
   restoreRenderedStyles.call(this)
+  attachAll.call(this)
+}
+
+function attachAll() {
   this.__runningAnimations.forEach(animation => animation.attach())
 }
 

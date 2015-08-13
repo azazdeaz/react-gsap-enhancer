@@ -36,10 +36,16 @@ export default function attachRefs(element, itemMap, idx) {
       }
     }
   }
-  //TODO don't turn it into an array if it is a single child
-  var children = Children.map(element.props.children, (child, childIdx) => {
-    return cloneChild(child, childIdx)
-  })
+
+  var children
+  if(isArray(element.props.children)) {
+    children = Children.map(element.props.children, (child, childIdx) => {
+      return cloneChild(child, childIdx)
+    })
+  }
+  else {
+    children = cloneChild(element.props.children)
+  }
 
   function cloneChild(child, childIdx) {
     if (React.isValidElement(child)) {
