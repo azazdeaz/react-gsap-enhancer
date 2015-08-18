@@ -5,6 +5,7 @@ export default class Animation {
     this._animationSource = animationSource
     this._getTargetByKeys = getTargetByKeys
     this._reattachAll = reattachAll
+    this._commandsWaitingForAttach = []
   }
 
   replaceAnimationSource(animationSource) {
@@ -39,6 +40,10 @@ export default class Animation {
         getTargetByKeys: this._getTargetByKeys
       })
     }
+
+    this._commandsWaitingForAttach
+      .splice(0)
+      .forEach(({fnName, args}) => this[fnName](...args))
   }
 }
 
@@ -49,7 +54,11 @@ function bindAPI() {
 
   TweenMaxMethods.concat(TimelineMaxMethods).forEach(fnName => {
     Animation.prototype[fnName] = function (...args) {
-      if (typeof this._gsapAnimation[fnName] === 'function') {
+
+      if (!this._gsapAnimation) {
+        this._commandsWaitingForAttach.push({fnName, args})
+      }
+      else if (typeof this._gsapAnimation[fnName] === 'function') {
         this._gsapAnimation[fnName](...args)
         return this
       }

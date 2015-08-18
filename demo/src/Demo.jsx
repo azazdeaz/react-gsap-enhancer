@@ -13,6 +13,34 @@ function radDiff(a, b) {
   return diff
 }
 
+// PI = math.pi
+// TAU = 2*PI
+// def smallestSignedAngleBetween(x, y):
+//     a = (x - y) % TAU
+//     b = (y - x) % TAU
+//     return -a if a < b else b
+
+function radDiff(x, y) {
+  var PI = Math.PI
+  var TAU = 2 * PI
+  var a = (x - y) % TAU
+  var b = (y - x) % TAU
+  return a < b ? -a : b
+}
+
+// int d = Math.abs(a - b) % 360;
+// int r = d > 180 ? 360 - d : d;
+// int sign = (a - b >= 0 && a - b <= 180) || (a - b <=-180 && a- b>= -360) ? 1 : -1;
+// r *= sign;
+function radDiff(a, b) {
+  var PI = Math.PI
+  var TAU = 2 * PI
+  var d = Math.abs(a - b) % TAU
+  var r = d > PI ? TAU - d : d
+  var sign = (a - b >= 0 && a - b <= 180) || (a - b <=-180 && a- b>= -360) ? 1 : -1
+  return r * sign
+}
+
 export default class Demo extends React.Component {
   static contextTypes = {
     router: React.PropTypes.func
