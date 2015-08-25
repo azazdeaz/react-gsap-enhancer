@@ -7,6 +7,8 @@
   overflow: scroll;
 }
 
-/*.playgroundPreview {
-  position: relative;
-}*/
+.playgroundPreview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

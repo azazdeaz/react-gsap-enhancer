@@ -3,13 +3,19 @@
     "React": true,
     "Radium": true,
     "GSAP": true,
-    "Power1": true,
     "customDrag": true,
     "TweenMax": true,
     "TimelineLite": true,
     "TimelineMax": true,
     "GS_GREEN": true,
     "mountNode": true,
-    "radDiff": true
+    "radDiff": true,
+
+    "Power1": true,
+    "Power2": true,
+    "Power3": true,
+    "Power4": true,
+    "Sine": true,
+    "Back": true,
   }
 }

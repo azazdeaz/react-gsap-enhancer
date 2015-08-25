@@ -60,11 +60,11 @@ function bindAPI() {
       }
       else if (typeof this._gsapAnimation[fnName] === 'function') {
         this._gsapAnimation[fnName](...args)
-        return this
       }
       else {
         throw Error(`Animation source has no method: '${fnName}'`)
       }
+      return this
     }
   })
 }
