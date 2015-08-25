@@ -1,0 +1,100 @@
+//design - Gregor Adams (http://codepen.io/pixelass/pen/PqMpYL)
+
+function createAnim({getTargetByKeys, select}) {
+  var input = getTargetByKeys([select.ROOT, 'input'])
+  var crossTB = getTargetByKeys([select.ROOT, 'crossTB'])
+  var crossBT = getTargetByKeys([select.ROOT, 'crossBT'])
+
+  return new TimelineMax()
+    .set(input, {
+      width: 300,
+      height: 52
+    })
+    .set(crossBT, {
+      rotation: 45,
+    })
+    .pause()
+    .add('open')
+    .to(input, 0.18, {
+      width: 52,
+    })
+    .add('morph', '-=0.074')
+    .to(crossBT, 0.12, {
+      rotation: 0,
+      opacity: 0,
+    }, 'morph-=0.08')
+    .to(input, 0.23, {
+      scale: 0.5,
+      x: -4,
+      y: -4,
+      borderWidth: 6,
+      borderRadius: 26,
+      paddingLeft: 0,
+      ease: Back.easeOut,
+    }, 'morph')
+    .to(crossTB, 0.12, {
+      borderWidth: 4,
+      scale: 0.73,
+      x: 1,
+      y: -2,
+      ease: Back.easeOut,
+    }, 'morph')
+    .add('collapse')
+}
+
+const styles = {
+  root: {
+    position: 'relative',
+    width: 300,
+    height: 52,
+    // background: 'black',
+  },
+  input: {
+    outline: 'none',
+    position: 'absolute',
+    right: 0,
+    color: GS_GREEN,
+    borderColor: GS_GREEN,
+    borderStyle: 'solid',
+    borderWidth: '1px',
+    backgroundColor: 'transparent',
+    cursor: 'text',
+    paddingLeft: '16.5px',
+    boxSizing: 'border-box',
+    fontSize: '16px',
+  },
+  cross: {
+    position: 'absolute',
+    right: 15,
+    top: 26,
+    width: 0,
+    height: 26,
+    transform: 'rotate(-45deg) translateY(-18px)',
+    borderLeftColor: GS_GREEN,
+    borderLeftStyle: 'solid',
+    borderLeftWidth: '1px',
+  }
+}
+
+@GSAP()
+class Demo extends React.Component {
+  componentDidMount() {
+    this.anim = this.addAnimation(createAnim)
+      .seek('collapse')
+  }
+
+  render () {
+    return <div style={styles.root}>
+      <input
+        type = 'text'
+        onFocus = {() => this.anim.tweenTo('open')}
+        onBlur = {() => this.anim.tweenTo('collapse')}
+        key = 'input'
+        style = {styles.input}/>
+      <div key='crossTB' style={styles.cross}/>
+      <div key='crossBT' style={styles.cross}/>
+    </div>
+  }
+}
+
+React.render(<Demo/>, mountNode)
