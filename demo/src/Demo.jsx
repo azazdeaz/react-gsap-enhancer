@@ -41,6 +41,21 @@ function radDiff(a, b) {
   return r * sign
 }
 
+class Center {
+  render() {
+    return <div style={{
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+      {this.props.children}
+    </div>
+  }
+}
+
 export default class Demo extends React.Component {
   static contextTypes = {
     router: React.PropTypes.func
@@ -73,7 +88,8 @@ export default class Demo extends React.Component {
         Spring,
         customDrag,
         radDiff,
-        GS_GREEN: '#88ce02'
+        GS_GREEN: '#88ce02',
+        Center
       }}/>
   }
 }

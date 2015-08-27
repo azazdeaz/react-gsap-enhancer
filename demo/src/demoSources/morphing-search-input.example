@@ -1,9 +1,9 @@
 //design - Gregor Adams (http://codepen.io/pixelass/pen/PqMpYL)
 
-function createAnim({getTargetByKeys, select}) {
-  var input = getTargetByKeys([select.ROOT, 'input'])
-  var crossTB = getTargetByKeys([select.ROOT, 'crossTB'])
-  var crossBT = getTargetByKeys([select.ROOT, 'crossBT'])
+function createAnim({getTargetByKeys}) {
+  var input = getTargetByKeys(['center', 'base', 'input'])
+  var crossTB = getTargetByKeys(['center', 'base', 'crossTB'])
+  var crossBT = getTargetByKeys(['center', 'base', 'crossBT'])
 
   return new TimelineMax()
     .set(input, {
@@ -47,7 +47,12 @@ const styles = {
     position: 'relative',
     width: 300,
     height: 52,
-    // background: 'black',
+  },
+  background: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#121212'
   },
   input: {
     outline: 'none',
@@ -64,6 +69,7 @@ const styles = {
     fontSize: '16px',
   },
   cross: {
+    pointerEvents: 'none',
     position: 'absolute',
     right: 15,
     top: 26,
@@ -73,6 +79,15 @@ const styles = {
     borderLeftColor: GS_GREEN,
     borderLeftStyle: 'solid',
     borderLeftWidth: '1px',
+  },
+  close: {
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    width: 52,
+    height: 52,
+    backgroundColor: 'transparent',
+    cursor: 'pointer',
   }
 }
 
@@ -83,17 +98,36 @@ class Demo extends React.Component {
       .seek('collapse')
   }
 
+  handleOpenClick = () => {
+    this.inputNode.focus()
+  }
+
+  handleSideClick = (e) => {
+    e.preventDefault()
+    if (document.activeElement === this.inputNode) {
+      this.inputNode.blur()
+    }
+    else {
+      this.inputNode.focus()
+    }
+  }
+
   render () {
-    return <div style={styles.root}>
-      <input
-        type = 'text'
-        onFocus = {() => this.anim.tweenTo('open')}
-        onBlur = {() => this.anim.tweenTo('collapse')}
-        key = 'input'
-        style = {styles.input}/>
-      <div key='crossTB' style={styles.cross}/>
-      <div key='crossBT' style={styles.cross}/>
-    </div>
+    return <Center key='center'>
+      <div  key='base' style={styles.root}>
+        <div style={styles.background} onClick={this.handleOpenClick}/>
+        <input
+          type = 'text'
+          ref = {component => this.inputNode = React.findDOMNode(component)}
+          onFocus = {() => this.anim.tweenTo('open')}
+          onBlur = {() => this.anim.tweenTo('collapse')}
+          key = 'input'
+          style = {styles.input}/>
+        <div key='crossTB' style={styles.cross}/>
+        <div key='crossBT' style={styles.cross}/>
+        <div key='close' style={styles.close} onMouseDown={this.handleSideClick}/>
+      </div>
+    </Center>
   }
 }
 
