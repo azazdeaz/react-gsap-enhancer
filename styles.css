@@ -3,9 +3,13 @@
   width: 100%;
 }
 .playgroundCode, .playgroundPreview {
+  position: relative;
   flex: 1;
+  overflow: scroll;
 }
 
 /*.playgroundPreview {
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }*/
