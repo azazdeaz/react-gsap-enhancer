@@ -56,8 +56,15 @@ export default function (animationSourceMap) {
 
       render() {
         const element = attachRefs(super.render(), this.__itemTree)
+        console.log('ITEM', this.__itemTree.get('target'))
         if (!ExecutionEnvironment.canUseDOM) {
-          attachAll.call(this)
+          this.__runningAnimations.forEach(animation => {
+            animation
+              .attach()
+              .render()
+              .kill()
+          })
+
         }
         return element
       }

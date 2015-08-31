@@ -1,4 +1,5 @@
 import select from './select'
+import ExecutionEnvironment from 'exenv'
 
 export default function getTargetByKeys(fullItemTree, fullKeyPath) {
   const ret = []
@@ -10,7 +11,7 @@ export default function getTargetByKeys(fullItemTree, fullKeyPath) {
 
     if (keyPath.length === 0) {
       if (isMounted(item)) {
-        ret.push(item.node)
+        ret.push(getTarget(item))
       }
       return
     }
@@ -39,7 +40,16 @@ export default function getTargetByKeys(fullItemTree, fullKeyPath) {
 }
 
 function isMounted(item) {
-  return !!item.node
+  return !!getTarget(item)
+}
+
+function getTarget(item) {
+  if (ExecutionEnvironment.canUseDOM) {
+    return item.node
+  }
+  else {
+    return item.styleObject
+  }
 }
 
 // function giveUpResolving(itemTree, keyPath) {

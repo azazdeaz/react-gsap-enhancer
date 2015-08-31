@@ -1,8 +1,11 @@
+// Thanks for https://github.com/mhart/react-server-example
+
 require('./env-for-gsap')
 require('gsap')
 var http = require('http'),
     browserify = require('browserify'),
     literalify = require('literalify'),
+    babelify = require('babelify'),
     React = require('react'),
     DOM = React.DOM, body = DOM.body, div = DOM.div, script = DOM.script,
     // This is our React component, shared by server and browser thanks to browserify
@@ -27,14 +30,7 @@ http.createServer(function(req, res) {
     // here (with some potentially dangerous values for testing), but you could
     // imagine this would be objects typically fetched async from a DB,
     // filesystem or API, depending on the logged-in user, etc.
-    var props = {
-      items: [
-        'Item 0',
-        'Item 1',
-        'Item </script>',
-        'Item <!--inject!-->',
-      ]
-    }
+    var props = {}
 
     // Here we're using React to render the outer body, so we just use the
     // simpler renderToStaticMarkup function, but you could use any templating
@@ -82,6 +78,7 @@ http.createServer(function(req, res) {
     // bundling it up with everything else
     browserify()
       .add('./browser.js')
+      .transform(babelify)
       .transform(literalify.configure({react: 'window.React'}))
       .bundle()
       .pipe(res)

@@ -1,5 +1,5 @@
 const initialValues = {
-  [0]: 'x,y,z,scale,scaleX,scaleY,scaleZ,rotation,percentX,percentY' +
+  [0]: 'x,y,z,scale,scaleX,scaleY,scaleZ,rotation,percentX,percentY,' +
        'width,height,top,left,bottom,right'
 }
 
@@ -12,5 +12,4 @@ function createInitialStyle () {
   return style
 }
 
-console.log('IIIIIIIIIII', createInitialStyle())
 export default createInitialStyle()

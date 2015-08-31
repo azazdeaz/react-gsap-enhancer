@@ -19,6 +19,8 @@ export default class Animation {
     else {//it's not attached yet
       this._animationSource = animationSource
     }
+
+    return this
   }
 
   attach() {
@@ -44,6 +46,8 @@ export default class Animation {
     this._commandsWaitingForAttach
       .splice(0)
       .forEach(({fnName, args}) => this[fnName](...args))
+
+    return this
   }
 }
 

@@ -3,10 +3,12 @@ var GSAP = require('../../src/gsap-enhancer')
 
 function animationSource(utils) {
   var target = utils.getTargetByKeys(['target'])
-  console.log({target})
-  return new TimelineMax({repeat: -1})
-    .from(target, 1.2, {scale: 2, rotation: 182, backgroundColor: '#85144b'})
-    .time(0.6)
+  console.log({target, TimelineMax})
+  const onUpdate = () => console.log('update', target[0])
+  return new TimelineMax({repeat: -1, onUpdate})
+    .from(target, 1.2, {scale: 2, rotation: 182/*, backgroundColor: '#85144b'*/})
+    // .set(target, {scale: 2, rotation: 182, backgroundColor: '#85144b'})
+    // .time(0.6)
 }
 
 var App = React.createClass({
