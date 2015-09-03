@@ -1,21 +1,13 @@
 //update transform style on every mousemove (x, y)
 //while it's also animating(y, slace, rotate)
 
-function createAnim({getTargetByKeys, select}) {
-  const astronaut = getTargetByKeys([
-    'container', 'svg', 'astronaut'
-  ])
-  const pulses = getTargetByKeys([
-    'container', 'svg', 'astronaut', 'pulseSVG', select.CHILDREN
-  ])
-  const satellite = getTargetByKeys([
-    'container', 'svg', 'satellite'
-  ])
-  const satellitePulses = getTargetByKeys([
-    'container', 'svg', 'satellite', 'satellitePulses', select.CHILDREN
-  ])
+function createAnim({select}) {
+  const astronaut = select.first('astronaut')
+  const astronautPulses = astronaut.first('pulses').children()
+  const satellite = select.first('satellite')
+  const satellitePulses = satellite.first('pulses').children()
 
-  TweenMax.staggerTo(pulses, 0.8, {
+  TweenMax.staggerTo(astronautPulses, 0.8, {
     alpha: 0,
     repeat: -1,
     ease: Power2.easeInOut,
@@ -148,7 +140,7 @@ class Demo extends React.Component {
 
         <g key="astronaut">
 
-          <g key="pulseSVG" opacity="0.2" stroke="#ededed">
+          <g key="pulses" opacity="0.2" stroke="#ededed">
             <path class="pulse" fill="none" strokeWidth="3" strokeLinejoin="round" strokeMiterlimit="10" d="M289.9,188.7
             c5.2-5.2,13.7-5.2,18.9,0" />
             <path class="pulse" fill="none" strokeWidth="3" strokeLinejoin="round" strokeMiterlimit="10" d="M285.6,184.5

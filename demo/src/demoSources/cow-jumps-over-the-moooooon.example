@@ -113,9 +113,9 @@ class Demo extends React.Component {
   }
 }
 
-function cowIdle({getTargetByKeys, select}) {
-  var lefteye = getTargetByKeys([select.ROOT, 'lefteye'])
-  var gloria = getTargetByKeys([select.ROOT, 'gloria'])
+function cowIdle({select}) {
+  var lefteye = select.first('lefteye')
+  var gloria = select.first('gloria')
 
   var tlBlink = new TimelineMax({yoyo: true, repeat: -1})
     .to(lefteye, 0.4, {delay: 1.6, scale: 0})
@@ -127,11 +127,11 @@ function cowIdle({getTargetByKeys, select}) {
     .add(tlBlink, tlGloria)
 }
 
-function cowGears({getTargetByKeys, select}) {
-  var legfl = getTargetByKeys([select.ROOT, 'legfl'])
-  var legfr = getTargetByKeys([select.ROOT, 'legfr'])
-  var legbl = getTargetByKeys([select.ROOT, 'legbl'])
-  var legbr = getTargetByKeys([select.ROOT, 'legbr'])
+function cowGears({select}) {
+  var legfl = select.first('legfl')
+  var legfr = select.first('legfr')
+  var legbl = select.first('legbl')
+  var legbr = select.first('legbr')
 
   return new TimelineMax()
     .set([legfl, legfr], {transformOrigin: '100% 50%'})

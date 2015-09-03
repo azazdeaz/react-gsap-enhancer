@@ -1,9 +1,9 @@
 //design - Gregor Adams (http://codepen.io/pixelass/pen/PqMpYL)
 
-function createAnim({getTargetByKeys}) {
-  var input = getTargetByKeys(['center', 'base', 'input'])
-  var crossTB = getTargetByKeys(['center', 'base', 'crossTB'])
-  var crossBT = getTargetByKeys(['center', 'base', 'crossBT'])
+function createAnim({select}) {
+  var input = select.first('input')
+  var crossTB = select.first('crossTB')
+  var crossBT = select.first('crossBT')
 
   return new TimelineMax()
     .set(input, {

@@ -1,6 +1,6 @@
 import attachRefs from './attachRefs'
 import Animation from './Animation'
-import getTargetByKeys from './getTargetByKeys'
+import select from './select'
 
 export default function (animationSourceMap) {
   //TODO throw error if called with a component
@@ -23,7 +23,7 @@ export default function (animationSourceMap) {
         var animation = new Animation(
           createGSAPAnimation,
           options,
-          getTargetByKeys.bind(null, this.__itemTree),
+          select: select.bind(null, this.__itemTree),
           reattachAll.bind(this),
         )
         this.__runningAnimations.add(animation)

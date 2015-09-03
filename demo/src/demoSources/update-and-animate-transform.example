@@ -1,8 +1,8 @@
 //update transform style on every mousemove (x, y)
 //while it's also animating(y, slace, rotate)
 
-function createAnim({getTargetByKeys}) {
-  var box = getTargetByKeys(['box'])
+function createAnim({select}) {
+  var box = select.first('box')
 
   return new TimelineMax({repeat: -1})
     .to(box, 1, {scale: 1.23, y: '+=120'})
