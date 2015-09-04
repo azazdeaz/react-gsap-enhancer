@@ -1,9 +1,9 @@
 //design - Gregor Adams (http://codepen.io/pixelass/pen/PqMpYL)
 
-function createAnim({select}) {
-  var input = select.first('input')
-  var crossTB = select.first('crossTB')
-  var crossBT = select.first('crossBT')
+function createAnim({target}) {
+  var input = target.find('input')
+  var crossTB = target.find('crossTB')
+  var crossBT = target.find('crossBT')
 
   return new TimelineMax()
     .set(input, {

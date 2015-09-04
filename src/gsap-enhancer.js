@@ -1,6 +1,6 @@
 import attachRefs from './attachRefs'
 import Animation from './Animation'
-import select from './select'
+import createTarget from './createTarget'
 
 export default function (animationSourceMap) {
   //TODO throw error if called with a component
@@ -15,15 +15,16 @@ export default function (animationSourceMap) {
 
       addAnimation = (createGSAPAnimation, options) => {
         //if the animation is in the source map the if from there
-        var sourceMap = this.__animationSourceMap
+        const sourceMap = this.__animationSourceMap
         if (sourceMap && sourceMap[createGSAPAnimation]) {
           createGSAPAnimation = sourceMap[createGSAPAnimation]
         }
 
-        var animation = new Animation(
+        const target = createTarget(this.__itemTree).find()
+        const animation = new Animation(
           createGSAPAnimation,
           options,
-          select: select.bind(null, this.__itemTree),
+          target,
           reattachAll.bind(this),
         )
         this.__runningAnimations.add(animation)
@@ -45,32 +46,32 @@ export default function (animationSourceMap) {
         this.forceUpdate()
       }
 
-      componentDidMount() {
+      componentDidMount(...args) {
         saveRenderedStyles.call(this)
 
         if (super.componentDidMount) {
-          super.componentDidMount()
+          super.componentDidMount(...args)
         }
       }
 
-      componentWillUpdate() {
+      componentWillUpdate(...args) {
         restoreRenderedStyles.call(this)
 
         if (super.componentWillUpdate) {
-          super.componentWillUpdate()
+          super.componentWillUpdate(...args)
         }
       }
 
-      render() {
-        return attachRefs(super.render(), this.__itemTree)
+      render(...args) {
+        return attachRefs(super.render(...args), this.__itemTree)
       }
 
-      componentDidUpdate() {
+      componentDidUpdate(...args) {
         saveRenderedStyles.call(this)
         attachAll.call(this)
 
         if (super.componentDidUpdate) {
-          super.componentDidUpdate()
+          super.componentDidUpdate(...args)
         }
       }
     }

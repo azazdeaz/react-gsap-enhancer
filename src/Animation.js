@@ -1,9 +1,7 @@
-import select from './select'
-
 export default class Animation {
-  constructor(animationSource, options, select, reattachAll) {
+  constructor(animationSource, options, target, reattachAll) {
     this._animationSource = animationSource
-    this._select = select
+    this._target = target
     this._reattachAll = reattachAll
     this._commandsWaitingForAttach = []
   }
@@ -36,7 +34,7 @@ export default class Animation {
     }
     else {
       this._gsapAnimation = this._animationSource({
-        select: this._select
+        target: this._target
       })
     }
 

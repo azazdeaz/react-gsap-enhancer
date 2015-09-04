@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - "0.10"
+  - "0.11"
+  - "0.12"
+  - "iojs"
+
+branches:
+  only:
+    - master
+
+script:
+  - npm run coverage
+  # Upload to coveralls, but don't _fail_ if coveralls is down.
+  - cat coverage/lcov.info | node_modules/.bin/coveralls || echo "Coveralls upload failed"

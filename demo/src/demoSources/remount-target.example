@@ -1,9 +1,7 @@
 //update transform style on every mousemove (x, y)
 //while it's also animating(y, slace, rotate)
 
-function createAnim({select}) {
-  var target = select.first('target')
-
+function createAnim({target}) {
   return new TimelineMax({repeat: -1})
     .to(target, 1, {scale: 1.23, y: '+=120'})
     .to(target, 1, {scale: 1, y: '-=120'})
@@ -45,10 +43,10 @@ class Demo extends React.Component {
     }
 
     if (type === 'div') {
-      return <div key='target' style={style}>{"I'm a DIV!"}</div>
+      return <div style={style}>{"I'm a DIV!"}</div>
     }
     else {
-      return <span key='target' style={style}>{"I'm a SPAN!"}</span>
+      return <span style={style}>{"I'm a SPAN!"}</span>
     }
   }
 }

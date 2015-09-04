@@ -23,9 +23,22 @@ const dragOptions = {
     const diff = radDiff(rad, lastRad)
     monitor.setData({lastRad: rad})
     const {cowRad} = component.state
-    console.log({lastRad, rad, diff, cowRad})
     component.setState({cowRad: cowRad + diff})
   }
+}
+
+function astronautAnim({target}) {
+  var mask = target.find('mask')
+  var bang = target.find('bang')
+  
+  return new TimelineMax()
+    .set(mask, {y: 0})
+    .set(bang, {opacity: 0})
+    .pause()
+    .add('idle')
+    .to(mask, 0.75, {y: -6, ease: Back.easeOut}, 'idle')
+    .to(bang, 0.75, {opacity: 1, ease: Back.easeOut}, 'idle')
+    .add('woah')
 }
 
 @customDrag(dragOptions, connect => ({
@@ -37,18 +50,31 @@ class Demo extends React.Component {
   constructor() {
     super()
     this.state = {
-      cowRad: 0.2
+      cowRad: 0.31
     }
   }
 
   componentDidMount() {
-    // this.addAnimation(cowIdle)
+    this.astronautAnim = this.addAnimation(astronautAnim)
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    function isCowOverTheAstronaut(cowRad) {
+      return cowRad > -0.4 && cowRad < 0.32
+    }
+
+    var prevOver = isCowOverTheAstronaut(this.state.cowRad)
+    var nextOver = isCowOverTheAstronaut(nextState.cowRad)
+
+    if (prevOver !== nextOver) {
+      console.log(nextOver ? 'woah' : 'idle')
+      this.astronautAnim.tweenTo(nextOver ? 'woah' : 'idle')
+    }
   }
 
   render () {
     const {dragRef} = this.props
     const {cowRad} = this.state
-    console.log(cowRad)
 
     return <div style={styles.root}>
       <div key="boundingBox" style={styles.boundingBox}></div>
@@ -74,8 +100,8 @@ class Demo extends React.Component {
           <circle fill="#9B835C" cx="318.9" cy="202" r="4.8" />
           <path fill="#86878E" d="M321 184.5c-.7-6.4-10.6-8.2-10.6-8.2s-11.1 1.1-18.1.7c-6.7-.4-9.7 5.5-10 6.1-5 2.9-7.9-4.9-7.9-4.9l-7.9 7.8c6.7 7.9 6.4 10.2 11.1 11.8 2 .7 4.6-.4 7-1.9l.2.9.2 5.7 1.6 17.4h11.6l2.6-15 1.9 15h9.9l3.3-17 7.9-2.2c0 .1-2.1-9.8-2.8-16.2z"
           />
-          <circle id="head" class="drop" fill="#93959E" cx="300.9" cy="158.7" r="20.2" />
-          <path id="mask" opacity=".57" fill="#1A222D" d="M310.7 169.7c.5-1.4.8-3 .8-4.6 0-7.3-5.9-13.3-13.3-13.3s-13.3 5.9-13.3 13.3c0 1.5.3 3 .7 4.3 4 1.9 13.2 5 25.1.3z" />
+        <circle key="head" fill="#93959E" cx="300.9" cy="158.7" r="20.2" />
+          <path key="mask" opacity=".57" fill="#1A222D" d="M310.7 169.7c.5-1.4.8-3 .8-4.6 0-7.3-5.9-13.3-13.3-13.3s-13.3 5.9-13.3 13.3c0 1.5.3 3 .7 4.3 4 1.9 13.2 5 25.1.3z" />
           <g fill="#575C66">
             <path d="M286.9 217c-2.3.8-3.9 2.4-3.9 4.1 0 2.7 3.5 4.8 7.7 4.8 4.3 0 7.7-2.1 7.7-4.8 0-.7-.3-1.4-.7-2-5.7 2.3-10.8-2.1-10.8-2.1zM313.2 216.3c-2.3 3-8 2.9-10.3 2.7-.3.5-.4 1-.4 1.6 0 2.7 3.3 4.8 7.4 4.8s7.4-2.1 7.4-4.8c0-1.9-1.7-3.5-4.1-4.3zM286.1 217zM313.3 216.2h-.1c-.1.1 0 .1.1 0-.1 0-.1 0 0 0z"
             />
@@ -101,7 +127,7 @@ class Demo extends React.Component {
           <circle opacity=".44" cx="136" cy="225.4" r="6" />
         </g>
 
-        <Spring defaultValue={{val: 0}} endValue={{val: cowRad}}>
+        <Spring defaultValue={{val: 0}} endValue={{val: cowRad, config: [210, 20]}}>
           {interpolated => <Cow
             ref = {dragRef}
             position = {interpolated.val}
@@ -113,46 +139,46 @@ class Demo extends React.Component {
   }
 }
 
-function cowIdle({select}) {
-  var lefteye = select.first('lefteye')
-  var gloria = select.first('gloria')
-
-  var tlBlink = new TimelineMax({yoyo: true, repeat: -1})
-    .to(lefteye, 0.4, {delay: 1.6, scale: 0})
-
-  var tlGloria = new TimelineMax()
-    .to(gloria, 1.9, {y: -4, yoyo: true, repeat: -1, ease: Power1.easeInOut})
-
+function gloriaAnim({target}) {
+  var gloria = target.find('gloria')
   return new TimelineMax()
-    .add(tlBlink, tlGloria)
+    .to(gloria, 1.9, {y: -4, yoyo: true, repeat: -1, ease: Power1.easeInOut})
 }
 
-function cowGears({select}) {
-  var legfl = select.first('legfl')
-  var legfr = select.first('legfr')
-  var legbl = select.first('legbl')
-  var legbr = select.first('legbr')
+function blinkAnim({target}) {
+  var lefteye = target.find('lefteye')
+  return new TimelineMax({yoyo: true, repeat: -1})
+    .to(lefteye, 0.4, {delay: 1.6, scale: 0})
+}
+
+function cowGears({target}) {
+  var legfl = target.find('legfl')
+  var legfr = target.find('legfr')
+  var legbl = target.find('legbl')
+  var legbr = target.find('legbr')
 
   return new TimelineMax()
     .set([legfl, legfr], {transformOrigin: '100% 50%'})
+    .set([legbl, legbr], {transformOrigin: '0% 50%'})
     .pause()
-    .add('gears-in')
-    .from([legfl, legfr], 1.2, {rotation: -67, x: 2})
     .add('gears-out')
+    .from([legfl, legfr], 1.2, {rotation: -67, x: 2}, 'gears-out')
+    .from([legbl, legbr], 1.2, {rotation: 67, x: -2}, 'gears-out')
+    .add('gears-in')
 }
 
 @GSAP()
 class Cow extends React.Component {
   componentDidMount() {
-    this.idleAnim = this.addAnimation(cowIdle)
+    this.blinkAnim = this.addAnimation(blinkAnim)
+    this.gloriaAnim = this.addAnimation(gloriaAnim)
     this.gearsAnim = this.addAnimation(cowGears)
     this.gearsAnim.seek('gears-out')
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.flying !== this.props.flying) {
-      console.log({flying: nextProps.flying})
-      this.gearsAnim.tweenTo(nextProps.flying ? 'gears-in' : 'gears-in')
+      this.gearsAnim.tweenTo(nextProps.flying ? 'gears-in' : 'gears-out')
     }
   }
 
@@ -232,7 +258,7 @@ const styles = {
   },
 
   bang: {
-    visibility: 'hidden'
+    opacity: 0
   },
 
   boundingBox: {

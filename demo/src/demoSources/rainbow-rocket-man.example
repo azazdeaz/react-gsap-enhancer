@@ -1,11 +1,11 @@
 //update transform style on every mousemove (x, y)
 //while it's also animating(y, slace, rotate)
 
-function createAnim({select}) {
-  const astronaut = select.first('astronaut')
-  const astronautPulses = astronaut.first('pulses').children()
-  const satellite = select.first('satellite')
-  const satellitePulses = satellite.first('pulses').children()
+function createAnim({target}) {
+  const astronaut = target.find('astronaut')
+  const astronautPulses = astronaut.find('pulses').findAllInChildren()
+  const satellite = target.find('satellite')
+  const satellitePulses = satellite.find('pulses').findAllInChildren()
 
   TweenMax.staggerTo(astronautPulses, 0.8, {
     alpha: 0,
