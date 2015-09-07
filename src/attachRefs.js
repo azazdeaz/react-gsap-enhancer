@@ -1,5 +1,4 @@
-import React, {Children} from 'react'
-import isArray from 'lodash/lang/isArray'
+import React, {Children, isValidElement} from 'react'
 
 export default function attachRefs(element, itemMap, idx) {
   var {key, ref: previousRef} = element
@@ -37,14 +36,14 @@ export default function attachRefs(element, itemMap, idx) {
     }
   }
 
-  var children
-  if(isArray(element.props.children)) {
+  let children
+  if (isValidElement(element.props.children)) {
+    children = cloneChild(element.props.children)
+  }
+  else {
     children = Children.map(element.props.children, (child, childIdx) => {
       return cloneChild(child, childIdx)
     })
-  }
-  else {
-    children = cloneChild(element.props.children)
   }
 
   function cloneChild(child, childIdx) {
@@ -56,5 +55,5 @@ export default function attachRefs(element, itemMap, idx) {
     }
   }
 
-  return React.cloneElement(element, {children, ref: item.ref})
+  return React.cloneElement(element, {ref: item.ref}, ...children)
 }

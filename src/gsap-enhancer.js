@@ -28,21 +28,16 @@ export default function (animationSourceMap) {
           reattachAll.bind(this),
         )
         this.__runningAnimations.add(animation)
-        //the animation will ba attached on the next render so force the update
+        //the animation will be attached on the next render so force the update
         this.forceUpdate()
 
         return animation
       }
 
       removeAnimation(animation) {
-        // animation.invalidate()
         animation.kill()
         this.__runningAnimations.delete(animation)
-
-        // //restore the original styles and rerender the remaining animations
-        // //to clear the styles added by the removed animaion
-        // restoreRenderedStyles.call(this)
-        // this.__runningAnimations.forEach(anim => anim.render())
+        //rerender the component without the animation
         this.forceUpdate()
       }
 

@@ -30,7 +30,7 @@ const dragOptions = {
 function astronautAnim({target}) {
   var mask = target.find('mask')
   var bang = target.find('bang')
-  
+  console.log({mask, bang})
   return new TimelineMax()
     .set(mask, {y: 0})
     .set(bang, {opacity: 0})
@@ -44,7 +44,7 @@ function astronautAnim({target}) {
 @customDrag(dragOptions, connect => ({
   dragRef: connect.getDragRef()
 }))
-@GSAP()
+// @GSAP()
 @Radium
 class Demo extends React.Component {
   constructor() {
@@ -73,6 +73,7 @@ class Demo extends React.Component {
   }
 
   render () {
+    // debugger
     const {dragRef} = this.props
     const {cowRad} = this.state
 
@@ -257,9 +258,9 @@ const styles = {
     transformOrigin: 'center 300px',
   },
 
-  bang: {
-    opacity: 0
-  },
+  // bang: {
+  //   opacity: 0
+  // },
 
   boundingBox: {
     position: 'relative',
