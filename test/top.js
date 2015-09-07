@@ -5,5 +5,8 @@ function importTest(name, path) {
 }
 
 describe('react-gsap-enhancer', function () {
-  importTest('select', './target/test.js')
+  importTest('target', './target/test.js')
+  importTest('attachRefs', './attachRefs/test.js')
+  importTest('target', './animation/test.js')
+  importTest('gsap-enhancer', './gsap-enhancer/test.js')
 })

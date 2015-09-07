@@ -1,6 +1,8 @@
 import React, {Children, isValidElement} from 'react'
 
-export default function attachRefs(element, itemMap, idx) {
+React.findDOMNode = () => null
+
+export default function attachRefs(element, itemMap, idx = 0) {
   var {key, ref: previousRef} = element
   if (key === null) {
     key = idx
@@ -19,7 +21,6 @@ export default function attachRefs(element, itemMap, idx) {
   else {
     item = itemMap.set(key, {
       children: new Map(),
-      target: [null]
     }).get(key)
   }
 
@@ -27,7 +28,6 @@ export default function attachRefs(element, itemMap, idx) {
     item.ref = (component) => {
       var node = React.findDOMNode(component)
       item.component = component
-      item.target[0] = node
       item.node = node
 
       if (typeof previousRef === 'function') {
@@ -55,5 +55,5 @@ export default function attachRefs(element, itemMap, idx) {
     }
   }
 
-  return React.cloneElement(element, {ref: item.ref}, ...children)
+  return React.cloneElement(element, {ref: item.ref, children})
 }

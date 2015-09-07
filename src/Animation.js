@@ -1,18 +1,18 @@
 export default class Animation {
-  constructor(animationSource, options, target, reattachAll) {
+  constructor(animationSource, options, target, onNeedReattachAllAninmations) {
     this._animationSource = animationSource
     this._target = target
-    this._reattachAll = reattachAll
+    this._options = options
+    this._onNeedReattachAllAninmations = onNeedReattachAllAninmations
     this._commandsWaitingForAttach = []
   }
 
   replaceAnimationSource(animationSource) {
     if (this._gsapAnimation) {
-      this.detach()
       this._gsapAnimation.kill()
       this._gsapAnimation = undefined
       this._animationSource = animationSource
-      this._reattachAll()
+      this._onNeedReattachAllAninmations()
     }
     else {//it's not attached yet
       this._animationSource = animationSource
@@ -34,7 +34,8 @@ export default class Animation {
     }
     else {
       this._gsapAnimation = this._animationSource({
-        target: this._target
+        target: this._target,
+        options: this._options,
       })
     }
 
