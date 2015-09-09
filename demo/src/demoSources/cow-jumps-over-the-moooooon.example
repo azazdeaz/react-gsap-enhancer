@@ -1,6 +1,4 @@
-//update transform style on every mousemove (x, y)
-//while it's also animating(y, slace, rotate)
-
+//based on http://codepen.io/sdras/pen/doZReX
 function getMouseRad(props, monitor, component) {
   const brMoon = component.deMoon.getBoundingClientRect()
   const mouse = monitor.getClientOffset()
@@ -23,7 +21,7 @@ const dragOptions = {
     const diff = radDiff(rad, lastRad)
     monitor.setData({lastRad: rad})
     const {cowRad} = component.state
-    component.setState({cowRad: cowRad + diff})
+    component.setState({cowRad: cowRad + diff * 1.23})
   }
 }
 
@@ -44,13 +42,13 @@ function astronautAnim({target}) {
 @customDrag(dragOptions, connect => ({
   dragRef: connect.getDragRef()
 }))
-// @GSAP()
+@GSAP()
 @Radium
 class Demo extends React.Component {
   constructor() {
     super()
     this.state = {
-      cowRad: 0.31
+      cowRad: 1.34
     }
   }
 
@@ -60,7 +58,8 @@ class Demo extends React.Component {
 
   componentWillUpdate(nextProps, nextState) {
     function isCowOverTheAstronaut(cowRad) {
-      return cowRad > -0.4 && cowRad < 0.32
+      cowRad %= Math.PI
+      return cowRad > -0.4 && cowRad < 0.42
     }
 
     var prevOver = isCowOverTheAstronaut(this.state.cowRad)
@@ -73,7 +72,6 @@ class Demo extends React.Component {
   }
 
   render () {
-    // debugger
     const {dragRef} = this.props
     const {cowRad} = this.state
 

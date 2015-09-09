@@ -34,12 +34,16 @@ export default function attachRefs(element, itemMap, idx = 0) {
     }
   }
 
+  const originalChildren = element.props.children
   let children
-  if (isValidElement(element.props.children)) {
-    children = cloneChild(element.props.children)
+  if (typeof originalChildren !== 'object') {
+    children = originalChildren
+  }
+  else if (isValidElement(originalChildren)) {
+    children = cloneChild(originalChildren)
   }
   else {
-    children = Children.map(element.props.children, (child, childIdx) => {
+    children = Children.map(originalChildren, (child, childIdx) => {
       return cloneChild(child, childIdx)
     })
   }

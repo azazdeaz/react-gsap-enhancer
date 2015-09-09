@@ -1,0 +1,104 @@
+//based on http://codepen.io/MartijnBrands/pen/xGxrRj
+var styles = {
+  parrot: {
+    position: 'relative',
+    // left: 200,
+    // top: 200,
+    width: 0,
+    height: 0,
+    cursor: 'pointer'
+  },
+  big: {
+    transform: 'translate(-50%, -50%) rotate(45deg)',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    borderRadius: '50%',
+    borderRightColor: 'transparent',
+    borderTopColor: 'transparent',
+    borderBottomColor: '#D72928',
+    borderLeftColor: '#DB3E3D',
+    borderWidth: 100,
+    borderStyle: 'solid'
+  },
+  middle: {
+    transform: 'translate(-50%, -50%) rotate(45deg)',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    borderRadius: '50%',
+    borderRightColor: 'transparent',
+    borderTopColor: '#F8D245',
+    borderBottomColor: '#F2F2F2',
+    borderLeftColor: '#FFFFFF',
+    borderWidth: 80,
+    borderStyle: 'solid'
+  },
+  small: {
+    transform: 'translate(-50%, -50%) rotate(45deg)',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    borderRadius: '50%',
+    borderRightColor: '#F7A703',
+    borderTopColor: 'transparent',
+    borderBottomColor: 'transparent',
+    borderLeftColor: 'transparent',
+    borderWidth: 40,
+    borderStyle: 'solid'
+  },
+  last: {
+    position: 'absolute',
+    top: -80,
+    left: -40,
+    fontSize: '90px',
+    color: '#000',
+  }
+}
+
+function hoverAnim({target}) {
+  var duration = 0.5
+  return new TimelineMax({paused: true})
+    // .pause()
+    .add('red')
+    .to(target.find('big'), duration, {
+      rotation: '+=180',
+      borderBottomColor: '#2ECC40',
+      borderLeftColor: '#3D9970',
+    }, 'red')
+    .to(target.find('middle'), duration, {
+      rotation: '-=180',
+      borderRightColor: '#F8D245',
+      borderTopColor: 'transparent',
+    }, 'red')
+    .to(target.find('small'), duration, {rotation: '+=90'}, 'red')
+    .to(target.find('last'), duration / 4, {scaleY: 0}, 'red')
+    .set(target.find('last'), {left: 12})
+    .to(target.find('last'), duration / 4, {scaleY: 1})
+    .add('green')
+}
+
+@GSAP()
+class Parrot extends React.Component {
+  componentDidMount() {
+    this.hoverAnim = this.addAnimation(hoverAnim)
+  }
+  render() {
+    return <Center style={{backgroundColor: '#27283B'}}>
+      <div key='parrot' style={styles.parrot}
+        onMouseEnter = {() => this.hoverAnim.tweenTo('green')}
+        onMouseLeave = {() => this.hoverAnim.tweenTo('red')}>
+
+        <div key='big' style={styles.big}/>
+        <div key='middle' style={styles.middle}/>
+        <div key='small' style={styles.small}/>
+        <div key='last' style={styles.last}>
+          •
+        </div>
+      </div>
+    </Center>
+  }
+}
+
+
+React.render(<Parrot/>, mountNode)
