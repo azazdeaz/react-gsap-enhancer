@@ -1,7 +1,5 @@
 import React, {Children, isValidElement} from 'react'
 
-React.findDOMNode = () => null
-
 export default function attachRefs(element, itemMap, idx = 0) {
   var {key, ref: previousRef} = element
   if (key === null) {

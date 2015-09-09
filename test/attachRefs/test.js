@@ -3,6 +3,16 @@ var assert = require('chai').assert
 var attachRefs = require('../../src/attachRefs')
 
 describe('attachRefs', () => {
+  const oriFindDOMNode = React.findDOMNode
+
+  before(() => {
+    React.findDOMNode = () => null
+  })
+
+  after(() => {
+    React.findDOMNode = oriFindDOMNode
+  })
+
   it('is a function', () => {
     assert.isFunction(attachRefs)
   })
