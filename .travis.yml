@@ -9,6 +9,9 @@ branches:
   only:
     - master
 
+install:
+  - npm install npm@3
+
 script:
   - npm run coverage
   # Upload to coveralls, but don't _fail_ if coveralls is down.
