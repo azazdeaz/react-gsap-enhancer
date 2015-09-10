@@ -10,8 +10,9 @@ branches:
   only:
     - master
 
-install:
-  - npm install -g npm@3
+before_install:
+  - npm install -g npm@'>=3'
+  - npm --version
 
 script:
   - npm run coverage
