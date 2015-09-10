@@ -76,11 +76,17 @@ function createAnim({target}) {
     var btl = new TimelineMax({repeat: -1})
     .set(bubble, {transformOrigin: 'center'})
     .to(bubble, 1, {
-      scale: 1.62,
+      // scale: 1.62,
+      attr: {
+        r: '+=15'
+      },
       ease: Linear.easeNone
     })
     .to(bubble, 1, {
-      scale: 1,
+      // scale: 1,
+      attr: {
+        r: '-=15'
+      },
       ease: Linear.easeNone
     })
 
@@ -110,6 +116,7 @@ class Demo extends React.Component {
 
   handleMouseMove = (e) => {
     //TODO do something
+    this.forceUpdate()
   }
 
   renderBadge(svgAttrs = {}) {
