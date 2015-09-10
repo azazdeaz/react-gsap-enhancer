@@ -23,11 +23,11 @@
     "url": "https://github.com/azazdeaz/react-gsap-enhancer/issues"
   },
   "keywords": [
-    "react",
-    "react-component",
-    "gsap",
+    "animation",
     "greensock",
-    "animation"
+    "gsap",
+    "react",
+    "react-component"
   ],
   "homepage": "https://github.com/azazdeaz/react-gsap-enhancer",
   "devDependencies": {
@@ -38,6 +38,7 @@
     "babel-loader": "^5.3.1",
     "chai": "^3.2.0",
     "chai-spies": "^0.7.0",
+    "coveralls": "^2.11.4",
     "eslint": "^0.24.0",
     "eslint-plugin-babel": "^1.1.0",
     "eslint-plugin-mocha": "^0.5.1",
