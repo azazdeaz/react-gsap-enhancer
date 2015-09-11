@@ -48,7 +48,7 @@
     "gulp-gh-pages": "^0.5.2",
     "gulp-util": "^3.0.6",
     "isparta": "^3.0.4",
-    "lodash": "^3.10.0",
+    "lodash": "^3.10.1",
     "material-ui": "^0.10.0",
     "mocha": "^2.3.0",
     "node-libs-browser": "^0.5.2",

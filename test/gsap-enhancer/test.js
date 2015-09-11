@@ -1,13 +1,6 @@
 var React = require('react')
 var Component = React.Component
 var GSAP = require('../../src/gsap-enhancer')
-var {
-  walkItemTree,
-  reattachAll,
-  attachAll,
-  restoreRenderedStyles,
-  saveRenderedStyles
-} = require('../../src/utils')
 var chai = require('chai')
 var spies = require('chai-spies')
 var assert = chai.assert
@@ -67,22 +60,5 @@ describe('gsap-enhancer', () => {
     didMount.should.have.been.called.once()
     didUpdate.should.have.been.called.once()
     render.should.have.been.called.once()
-  })
-})
-
-describe('walkItemTree', () => {
-  it('works nested item tree', () => {
-    const barNode = {node: {}}
-    const bazNode = {node: {}}
-    const fooNode = {node: {}, children: new Map([
-      ['bar', barNode],
-      ['baz', bazNode]
-    ])}
-    const itemTree = new Map([[0, fooNode]])
-    const callback = chai.spy()
-    walkItemTree(itemTree, callback)
-    callback.should.have.been.called.with(fooNode)
-    callback.should.have.been.called.with(barNode)
-    callback.should.have.been.called.with(bazNode)
   })
 })
