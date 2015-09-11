@@ -1,5 +1,5 @@
-//update transform style on every mousemove (x, y)
-//while it's also animating(y, slace, rotate)
+//update the transform style on every mousemove event
+//while it's also animating(y, scale, rotate)
 
 function createAnim({target}) {
   var box = target

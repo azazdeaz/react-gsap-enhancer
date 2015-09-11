@@ -100,5 +100,4 @@ class Parrot extends React.Component {
   }
 }
 
-
 React.render(<Parrot/>, mountNode)

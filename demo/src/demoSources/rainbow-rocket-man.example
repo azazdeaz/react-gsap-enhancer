@@ -1,10 +1,8 @@
-//update transform style on every mousemove (x, y)
-//while it's also animating(y, slace, rotate)
-
+//based on http://codepen.io/chrisgannon/pen/EjVyXN
 function createAnim({target}) {
   var astronaut = target.find('astronaut')
   var astronautPulses = astronaut.find('pulses').findAllInChildren()
-  var satellite = target.find('satellite')
+  var satellite = target.find('satesllite')
   var satellitePulses = satellite.find('pulses').findAllInChildren()
   var stars = target.findAll({name: 'star'})
   var speedLines = target.findAll({name: 'speedLine'})
