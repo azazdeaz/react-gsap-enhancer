@@ -9,11 +9,13 @@ A [React] component enhancer for applying [GSAP] animations on components withou
  - [and more...!](http://azazdeaz.github.io/react-gsap-enhancer/#/demo/rainbow-rocket-man)
 
 ###Why? 
-We have great tools (like [react-motion], or [Animated]) to get our React components move but to create more complicated animation sequences is still a pain without great tools like [GSAP]. GSAP is easy to use and ultra performant if you let it mutate the DOM directly but unfortunately it is not safe if that piece of DOM is controlled by React.
+We have great tools (like [react-motion], or [Animated]) to get our React components move but to create more complicated animation sequences is still a pain without great tools like [GSAP]. GSAP is easy to use and ultra performant if you let it mutate the DOM directly but unfortunately it is not safe if that piece of DOM is controlled by React. So this tool is for make this safe.
+
 ###How it works?
 It's pretty simple: in every render cycle:
-	- after each render save the attributes of the rendered DOM elements, than start/restart the added animations.
-	- before each render stop the animations and restore the saved attributes (so React will find the DOM as it was after the update) 
+ - after each render save the attributes of the rendered DOM elements, than start/restart the added animations.
+ - before each render stop the animations and restore the saved attributes (so React will find the DOM as it was after the update) 
+
 ###Usage
 First you have to enhance the component with react-gsap-enhancer:
 
@@ -79,7 +81,8 @@ handleProgress(progress) {
 ```
 
 ###API
-#####methods added to the component:
+
+#####methods added to the component
  - ```addAnimation(animationSource) -> animation```: Creates an animation with the given source, adds it to the component and also returns it
  - ```removeAnimation(animation)```:  Removes the given animation and all the changes it caused on the component.
 
@@ -96,6 +99,7 @@ jQuery like selector object that refers to the root component and lets select it
  - ```target.findAll(selector)```: returns with all the matches
  - ```target.findInChildren(selector)```: returns with the first match in the direct children
  - ```target.findAllInChildren(selector)```: returns with all the matches in the direct children
+
 #####selector
 Selector are usually simple objects and the "find" functions are using it to select the elements with matching props. Ie. ```{key: 'head'}```, ```{color: 'red'}```, and ```{key: 'head', color:  'red}``` are all matches to ```<div key='head' color='red'/>```. Strings are considered to keys so ```target.find('head')``` is the same as ```target.find({key: 'head'})```.
 
