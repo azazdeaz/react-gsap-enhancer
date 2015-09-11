@@ -1,4 +1,4 @@
-# react-gsap-enhancer [![Build Status](https://img.shields.io/travis/azazdeaz/react-gsap-enhancer.svg?style=flat-square)](https://travis-ci.org/azazdeaz/react-gsap-enhancer) [![Coverage Status](https:/https://github.com/azazdeaz/react-gsap-enhancer/img.shields.io/coveralls/azazdeaz/react-gsap-enhancer.svg?style=flat-square)](https://coveralls.io/r/azazdeaz/react-gsap-enhancer?branch=master) [![npm](https://img.shields.io/npm/dm/react-gsap-enhancer.svg?style=flat-square)]()
+# react-gsap-enhancer [![Build Status](https://img.shields.io/travis/azazdeaz/react-gsap-enhancer.svg?style=flat-square)](https://travis-ci.org/azazdeaz/react-gsap-enhancer) [![Coveralls branch](https://img.shields.io/coveralls/azazdeaz/react-gsap-enhancer/master.svg?style=flat-square)](https://coveralls.io/github/azazdeaz/react-gsap-enhancer) [![npm](https://img.shields.io/npm/dm/react-gsap-enhancer.svg?style=flat-square)]()
 
 A [React] component enhancer for applying [GSAP] animations on components without side effects.
 
