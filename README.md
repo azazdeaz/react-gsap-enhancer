@@ -9,7 +9,7 @@ A [React] component enhancer for applying [GSAP] animations on components withou
  - [and more...!](http://azazdeaz.github.io/react-gsap-enhancer/#/demo/rainbow-rocket-man)
 
 ###Why? 
-We have great tools (like [react-motion], or [Animated]) to get our React components move but to create more complicated animation sequences is still a pain without great tools like [GSAP]. GSAP is easy to use and ultra performant if you let it mutate the DOM directly but unfortunately it is not safe if that piece of DOM is controlled by React. So this tool is for make this safe.
+We have great tools (like [react-motion], or [Animated]) to get our React components move but to create more complicated animation sequences is still a pain without great tools like [GSAP]. GSAP is easy to use and ultra performant if you let it mutate the DOM directly but unfortunately it is not safe if that piece of DOM is controlled by React. So this tool is about make this safe.
 
 ###How it works?
 It's pretty simple: in every render cycle:
