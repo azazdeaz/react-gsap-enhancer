@@ -61,6 +61,9 @@ function findAllInChildren(selection, selector) {
 
 function findWithCommands(target, commands) {
   commands.forEach(command => {
+    if (!target[command.type]) {
+      throw Error(`[react-gsap-enhancer] unknown command type "${target[command.type]}"`)
+    }
     target = target[command.type](command.selector)
   })
   return target
@@ -106,7 +109,7 @@ export default function createTarget(selection) {
   target.findAll = selector => findAll(selection, selector)
   target.findInChildren = selector => findInChildren(selection, selector)
   target.findAllInChildren = selector => findAllInChildren(selection, selector)
-  target.findWithCommands = command => findWithCommands(target, command)
+  target.findWithCommands = commands => findWithCommands(target, commands)
 
   return target
 }

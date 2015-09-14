@@ -288,6 +288,18 @@ describe('findWithCommands', () => {
     targetsEqual(result, [bazNode, quxNode])
   })
 
+  it('throws on wrong command type', () => {
+    const target = createTarget(tree1)
+    assert.throws(() => {
+      target.findWithCommands([
+        {
+          type: 'unknown',
+          selector: 'root'
+        }
+      ])
+    })
+  })
+
   it('is chainable', () => {
     const target = createTarget(tree1)
     const result = target.findWithCommands([
