@@ -4,6 +4,7 @@ let demos = {
   'parrot-hover': require('raw!./parrot-hover.example'),
   'cow-jumps-over-the-moooooon': require('raw!./cow-jumps-over-the-moooooon.example'),
   'rainbow-rocket-man': require('raw!./rainbow-rocket-man.example'),
+  'animate-list-with-stagger': require('raw!./animate-list-with-stagger.example'),
 }
 
 if (__WIP__) {
@@ -14,3 +15,4 @@ if (__WIP__) {
 }
 
 export default demos
+  

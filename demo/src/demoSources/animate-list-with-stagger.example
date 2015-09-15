@@ -1,0 +1,49 @@
+//animate selected targets with stagger
+
+function createRevealAnim({target}) {
+  var items = target.find('list').findAllInChildren()
+
+  return TweenMax.staggerFrom(items, 1, {opacity: 0, scale: .3}, .12)
+}
+
+@GSAP()
+class Demo extends React.Component {
+  componentDidMount() {
+    this.addAnimation(createRevealAnim)
+  }
+
+  render () {
+    var ulStyle ={
+      width: 380
+    }
+
+    function getLiStyle(idx) {
+      return {
+        textAlign: 'left',
+        margin: '0',
+        padding: '1em',
+        marginBottom: '.125em',
+        display: 'block',
+        listStyle: 'none',
+        textTransform: 'uppercase',
+        font: `1.2em/1.4 'Oswald', sans-serif`,
+        color: idx%2 ? '#B3DBFF' : '#663000',
+        backgroundColor: idx%2 ? '#0074D9' : '#FF851B',
+      }
+    }
+
+    var items = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight']
+
+    return <Center>
+      <ul key='list' style={ulStyle}>
+        {items.map(function (text, idx) {
+          return <li style={getLiStyle(idx)}>
+            {text}
+          </li>
+        })}
+      </ul>
+    </Center>
+  }
+}
+
+React.render(<Demo/>, mountNode)
