@@ -44,6 +44,7 @@
     "eslint-plugin-mocha": "^0.5.1",
     "eslint-plugin-react": "^2.6.4",
     "file-loader": "^0.8.4",
+    "gsap": "^1.18.0",
     "gulp": "^3.9.0",
     "gulp-gh-pages": "^0.5.2",
     "gulp-util": "^3.0.6",
