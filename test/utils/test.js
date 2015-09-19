@@ -1,9 +1,7 @@
-var React = require('react')
 var FakeNode = require('./FakeNode')
 var {
   walkItemTree,
   reattachAll,
-  attachAll,
   restoreRenderedStyles,
   saveRenderedStyles
 } = require('../../src/utils')
@@ -12,6 +10,8 @@ var spies = require('chai-spies')
 var assert = chai.assert
 chai.use(spies)
 chai.should()
+
+console.log(process.env.NODE_ENV)
 
 describe('walkItemTree', () => {
   it('works nested item tree', () => {
@@ -66,5 +66,23 @@ describe('saveRenderedStyles & restoreRenderedStyles', () => {
     assert.include(names, 'bar')
     assert.strictEqual(values[names.indexOf('foo')], 'red')
     assert.strictEqual(values[names.indexOf('bar')], 'blue')
+  })
+})
+describe('attachAll & reattachAll', () => {
+  const fooNode = new FakeNode({
+    attributes: {
+      foo: 'red',
+      bar: 'blue',
+    }
+  })
+  const fooItem = {node: fooNode}
+  const itemTree = new Map([['qux', fooItem]])
+
+  it('calls animation.attach', () => {
+    const animation = {
+      attach: chai.spy()
+    }
+    reattachAll(itemTree, [animation])
+    animation.attach.should.have.been.called.once()
   })
 })

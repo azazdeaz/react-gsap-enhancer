@@ -93,6 +93,7 @@ function enhance (animationSourceMap, ComposedComponent) {
   }
 
 
+  //TODO test this
   // Class inheritance uses Object.create and because of __proto__ issues
   // with IE <10 any static properties of the superclass aren't inherited and
   // so need to be manually populated
@@ -110,17 +111,18 @@ function enhance (animationSourceMap, ComposedComponent) {
   //   }
   // })
 
-  if (process.env.NODE_ENV !== 'production') {
-  // This fixes React Hot Loader by exposing the original components top level
-  // prototype methods on the Radium enhanced prototype as discussed in #219.
-    // https://github.com/FormidableLabs/radium/issues/219
-    Object.keys(ComposedComponent.prototype).forEach(key => {
-      if (!GSAPEnhancer.prototype.hasOwnProperty(key)) {
-        var descriptor = Object.getOwnPropertyDescriptor(ComposedComponent.prototype, key)
-        Object.defineProperty(GSAPEnhancer.prototype, key, descriptor)
-      }
-    })
-  }
+  //TODO test this
+  // if (process.env.NODE_ENV !== 'production') {
+  //   // This fixes React Hot Loader by exposing the original components top level
+  //   // prototype methods on the enhanced prototype as discussed in
+  //   // https://github.com/FormidableLabs/radium/issues/219
+  //   Object.keys(ComposedComponent.prototype).forEach(key => {
+  //     if (!GSAPEnhancer.prototype.hasOwnProperty(key)) {
+  //       var descriptor = Object.getOwnPropertyDescriptor(ComposedComponent.prototype, key)
+  //       Object.defineProperty(GSAPEnhancer.prototype, key, descriptor)
+  //     }
+  //   })
+  // }
 
   return GSAPEnhancer
 }

@@ -20,6 +20,10 @@ describe('gsap-enhancer', () => {
     const enhancedComponent = new GSAPComponent()
     assert.isFunction(enhancedComponent.addAnimation)
     assert.isFunction(enhancedComponent.removeAnimation)
+    assert.isFunction(enhancedComponent.componentDidMount)
+    assert.isFunction(enhancedComponent.componentWillUpdate)
+    assert.isFunction(enhancedComponent.componentDidUpdate)
+    assert.isFunction(enhancedComponent.render)
   })
 
   it('enhances without config call', () => {
@@ -35,12 +39,14 @@ describe('gsap-enhancer', () => {
   it('calls the overridden lifecycle methods of the enhanced component', () => {
     const willMount = chai.spy()
     const didMount = chai.spy()
+    const willUpdate = chai.spy()
     const didUpdate = chai.spy()
     const render = chai.spy()
 
     class BaseComponent extends Component {
       componentWillMount() {willMount()}
       componentDidMount() {didMount()}
+      componentWillUpdate() {willUpdate()}
       componentDidUpdate() {didUpdate()}
       render() {
         render()
@@ -53,11 +59,13 @@ describe('gsap-enhancer', () => {
 
     enhancedComponent.componentWillMount()
     enhancedComponent.componentDidMount()
+    enhancedComponent.componentWillUpdate()
     enhancedComponent.componentDidUpdate()
     enhancedComponent.render()
 
     willMount.should.have.been.called.once()
     didMount.should.have.been.called.once()
+    willUpdate.should.have.been.called.once()
     didUpdate.should.have.been.called.once()
     render.should.have.been.called.once()
   })

@@ -23,7 +23,7 @@ export function attachAll(runningAnimations) {
 
 export function restoreRenderedStyles(itemTree) {
   walkItemTree(itemTree, item => {
-    const savedAttributeNames = Object.keys(item.savedAttributes)
+    const savedAttributeNames = Object.keys(item.savedAttributes || {})
     //restore the original attribute values
     savedAttributeNames.forEach(name => {
       item.node.setAttribute(name, item.savedAttributes[name])

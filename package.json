@@ -51,7 +51,7 @@
     "isparta": "^3.0.4",
     "lodash": "^3.10.1",
     "material-ui": "^0.10.0",
-    "mocha": "^2.3.0",
+    "mocha": "^2.3.2",
     "node-libs-browser": "^0.5.2",
     "radium": "^0.13.7",
     "raw-loader": "^0.5.1",
