@@ -130,7 +130,7 @@ describe('findAll', () => {
   it('selects properly with no options', () => {
     const target = createTarget(tree1)
     const result = target.findAll()
-    targetsEqual(result, [rootNode, fooNode, barNode, quxNode, bazNode])
+    targetsEqual(result, [fooNode, barNode, quxNode, bazNode])
   })
 
   it('selects properly by key', () => {
@@ -160,7 +160,7 @@ describe('findAll', () => {
 
 describe('findInChildren', () => {
   testBasics('findInChildren')
-  const rootTarget = createTarget(tree1).find('root')
+  const rootTarget = createTarget(tree1)
 
   it('selects properly with no options', () => {
     const result = rootTarget.findInChildren()
@@ -200,7 +200,7 @@ describe('findInChildren', () => {
 
 describe('findAllInChildren', () => {
   testBasics('findAllInChildren')
-  const rootTarget = createTarget(tree1).find('root')
+  const rootTarget = createTarget(tree1)
 
   it('selects properly with no options', () => {
     const result = rootTarget.findAllInChildren()
@@ -246,6 +246,12 @@ describe('findWithCommands', () => {
     assert.isFunction(target.findWithCommands(commands).findWithCommands)
   })
 
+  it('selects properly with no commands', () => {
+    const target = createTarget(tree1)
+    const result = target.findWithCommands([])
+    targetsEqual(result, [rootNode])
+  })
+
   it('applies find properly', () => {
     const target = createTarget(tree1)
     const result = target.findWithCommands([{
@@ -268,18 +274,14 @@ describe('findWithCommands', () => {
     const target = createTarget(tree1)
     const result = target.findWithCommands([{
       type: 'findInChildren',
-      selector: 'root'
+      selector: {purple: true}
     }])
-    targetsEqual(result, [rootNode])
+    targetsEqual(result, [fooNode])
   })
 
   it('applies findAllInChildren properly', () => {
     const target = createTarget(tree1)
     const result = target.findWithCommands([
-      {
-        type: 'find',
-        selector: 'root'
-      },
       {
         type: 'findAllInChildren',
         selector: {purple: true}
@@ -294,7 +296,7 @@ describe('findWithCommands', () => {
       target.findWithCommands([
         {
           type: 'unknown',
-          selector: 'root'
+          selector: 'bar'
         }
       ])
     })
@@ -303,10 +305,6 @@ describe('findWithCommands', () => {
   it('is chainable', () => {
     const target = createTarget(tree1)
     const result = target.findWithCommands([
-      {
-        type: 'find',
-        selector: 'root'
-      },
       {
         type: 'findAllInChildren',
         selector: {purple: true}

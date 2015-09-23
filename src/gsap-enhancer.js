@@ -38,7 +38,7 @@ function enhance (animationSourceMap, ComposedComponent) {
         createGSAPAnimation = sourceMap[createGSAPAnimation]
       }
 
-      const target = createTarget(this.__itemTree).find()
+      const target = createTarget(this.__itemTree)
       const animation = new Animation(
         createGSAPAnimation,
         options,

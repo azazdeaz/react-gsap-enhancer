@@ -15,7 +15,7 @@ function find(selection, selector) {
     }
   })
 
-  return createTarget(result)
+  return convertToTarget(result)
 }
 
 function findAll(selection, selector) {
@@ -26,7 +26,7 @@ function findAll(selection, selector) {
       result.push(childItem)
     }
   }))
-  return createTarget(result)
+  return convertToTarget(result)
 }
 
 function findInChildren(selection, selector) {
@@ -45,7 +45,7 @@ function findInChildren(selection, selector) {
     }
   })
 
-  return createTarget(result)
+  return convertToTarget(result)
 }
 
 function findAllInChildren(selection, selector) {
@@ -56,7 +56,7 @@ function findAllInChildren(selection, selector) {
       result.push(childItem)
     }
   }))
-  return createTarget(result)
+  return convertToTarget(result)
 }
 
 function findWithCommands(target, commands) {
@@ -98,11 +98,7 @@ function recurseChildren(item, callback) {
   })
 }
 
-export default function createTarget(selection) {
-  if (selection instanceof Map) {
-    selection = [{children: selection}]
-  }
-
+export default function convertToTarget(selection) {
   const target = selection.map(item => item.node).filter(node => !!node)
 
   target.find = selector => find(selection, selector)
@@ -112,4 +108,10 @@ export default function createTarget(selection) {
   target.findWithCommands = commands => findWithCommands(target, commands)
 
   return target
+}
+
+export default function createTarget(itemTree) {
+  const target = convertToTarget([{children: itemTree}])
+  //call find so target will refer to the first node which should be the root
+  return target.find()
 }
