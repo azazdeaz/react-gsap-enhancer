@@ -7,9 +7,12 @@ export default function attachRefs(element, itemMap, idx = 0) {
   }
 
   if (typeof previousRef === 'string') {
-    throw Error('Cannot connect GSAP Enhancer to an element with an existing string ref. ' +
-    'Please convert it to use a callback ref instead, or wrap it into a <span> or <div>. ' +
-    'Read more: https://facebook.github.io/react/docs/more-about-refs.html#the-ref-callback-attribute')
+    throw Error(`[react-gsap-enhancer] On one of the elements you have used a `
+      + `string ref ("${previousRef}") but react-gsap-enhancer can only handle `
+      + `callback refs. Please migrate the string refs to callback refs in the `
+      + `enhanced component.
+Example: change <div ref='foo'/> to <div ref={comp => this.foo = comp}/>
+See also: https://github.com/azazdeaz/react-gsap-enhancer/issues/3`)
   }
 
   var item
