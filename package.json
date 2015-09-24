@@ -10,6 +10,7 @@
     "coverage": "babel-node node_modules/.bin/isparta cover --report text --report lcov node_modules/.bin/_mocha -- --reporter dot",
     "lib": "babel ./src --out-dir lib  --source-maps --source-maps",
     "lib-watch": "npm run lib && babel ./src --out-dir lib  --source-maps --source-maps --watch",
+    "browser-build": "webpack --config webpack.browser.config.js",
     "test": "mocha --compilers js:babel/register",
     "test-debug": "node-debug _mocha --compilers js:babel/register"
   },
