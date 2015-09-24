@@ -5,10 +5,13 @@
 A [React] component enhancer for applying [GSAP] animations on components without side effects.
 
 ###Demos
- - [update the component while it's animating](http://azazdeaz.github.io/react-gsap-enhancer/#/demo/update-and-animate-transform)
- - [control timeline with component events](http://azazdeaz.github.io/react-gsap-enhancer/#/demo/morphing-search-input)
- - [use with Radium and react-motion](http://azazdeaz.github.io/react-gsap-enhancer/#/demo/cow-jumps-over-the-moooooon)
- - [and more...!](http://azazdeaz.github.io/react-gsap-enhancer/#/demo/rainbow-rocket-man)
+ - Playground
+  - [update the component while it's animating](http://azazdeaz.github.io/react-gsap-enhancer/#/demo/update-and-animate-transform)
+  - [control timeline with component events](http://azazdeaz.github.io/react-gsap-enhancer/#/demo/morphing-search-input)
+  - [use with Radium and react-motion](http://azazdeaz.github.io/react-gsap-enhancer/#/demo/cow-jumps-over-the-moooooon)
+  - [and more...!](http://azazdeaz.github.io/react-gsap-enhancer/#/demo/rainbow-rocket-man)
+ - CodePen
+  - [Material Login Dialog](http://codepen.io/azazdeaz/pen/yYavVK?editors=001)
 
 ###Why? 
 We have great tools (like [react-motion], or [Animated]) to get our React components move but to create more complicated animation sequences is still a pain without great tools like [GSAP]. GSAP is easy to use and ultra performant if you let it mutate the DOM directly but unfortunately it is not safe if that piece of DOM is controlled by React. So this tool is about making this safe.
@@ -103,7 +106,7 @@ jQuery like selector object that refers to the root component and lets select it
  - ```target.findAllInChildren(selector)```: returns with all the matches in the direct children
 
 #####selector
-Selector are usually simple objects and the "find" functions are using it to select the elements with matching props. Ie. ```{key: 'head'}```, ```{color: 'red'}```, and ```{key: 'head', color:  'red}``` are all matches to ```<div key='head' color='red'/>```. Strings are considered to keys so ```target.find('head')``` is the same as ```target.find({key: 'head'})```.
+Selectors are usually simple objects and the "find" functions are using it to select the elements with matching props. Ie. ```{key: 'head'}```, ```{color: 'red'}```, and ```{key: 'head', color:  'red}``` are all matches to ```<div key='head' color='red'/>```. Strings are considered to keys so ```target.find('head')``` is the same as ```target.find({key: 'head'})```.
 
 I'm looking forward for your feedback!
 
