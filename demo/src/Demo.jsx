@@ -5,6 +5,7 @@ import Playground from '@azazdeaz/component-playground'
 import demoSources from './demoSources'
 import {Spring} from 'react-motion'
 import customDrag from 'react-matterkit/lib/custom-drag'
+import _ from 'lodash'
 
 function radDiff(a, b) {
   var {PI} = Math
@@ -43,8 +44,10 @@ function radDiff(a, b) {
 
 class Center {
   render() {
-    return <div style={{
-        ...this.props.style,
+    const {children, style, onClick} = this.props
+
+    return <div onClick={onClick} style={{
+        ...style,
         position: 'absolute',
         width: '100%',
         height: '100%',
@@ -52,7 +55,7 @@ class Center {
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-      {this.props.children}
+      {children}
     </div>
   }
 }
@@ -90,7 +93,8 @@ export default class Demo extends React.Component {
         customDrag,
         radDiff,
         GS_GREEN: '#88ce02',
-        Center
+        Center,
+        _,
       }}/>
   }
 }

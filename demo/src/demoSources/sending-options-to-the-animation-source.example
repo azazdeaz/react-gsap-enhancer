@@ -1,0 +1,55 @@
+//pass options to the animation source
+//this source only using in ES5 syntax and JSX
+function createAnim(utils) {
+  var box = utils.target.find('box')
+
+  return new TimelineMax()
+    .to(box, 0.44, {
+      x: utils.options.x,
+      y: utils.options.y,
+      ease: Elastic.easeOut,
+    })
+}
+
+var Demo = GSAP()(React.createClass({
+  handleNavigateClick: function(e) {
+    var rootNode = React.findDOMNode(this)
+    var {top, left} = rootNode.getBoundingClientRect()
+    this.addAnimation(createAnim, {
+      x: e.clientX - left - 40,
+      y: e.clientY - top - 40,
+    })
+  },
+  render: function() {
+    var containerStyle = {
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+    }
+    var textStyle = {
+      position: 'absolute',
+      width: '100%',
+      color: '#555',
+      fontSize: '30px',
+      fontFamily: '"Signika Negative",sans-serif',
+      fontWeight: '300',
+      textAlign: 'center',
+      padding: '30px 0 20px',
+    }
+    var style = {
+      backgroundColor: GS_GREEN,
+      width: 80,
+      height: 80,
+      borderRadius: 40,
+    }
+
+    return <div onClick={this.handleNavigateClick} style={containerStyle}>
+      <span style={textStyle}>Click somewhere!</span>
+      <div key='box' style={style}/>
+    </div>
+  }
+}))
+
+
+
+React.render(<Demo/>, mountNode)

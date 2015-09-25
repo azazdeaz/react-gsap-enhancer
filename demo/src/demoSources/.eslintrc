@@ -11,6 +11,7 @@
     "GS_GREEN": true,
     "mountNode": true,
     "radDiff": true,
+    "_": true,
 
     "Power1": true,
     "Power2": true,
@@ -18,6 +19,8 @@
     "Power4": true,
     "Sine": true,
     "Back": true,
+    "Circ": true,
     "Linear": true,
+    "Elastic": true,
   }
 }

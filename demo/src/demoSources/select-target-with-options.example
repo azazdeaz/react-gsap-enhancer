@@ -1,0 +1,103 @@
+//pass options to the animation source
+
+function emitAnim({target, options}) {
+  var emitter = target.find('emitter')
+  var point = target.find(options.key)
+
+  return new TimelineMax()
+    .set(point, {
+      backgroundColor: 'transparent',
+      scale: 0,
+    })
+    .to(emitter, 1.2, {
+      backgroundColor: '#DDDDDD',
+      scale: 0.68,
+      ease: Circ.easeOut,
+    })
+    .add('release')
+    .to([emitter, point], 0.2, {
+      backgroundColor: options.color,
+      scale: 1,
+      ease: Back.easeOut
+    })
+    .to(point, 0.45, {
+      left: options.x,
+      top: options.y,
+      ease: Sine.easeOut,
+    }, 'release')
+}
+
+var COLORS = ['#0074D9', '#FF851B', '#FF4136', '#85144b', '#2ECC40']
+
+@GSAP()
+class Demo extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {points: []}
+  }
+
+  handleEmit = (e) => {
+    var {top, left} = this.middleContainerNode.getBoundingClientRect()
+    var key = `point${this.state.points.length}`
+    var newPoint = {
+      key,
+      color: _.sample(COLORS),
+      x: e.clientX - left - 40,
+      y: e.clientY - top - 40,
+    }
+    this.setState({points: [...this.state.points, newPoint]})
+    this.addAnimation(emitAnim, newPoint)
+  }
+
+  handleMiddleContainerRef = (component) => {
+    this.middleContainerNode = React.findDOMNode(component)
+  }
+
+  render () {
+    var containerStyle = {
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+    }
+    var middleContainerStyle = {
+      position: 'relative',
+      width: 80,
+      height: 80,
+    }
+    var textStyle = {
+      position: 'absolute',
+      width: '100%',
+      color: '#555',
+      fontSize: '30px',
+      fontFamily: '"Signika Negative",sans-serif',
+      fontWeight: '300',
+      textAlign: 'center',
+      padding: '30px 0 20px',
+    }
+    var pointStyle = {
+      position: 'absolute',
+      backgroundColor: GS_GREEN,
+      width: 80,
+      height: 80,
+      top: 0,
+      left: 0,
+      borderRadius: 40,
+    }
+
+    return <div onClick={this.handleEmit} style={containerStyle}>
+      <span style={textStyle}>Click somewhere!</span>
+      <Center>
+        <div style={middleContainerStyle} ref={this.handleMiddleContainerRef}>
+          <div key='emitter' style={pointStyle}/>
+          {this.state.points.map(point => {
+            return <div
+              key = {point.key}
+              style = {{...pointStyle, backgroundColor: point.color}}/>
+          })}
+        </div>
+      </Center>
+    </div>
+  }
+}
+
+React.render(<Demo/>, mountNode)

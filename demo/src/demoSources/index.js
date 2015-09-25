@@ -5,6 +5,8 @@ let demos = {
   'cow-jumps-over-the-moooooon': require('raw!./cow-jumps-over-the-moooooon.example'),
   'rainbow-rocket-man': require('raw!./rainbow-rocket-man.example'),
   'animate-list-with-stagger': require('raw!./animate-list-with-stagger.example'),
+  'sending-options-to-the-animation-source': require('raw!./sending-options-to-the-animation-source.example'),
+  'select-target-with-options': require('raw!./select-target-with-options.example'),
 }
 
 if (__WIP__) {
@@ -15,4 +17,3 @@ if (__WIP__) {
 }
 
 export default demos
-  
