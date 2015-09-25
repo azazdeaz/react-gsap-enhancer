@@ -14,7 +14,7 @@ A [React] component enhancer for applying [GSAP] animations on components withou
   - [Material Login Dialog](http://codepen.io/azazdeaz/pen/yYavVK?editors=001)
 
 ###Why? 
-We have great tools (like [react-motion], or [Animated]) to get our React components move but to create more complicated animation sequences is still a pain without great tools like [GSAP]. GSAP is easy to use and ultra performant if you let it mutate the DOM directly but unfortunately it is not safe if that piece of DOM is controlled by React. So this tool is about making this safe.
+We have great tools (like [react-motion], or [Animated]) to get our React components move but to create more complicated animation sequences is still a pain without great tools like [GSAP]. GSAP is easy to use and ultra performant if you let it mutate the DOM directly but unfortunately it is not safe if that piece of DOM is controlled by React (synce React suspect that the DOM will be not changed between its render cycles). So this tool is about making this safe.
 
 ###How it works?
 It's pretty simple: in every render cycle:
@@ -88,24 +88,27 @@ handleProgress(progress) {
 ###API
 
 #####methods added to the component
- - ```addAnimation(animationSource) -> animation```: Creates an animation with the given source, adds it to the component and also returns it
+ - ```addAnimation(animationSource[, options]) -> animation```: Creates an animation with the given source, adds it to the component, and also returns it. The options will be passed to the animationSource.
  - ```removeAnimation(animation)```:  Removes the given animation and all the changes it caused on the component.
 
-#####animationSource
- - ```({target}) -> GSAP Animation```
-A function that returns a GSAP Animation
+#####```animation```
+Wraps the GSAP Animation returned from the ```animationSource```. It provides has the same API as the wrapped animation.
 
-#####animation
-Reference to the GSAP Animation returned from the ```animationSource```. It also has the same API.
+#####```animationSource```
+ - ```({target, options}) -> GSAP Animation```
+A function that returns a GSAP Animation. 
 
-#####target
+#####```target```
 jQuery like selector object that refers to the root component and lets select its children with chainable selector methods.
  - ```target.find(selector)```: returns with the first match
  - ```target.findAll(selector)```: returns with all the matches
  - ```target.findInChildren(selector)```: returns with the first match in the direct children
  - ```target.findAllInChildren(selector)```: returns with all the matches in the direct children
 
-#####selector
+#####```options```
+Arbitrary object
+
+#####```selector```
 Selectors are usually simple objects and the "find" functions are using it to select the elements with matching props. Ie. ```{key: 'head'}```, ```{color: 'red'}```, and ```{key: 'head', color:  'red}``` are all matches to ```<div key='head' color='red'/>```. Strings are considered to keys so ```target.find('head')``` is the same as ```target.find({key: 'head'})```.
 
 I'm looking forward for your feedback!
