@@ -9,6 +9,7 @@ A [React] component enhancer for applying [GSAP] animations on components withou
   - [update the component while it's animating](http://azazdeaz.github.io/react-gsap-enhancer/#/demo/update-and-animate-transform)
   - [control timeline with component events](http://azazdeaz.github.io/react-gsap-enhancer/#/demo/morphing-search-input)
   - [use with Radium and react-motion](http://azazdeaz.github.io/react-gsap-enhancer/#/demo/cow-jumps-over-the-moooooon)
+  - [use options (ES5)](http://azazdeaz.github.io/react-gsap-enhancer/#/demo/sending-options-to-the-animation-source)
   - [and more...!](http://azazdeaz.github.io/react-gsap-enhancer/#/demo/rainbow-rocket-man)
  - CodePen
   - [Material Login Dialog](http://codepen.io/azazdeaz/pen/yYavVK?editors=001)
