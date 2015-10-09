@@ -1,5 +1,4 @@
 import React from 'react'
-import {RouteHandler} from 'react-router'
 import demoSources from './demoSources'
 import map from 'lodash/collection/map'
 import findIndex from 'lodash/array/findIndex'
@@ -55,7 +54,7 @@ export default class App extends React.Component {
       <div style={{
           display: 'flex',
           flexDirection: 'column',
-          height:'100vh',
+          height: '100vh',
         }}>
         <AppBar
           title="Demos for react-gsap-enhancer"
@@ -73,7 +72,7 @@ export default class App extends React.Component {
             menuItems = {menuItems} />
         </AppBar>
         <div style={{display: 'flex', flex: 1}}>
-          <RouteHandler/>
+          {this.props.children}
         </div>
       </div>
     )

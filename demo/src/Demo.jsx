@@ -4,7 +4,7 @@ import Radium from 'radium'
 import Playground from '@azazdeaz/component-playground'
 import demoSources from './demoSources'
 import {Spring} from 'react-motion'
-import customDrag from 'react-matterkit/lib/custom-drag'
+import customDrag from 'custom-drag'
 import _ from 'lodash'
 
 function radDiff(a, b) {

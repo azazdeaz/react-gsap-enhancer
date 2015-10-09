@@ -12,7 +12,7 @@ function createFakeTree(rootDesign) {
       return [key, Object.freeze({
         node,
         children: create(children),
-        component: {props}
+        props
       })]
     })
     return new Map(kvArray)

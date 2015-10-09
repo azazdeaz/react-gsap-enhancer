@@ -77,7 +77,7 @@ function testSelector(key, childItem, selector = {}) {
   if (typeof selector === 'string') {
     selector = {key: selector}
   }
-  const props = {...childItem.component.props, key}
+  const props = {...childItem.props, key}
   return Object.keys(selector).every(selectorKey => {
     return selector[selectorKey] === props[selectorKey]
   })

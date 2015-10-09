@@ -1,16 +1,17 @@
 var React = require('react')
+var ReactDOM = require('react-dom')
 var assert = require('chai').assert
 var attachRefs = require('../../src/attachRefs')
 
 describe('attachRefs', () => {
-  const oriFindDOMNode = React.findDOMNode
+  const oriFindDOMNode = ReactDOM.findDOMNode
 
   before(() => {
-    React.findDOMNode = () => null
+    ReactDOM.findDOMNode = () => null
   })
 
   after(() => {
-    React.findDOMNode = oriFindDOMNode
+    ReactDOM.findDOMNode = oriFindDOMNode
   })
 
   it('is a function', () => {
@@ -71,25 +72,25 @@ describe('attachRefs', () => {
   it('is handling refs', () => {
     const tree = new Map()
     const component = {render() {}}
-    attachRefs(<div key='foo'/>, tree)
+    attachRefs(<div key='foo' bar='qux'/>, tree)
     const reg = tree.get('foo')
     assert.isFunction(reg.ref)
     reg.ref(component)
-    assert.strictEqual(reg.component, component)
+    assert.strictEqual(reg.props.bar, 'qux')
   })
 
   it('call original refs', () => {
     const tree = new Map()
     const component = {render() {}}
     let called = false
-    attachRefs(<div key='foo' ref={comp => {
+    attachRefs(<div key='foo' bar='qux' ref={comp => {
       assert.strictEqual(comp, component)
       called = true
     }}/>, tree)
     const reg = tree.get('foo')
     assert.isFunction(reg.ref)
     reg.ref(component)
-    assert.strictEqual(reg.component, component)
+    assert.strictEqual(reg.props.bar, 'qux')
     assert.isTrue(called)
   })
 
@@ -97,14 +98,14 @@ describe('attachRefs', () => {
     const tree = new Map()
     const component = {render() {}}
     let called = false
-    attachRefs(<div key='foo' ref={comp => {
+    attachRefs(<div key='foo' bar='qux' ref={comp => {
       assert.strictEqual(comp, component)
       called = true
     }}/>, tree)
     const reg = tree.get('foo')
     assert.isFunction(reg.ref)
     reg.ref(component)
-    assert.strictEqual(reg.component, component)
+    assert.strictEqual(reg.props.bar, 'qux')
     assert.isTrue(called)
   })
 })
