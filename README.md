@@ -2,6 +2,9 @@
 
 [![Join the chat at https://gitter.im/azazdeaz/react-gsap-enhancer](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/azazdeaz/react-gsap-enhancer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+|[Demos](#demos)|[Why?](#why)|[How it works?](#how-it-works)|[Usage](#usage)|[API](#api)|
+|---------------|------------|------------------------------|---------------|-----------|
+
 A [React] component enhancer for applying [GSAP] animations on components without side effects.
 
 ###Demos
