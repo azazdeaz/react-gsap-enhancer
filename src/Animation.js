@@ -52,17 +52,18 @@ function bindAPI() {
 
   TweenMaxMethods.concat(TimelineMaxMethods).forEach(fnName => {
     Animation.prototype[fnName] = function (...args) {
+      let result
 
       if (!this._gsapAnimation) {
         this._commandsWaitingForAttach.push({fnName, args})
       }
       else if (typeof this._gsapAnimation[fnName] === 'function') {
-        this._gsapAnimation[fnName](...args)
+        result = this._gsapAnimation[fnName](...args)
       }
       else {
         throw Error(`Animation source has no method: '${fnName}'`)
       }
-      return this
+      return result === this._gsapAnimation ? this : result
     }
   })
 }

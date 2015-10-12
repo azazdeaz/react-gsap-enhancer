@@ -8,12 +8,13 @@ var Animation = require('../../src/Animation')
 
 function createMockGSAPAnimation() {
   var mock = {}
-  mock.time = chai.spy(() => mock)
+  mock.time = chai.spy((v) => v === undefined ? 0 : mock)
   mock.pause = chai.spy(() => mock)
-  mock.paused = chai.spy(() => mock)
+  mock.paused = chai.spy(() => false)
   mock.invalidate = chai.spy(() => mock)
   mock.restart = chai.spy(() => mock)
   mock.kill = chai.spy(() => mock)
+  mock.play = chai.spy(() => mock)
   return mock
 }
 
@@ -39,7 +40,7 @@ describe('Animation', () => {
     })
     const animation = new Animation(animationSource, _options, _target)
     animation.attach()
-    it('calls the animation source ', () => {
+    it('calls the animation source', () => {
       animationSource.should.have.been.called.once()
     })
   })
@@ -57,8 +58,15 @@ describe('Animation', () => {
   })
 
   it('keeps GSAP Animation methods chainable', () => {
-    const animation = new Animation()
+    const animation = new Animation(createMockGSAPAnimation)
+    animation.attach()
     assert.strictEqual(animation.play(), animation)
+  })
+
+  it('returns value for non chainable GSAP Animation methods', () => {
+    const animation = new Animation(createMockGSAPAnimation)
+    animation.attach()
+    assert.isBoolean(animation.paused())
   })
 
   it('delays GSAP command calls until attach gets called', () => {
