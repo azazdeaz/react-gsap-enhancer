@@ -1,5 +1,4 @@
 import React, {Children, isValidElement} from 'react'
-import ReactDOM from 'react-dom'
 
 export default function attachRefs(element, itemMap, idx = 0) {
   var {key, ref: previousRef} = element
@@ -28,7 +27,7 @@ See also: https://github.com/azazdeaz/react-gsap-enhancer/issues/3`)
 
   if (!item.ref) {
     item.ref = (component) => {
-      var node = ReactDOM.findDOMNode(component)
+      var node = React.findDOMNode(component)
       item.props = element.props
       item.node = node
 
