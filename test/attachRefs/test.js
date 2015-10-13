@@ -1,5 +1,5 @@
 var React = require('react')
-var ReactDOM = require('react-dom')
+var ReactDOM = React //require('react-dom') until support 0.14
 var assert = require('chai').assert
 var attachRefs = require('../../src/attachRefs')
 
