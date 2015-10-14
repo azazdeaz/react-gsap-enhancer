@@ -37,6 +37,18 @@ export default class Animation {
         target: this._target,
         options: this._options,
       })
+
+      if (__DEV__) {
+        if (
+          !this._gsapAnimation ||
+          typeof this._gsapAnimation.play !== 'function'
+        ) {
+          throw Error(`[react-gsap-enhancer] The return value of the animation `
+            + `source doesn't seems to be a GSAP Animation`
+            + `\nCheck out this animation source: \n${this._animationSource}`
+            + `\nbecause it returned this value: ${this._gsapAnimation}`)
+        }
+      }
     }
 
     this._commandsWaitingForAttach

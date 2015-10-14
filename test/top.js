@@ -1,8 +1,4 @@
-function importTest(name, path) {
-  describe(name, function () {
-    require(path)
-  })
-}
+global.__DEV__ = true
 
 describe('react-gsap-enhancer', function () {
   require('./target/test.js')

@@ -37,6 +37,7 @@ describe('Animation', () => {
       it('pass options to the animationSource function', () => {
         assert.strictEqual(_options, options)
       })
+      return createMockGSAPAnimation()
     })
     const animation = new Animation(animationSource, _options, _target)
     animation.attach()
@@ -51,10 +52,9 @@ describe('Animation', () => {
   })
 
   it('throws on calling invalid GSAP Animation methods', () => {
-    const animationSource = () => ({})
-    const animation = new Animation(animationSource)
+    const animation = new Animation(createMockGSAPAnimation)
     animation.attach()
-    assert.throws(() => animation.play())
+    assert.throws(() => animation.yoyo())
   })
 
   it('keeps GSAP Animation methods chainable', () => {
@@ -88,8 +88,8 @@ describe('Animation', () => {
 
   describe('replace animation source', () => {
     it('properly before attach', () => {
-      const animationSource1 = chai.spy()
-      const animationSource2 = chai.spy()
+      const animationSource1 = chai.spy(() => createMockGSAPAnimation())
+      const animationSource2 = chai.spy(() => createMockGSAPAnimation())
       const animation = new Animation(animationSource1)
       animation.replaceAnimationSource(animationSource2)
       animation.attach()

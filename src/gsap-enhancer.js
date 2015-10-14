@@ -31,16 +31,30 @@ function enhance (animationSourceMap, ComposedComponent) {
       this.__animationSourceMap = animationSourceMap
     }
 
-    addAnimation = (createGSAPAnimation, options) => {
+    addAnimation = (animationSource, options) => {
       //if the animation is in the source map the if from there
       const sourceMap = this.__animationSourceMap
-      if (sourceMap && sourceMap[createGSAPAnimation]) {
-        createGSAPAnimation = sourceMap[createGSAPAnimation]
+      if (sourceMap && sourceMap[animationSource]) {
+        animationSource = sourceMap[animationSource]
+      }
+
+      if (__DEV__) {
+        if (typeof animationSource !== 'function') {
+          let error = `[react-gsap-enhancer] animationSource (the first parameter of `
+            + `addAnimation(animationSource, options)) has to be a function instead of "${animationSource}"`
+          if (sourceMap) {
+            error += `\nYou provided a sourceMap so the animationSource also can`
+             + ` be a string key of theese: [${Object.keys(sourceMap)}]`
+          }
+          const name = Object.getPrototypeOf(Object.getPrototypeOf(this)).constructor.name
+          error += `\nCheck out the addAnimation() call in ${name}`
+          throw Error(error)
+        }
       }
 
       const target = createTarget(this.__itemTree)
       const animation = new Animation(
-        createGSAPAnimation,
+        animationSource,
         options,
         target,
         () => reattachAll(
@@ -56,6 +70,17 @@ function enhance (animationSourceMap, ComposedComponent) {
     }
 
     removeAnimation(animation) {
+      if (__DEV__) {
+        if (!(animation instanceof Animation)) {
+          const name = Object.getPrototypeOf(Object.getPrototypeOf(this)).constructor.name
+          throw Error(
+            `[react-gsap-enhancer] animation has to be an instance of Animation`
+            + ` but you gave "${animation}"`
+            + `\nCheck out the removeAnimation() call in ${name}`
+          )
+        }
+      }
+
       animation.kill()
       this.__runningAnimations.delete(animation)
       //rerender the component without the animation

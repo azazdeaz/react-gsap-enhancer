@@ -1,4 +1,8 @@
 var path = require('path')
+var webpack = require('webpack')
+var definePlugin = new webpack.DefinePlugin({
+  __DEV__: JSON.stringify(JSON.parse(process.env.NODE_ENV !== 'production')),
+})
 
 module.exports = {
   context: __dirname,
@@ -20,5 +24,6 @@ module.exports = {
   },
   externals: {
     react: 'var React'
-  }
+  },
+  plugins: [definePlugin]
 }
