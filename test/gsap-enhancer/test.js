@@ -36,6 +36,50 @@ describe('gsap-enhancer', () => {
     assert.isFunction(enhancedComponent.removeAnimation)
   })
 
+  describe('adds and removes animation with', () => {
+    class BaseComponent extends Component {
+      render() {}
+    }
+    const GSAPComponent = GSAP(BaseComponent)
+    const enhancedComponent = new GSAPComponent()
+    const animation = enhancedComponent.addAnimation(() => {})
+    it('addAnimation()', () => {
+      assert.isObject(animation)
+    })
+    it('removeAnimation()', () => {
+      enhancedComponent.removeAnimation(animation)
+    })
+  })
+
+  describe('replaces strings animationSources from the animationSourceMap', () => {
+    class BaseComponent extends Component {
+      render() {}
+    }
+    const animationSource = () => {}
+    const GSAPComponent = GSAP({animName: animationSource})(BaseComponent)
+    const enhancedComponent = new GSAPComponent()
+    const animation = enhancedComponent.addAnimation('animName')
+    assert.isObject(animation)
+  })
+
+  it('throws for calling addAnimation with invalid animation source', () => {
+    class BaseComponent extends Component {
+      render() {}
+    }
+    const GSAPComponent = GSAP({animName(){}})(BaseComponent)
+    const enhancedComponent = new GSAPComponent()
+    assert.throws(() => enhancedComponent.addAnimation(), 'animName')
+  })
+
+  it('throws for calling removeAnimation with non Animation instance', () => {
+    class BaseComponent extends Component {
+      render() {}
+    }
+    const GSAPComponent = GSAP({animName(){}})(BaseComponent)
+    const enhancedComponent = new GSAPComponent()
+    assert.throws(() => enhancedComponent.removeAnimation('wrong value'), 'wrong value')
+  })
+
   it('calls the overridden lifecycle methods of the enhanced component', () => {
     const willMount = chai.spy()
     const didMount = chai.spy()
@@ -44,12 +88,12 @@ describe('gsap-enhancer', () => {
     const render = chai.spy()
 
     class BaseComponent extends Component {
-      componentWillMount() {willMount()}
-      componentDidMount() {didMount()}
-      componentWillUpdate() {willUpdate()}
-      componentDidUpdate() {didUpdate()}
-      render() {
-        render()
+      componentWillMount(...args) {willMount(...args)}
+      componentDidMount(...args) {didMount(...args)}
+      componentWillUpdate(...args) {willUpdate(...args)}
+      componentDidUpdate(...args) {didUpdate(...args)}
+      render(...args) {
+        render(...args)
         return <div/>
       }
     }
@@ -57,16 +101,16 @@ describe('gsap-enhancer', () => {
     const GSAPComponent = GSAP(BaseComponent)
     const enhancedComponent = new GSAPComponent()
 
-    enhancedComponent.componentWillMount()
-    enhancedComponent.componentDidMount()
-    enhancedComponent.componentWillUpdate()
-    enhancedComponent.componentDidUpdate()
-    enhancedComponent.render()
+    enhancedComponent.componentWillMount('foo')
+    enhancedComponent.componentDidMount('bar')
+    enhancedComponent.componentWillUpdate('qux')
+    enhancedComponent.componentDidUpdate('baz')
+    enhancedComponent.render('taz')
 
-    willMount.should.have.been.called.once()
-    didMount.should.have.been.called.once()
-    willUpdate.should.have.been.called.once()
-    didUpdate.should.have.been.called.once()
-    render.should.have.been.called.once()
+    willMount.should.have.been.called.once.with('foo')
+    didMount.should.have.been.called.once.with('bar')
+    willUpdate.should.have.been.called.once.with('qux')
+    didUpdate.should.have.been.called.once.with('baz')
+    render.should.have.been.called.once.with('taz')
   })
 })

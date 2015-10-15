@@ -8,9 +8,13 @@ var Animation = require('../../src/Animation')
 
 function createMockGSAPAnimation() {
   var mock = {}
+  var paused = false
   mock.time = chai.spy((v) => v === undefined ? 0 : mock)
-  mock.pause = chai.spy(() => mock)
-  mock.paused = chai.spy(() => false)
+  mock.pause = chai.spy(() => {
+    paused = true
+    return mock
+  })
+  mock.paused = chai.spy(() => paused)
   mock.invalidate = chai.spy(() => mock)
   mock.restart = chai.spy(() => mock)
   mock.kill = chai.spy(() => mock)
@@ -43,6 +47,10 @@ describe('Animation', () => {
     animation.attach()
     it('calls the animation source', () => {
       animationSource.should.have.been.called.once()
+    })
+
+    it('throws for invalid animationSource', () => {
+      assert.throws(() => new Animation(() => {}).attach())
     })
   })
 
@@ -84,6 +92,17 @@ describe('Animation', () => {
     animation.attach()
     animation.attach()
     animationSource.should.have.been.called.once()
+  })
+
+  it('calls pause for paused GSAP Animations on reattach', () => {
+    const gsapAnimation = createMockGSAPAnimation()
+    const animationSource = chai.spy(() => gsapAnimation)
+    const animation = new Animation(animationSource)
+    animation.attach()
+    animation.pause()
+    gsapAnimation.pause.should.have.been.called.once()
+    animation.attach()
+    gsapAnimation.pause.should.have.been.called.twice()
   })
 
   describe('replace animation source', () => {
