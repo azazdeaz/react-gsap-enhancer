@@ -1,5 +1,3 @@
-global.__DEV__ = true
-
 describe('react-gsap-enhancer', function () {
   require('./target/test.js')
   require('./attachRefs/test.js')
