@@ -57,7 +57,7 @@ var ReactGSAPEnhancer =
 
 	exports['default'] = _interopRequire(_gsapEnhancer);
 
-	var _createTarget = __webpack_require__(5);
+	var _createTarget = __webpack_require__(6);
 
 	exports.createTarget = _interopRequire(_createTarget);
 
@@ -65,7 +65,7 @@ var ReactGSAPEnhancer =
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
@@ -81,19 +81,19 @@ var ReactGSAPEnhancer =
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _attachRefs = __webpack_require__(2);
+	var _attachRefs = __webpack_require__(3);
 
 	var _attachRefs2 = _interopRequireDefault(_attachRefs);
 
-	var _Animation = __webpack_require__(4);
+	var _Animation = __webpack_require__(5);
 
 	var _Animation2 = _interopRequireDefault(_Animation);
 
-	var _createTarget = __webpack_require__(5);
+	var _createTarget = __webpack_require__(6);
 
 	var _createTarget2 = _interopRequireDefault(_createTarget);
 
-	var _utils = __webpack_require__(6);
+	var _utils = __webpack_require__(7);
 
 	exports['default'] = function (animationSourceMap) {
 	  if (animationSourceMap && animationSourceMap.prototype && animationSourceMap.prototype.render) {
@@ -115,15 +115,27 @@ var ReactGSAPEnhancer =
 
 	      _get(Object.getPrototypeOf(GSAPEnhancer.prototype), 'constructor', this).call(this, props);
 
-	      this.addAnimation = function (createGSAPAnimation, options) {
+	      this.addAnimation = function (animationSource, options) {
 	        //if the animation is in the source map the if from there
 	        var sourceMap = _this.__animationSourceMap;
-	        if (sourceMap && sourceMap[createGSAPAnimation]) {
-	          createGSAPAnimation = sourceMap[createGSAPAnimation];
+	        if (sourceMap && sourceMap[animationSource]) {
+	          animationSource = sourceMap[animationSource];
+	        }
+
+	        if ('production' !== process.env.NODE_ENV) {
+	          if (typeof animationSource !== 'function') {
+	            var error = '[react-gsap-enhancer] animationSource (the first parameter of ' + ('addAnimation(animationSource, options)) has to be a function instead of "' + animationSource + '"');
+	            if (sourceMap) {
+	              error += '\nYou provided a sourceMap so the animationSource also can' + (' be a string key of theese: [' + Object.keys(sourceMap) + ']');
+	            }
+	            var _name = Object.getPrototypeOf(Object.getPrototypeOf(_this)).constructor.name;
+	            error += '\nCheck out the addAnimation() call in ' + _name;
+	            throw Error(error);
+	          }
 	        }
 
 	        var target = (0, _createTarget2['default'])(_this.__itemTree);
-	        var animation = new _Animation2['default'](createGSAPAnimation, options, target, function () {
+	        var animation = new _Animation2['default'](animationSource, options, target, function () {
 	          return (0, _utils.reattachAll)(_this.__itemTree, _this.__runningAnimations);
 	        });
 	        _this.__runningAnimations.add(animation);
@@ -172,6 +184,13 @@ var ReactGSAPEnhancer =
 	    _createClass(GSAPEnhancer, [{
 	      key: 'removeAnimation',
 	      value: function removeAnimation(animation) {
+	        if ('production' !== process.env.NODE_ENV) {
+	          if (!(animation instanceof _Animation2['default'])) {
+	            var _name2 = Object.getPrototypeOf(Object.getPrototypeOf(this)).constructor.name;
+	            throw Error('[react-gsap-enhancer] animation has to be an instance of Animation' + (' but you gave "' + animation + '"') + ('\nCheck out the removeAnimation() call in ' + _name2));
+	          }
+	        }
+
 	        animation.kill();
 	        this.__runningAnimations['delete'](animation);
 	        //rerender the component without the animation
@@ -234,9 +253,107 @@ var ReactGSAPEnhancer =
 	  return GSAPEnhancer;
 	}
 	module.exports = exports['default'];
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 2 */
+/***/ function(module, exports) {
+
+	// shim for using process in browser
+
+	var process = module.exports = {};
+	var queue = [];
+	var draining = false;
+	var currentQueue;
+	var queueIndex = -1;
+
+	function cleanUpNextTick() {
+	    draining = false;
+	    if (currentQueue.length) {
+	        queue = currentQueue.concat(queue);
+	    } else {
+	        queueIndex = -1;
+	    }
+	    if (queue.length) {
+	        drainQueue();
+	    }
+	}
+
+	function drainQueue() {
+	    if (draining) {
+	        return;
+	    }
+	    var timeout = setTimeout(cleanUpNextTick);
+	    draining = true;
+
+	    var len = queue.length;
+	    while(len) {
+	        currentQueue = queue;
+	        queue = [];
+	        while (++queueIndex < len) {
+	            if (currentQueue) {
+	                currentQueue[queueIndex].run();
+	            }
+	        }
+	        queueIndex = -1;
+	        len = queue.length;
+	    }
+	    currentQueue = null;
+	    draining = false;
+	    clearTimeout(timeout);
+	}
+
+	process.nextTick = function (fun) {
+	    var args = new Array(arguments.length - 1);
+	    if (arguments.length > 1) {
+	        for (var i = 1; i < arguments.length; i++) {
+	            args[i - 1] = arguments[i];
+	        }
+	    }
+	    queue.push(new Item(fun, args));
+	    if (queue.length === 1 && !draining) {
+	        setTimeout(drainQueue, 0);
+	    }
+	};
+
+	// v8 likes predictible objects
+	function Item(fun, array) {
+	    this.fun = fun;
+	    this.array = array;
+	}
+	Item.prototype.run = function () {
+	    this.fun.apply(null, this.array);
+	};
+	process.title = 'browser';
+	process.browser = true;
+	process.env = {};
+	process.argv = [];
+	process.version = ''; // empty string to avoid regexp issues
+	process.versions = {};
+
+	function noop() {}
+
+	process.on = noop;
+	process.addListener = noop;
+	process.once = noop;
+	process.off = noop;
+	process.removeListener = noop;
+	process.removeAllListeners = noop;
+	process.emit = noop;
+
+	process.binding = function (name) {
+	    throw new Error('process.binding is not supported');
+	};
+
+	process.cwd = function () { return '/' };
+	process.chdir = function (dir) {
+	    throw new Error('process.chdir is not supported');
+	};
+	process.umask = function() { return 0; };
+
+
+/***/ },
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -248,7 +365,7 @@ var ReactGSAPEnhancer =
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _react = __webpack_require__(3);
+	var _react = __webpack_require__(4);
 
 	var _react2 = _interopRequireDefault(_react);
 
@@ -277,7 +394,7 @@ var ReactGSAPEnhancer =
 	  if (!item.ref) {
 	    item.ref = function (component) {
 	      var node = _react2['default'].findDOMNode(component);
-	      item.component = component;
+	      item.props = element.props;
 	      item.node = node;
 
 	      if (typeof previousRef === 'function') {
@@ -312,16 +429,16 @@ var ReactGSAPEnhancer =
 	module.exports = exports['default'];
 
 /***/ },
-/* 3 */
+/* 4 */
 /***/ function(module, exports) {
 
 	module.exports = React;
 
 /***/ },
-/* 4 */
-/***/ function(module, exports) {
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
@@ -375,6 +492,12 @@ var ReactGSAPEnhancer =
 	          target: this._target,
 	          options: this._options
 	        });
+
+	        if ('production' !== process.env.NODE_ENV) {
+	          if (!this._gsapAnimation || typeof this._gsapAnimation.play !== 'function') {
+	            throw Error('[react-gsap-enhancer] The return value of the animation ' + 'source doesn\'t seems to be a GSAP Animation' + ('\nCheck out this animation source: \n' + this._animationSource) + ('\nbecause it returned this value: ' + this._gsapAnimation));
+	          }
+	        }
 	      }
 
 	      this._commandsWaitingForAttach.splice(0).forEach(function (_ref) {
@@ -400,24 +523,27 @@ var ReactGSAPEnhancer =
 	        args[_key] = arguments[_key];
 	      }
 
+	      var result = undefined;
+
 	      if (!this._gsapAnimation) {
 	        this._commandsWaitingForAttach.push({ fnName: fnName, args: args });
 	      } else if (typeof this._gsapAnimation[fnName] === 'function') {
 	        var _gsapAnimation;
 
-	        (_gsapAnimation = this._gsapAnimation)[fnName].apply(_gsapAnimation, args);
+	        result = (_gsapAnimation = this._gsapAnimation)[fnName].apply(_gsapAnimation, args);
 	      } else {
 	        throw Error('Animation source has no method: \'' + fnName + '\'');
 	      }
-	      return this;
+	      return result === this._gsapAnimation ? this : result;
 	    };
 	  });
 	}
 	bindAPI();
 	module.exports = exports['default'];
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -515,7 +641,7 @@ var ReactGSAPEnhancer =
 	  if (typeof selector === 'string') {
 	    selector = { key: selector };
 	  }
-	  var props = _extends({}, childItem.component.props, { key: key });
+	  var props = _extends({}, childItem.props, { key: key });
 	  return Object.keys(selector).every(function (selectorKey) {
 	    return selector[selectorKey] === props[selectorKey];
 	  });
@@ -571,7 +697,7 @@ var ReactGSAPEnhancer =
 	module.exports = exports['default'];
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports) {
 
 	"use strict";
