@@ -11,6 +11,7 @@
     "lib": "rm -rf lib && babel ./src --out-dir lib  --source-maps --source-maps",
     "lib-watch": "npm run lib && babel ./src --out-dir lib  --source-maps --source-maps --watch",
     "browser-build": "webpack --config webpack.browser.config.js",
+    "publish-browser": "npm run browser-build && gh-pages --dist browser --branch browser",
     "test": "mocha --compilers js:babel/register",
     "test-debug": "node-debug _mocha --compilers js:babel/register"
   },
@@ -18,7 +19,7 @@
     "type": "git",
     "url": "https://github.com/azazdeaz/react-gsap-enhancer.git"
   },
-  "author": "",
+  "author": "Polgár András <azazdeaz@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/azazdeaz/react-gsap-enhancer/issues"
@@ -47,6 +48,7 @@
     "eslint-plugin-mocha": "^0.5.1",
     "eslint-plugin-react": "^2.6.4",
     "file-loader": "^0.8.4",
+    "gh-pages": "^0.4.0",
     "gsap": "^1.18.0",
     "gulp": "^3.9.0",
     "gulp-gh-pages": "^0.5.2",
