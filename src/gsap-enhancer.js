@@ -44,7 +44,7 @@ function enhance (animationSourceMap, ComposedComponent) {
             + `addAnimation(animationSource, options)) has to be a function instead of "${animationSource}"`
           if (sourceMap) {
             error += `\nYou provided a sourceMap so the animationSource also can`
-             + ` be a string key of theese: [${Object.keys(sourceMap)}]`
+             + ` be a string key of these: [${Object.keys(sourceMap)}]`
           }
           const name = Object.getPrototypeOf(Object.getPrototypeOf(this)).constructor.name
           error += `\nCheck out the addAnimation() call in ${name}`
