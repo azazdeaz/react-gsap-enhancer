@@ -1,3 +1,4 @@
+import {isValidElement} from 'react'
 import attachRefs from './attachRefs'
 import Animation from './Animation'
 import createTarget from './createTarget'
@@ -104,7 +105,13 @@ function enhance (animationSourceMap, ComposedComponent) {
     }
 
     render(...args) {
-      return attachRefs(super.render(...args), this.__itemTree)
+      const element = super.render(...args)
+      if (isValidElement(element)) {
+        return attachRefs(element, this.__itemTree)
+      }
+      else {
+        return element
+      }
     }
 
     componentDidUpdate(...args) {

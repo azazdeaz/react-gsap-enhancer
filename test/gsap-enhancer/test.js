@@ -36,6 +36,17 @@ describe('gsap-enhancer', () => {
     assert.isFunction(enhancedComponent.removeAnimation)
   })
 
+  it('throws throws the React error message for invaid render() return value', () => {
+    class BaseComponent extends Component {
+      render() {}
+    }
+    const GSAPComponent = GSAP(BaseComponent)
+    assert.throws(
+      () => React.renderToString(<GSAPComponent/>),
+      'A valid ReactComponent must be returned.'
+    )
+  })
+
   describe('adds and removes animation with', () => {
     class BaseComponent extends Component {
       render() {}
