@@ -101,20 +101,46 @@ handleProgress(progress) {
 
 #####```animation```
 Wraps the GSAP Animation returned from the ```animationSource```. It provides has the same API as the wrapped animation.
+```javascript
+var animation = this.addAnimation(animationSource)
+animation.timescale(2).play()
+```
 
 #####```animationSource```
  - ```({target, options}) -> GSAP Animation```
+
 A function that returns a GSAP Animation. 
+```javascript
+function animationSource(utils) {
+  return TweenMax.to(utils.target, 1, {x: 100})
+}
+this.addAnimation(animationSource)
+```
 
 #####```target```
-jQuery like selector object that refers to the root component and lets select its children with chainable selector methods.
+jQuery like object that refers to the root component and lets select its children with chainable find methods and [selectors](#selector).
  - ```target.find(selector)```: returns with the first match
  - ```target.findAll(selector)```: returns with all the matches
  - ```target.findInChildren(selector)```: returns with the first match in the direct children
  - ```target.findAllInChildren(selector)```: returns with all the matches in the direct children
+```javascript
+function animationSource(utils) {
+  var button = utils.target.find({key: button})
+  return TweenMax.to(utils.target, 1, {x: 100})
+}
+```
 
 #####```options```
-Arbitrary object
+Arbitrary object. Passed to the [addAnimation](#methods-added-to-the-component) call as the second argument and and will be passed to the [animationSource](#animationsource)
+```javascript
+this.addAnimation(animationSource, {offset: this.props.offset})
+
+...
+
+function animationSource(utils) {
+  return TweenMax.to(utils.target, 1, {x: utils.options.offset})
+}
+```
 
 #####```selector```
 Selectors are usually simple objects and the "find" functions are using it to select the elements with matching props. Ie. ```{key: 'head'}```, ```{color: 'red'}```, and ```{key: 'head', color:  'red}``` are all matches to ```<div key='head' color='red'/>```. Strings are considered to keys so ```target.find('head')``` is the same as ```target.find({key: 'head'})```.
