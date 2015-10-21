@@ -103,7 +103,7 @@ handleProgress(progress) {
 Wraps the GSAP Animation returned from the ```animationSource```. It provides has the same API as the wrapped animation.
 ```javascript
 var animation = this.addAnimation(animationSource)
-animation.timescale(2).play()
+animation.timeScale(2).play()
 ```
 
 #####```animationSource```
