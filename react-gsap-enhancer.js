@@ -81,7 +81,9 @@ var ReactGSAPEnhancer =
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _attachRefs = __webpack_require__(3);
+	var _react = __webpack_require__(3);
+
+	var _attachRefs = __webpack_require__(4);
 
 	var _attachRefs2 = _interopRequireDefault(_attachRefs);
 
@@ -126,7 +128,7 @@ var ReactGSAPEnhancer =
 	          if (typeof animationSource !== 'function') {
 	            var error = '[react-gsap-enhancer] animationSource (the first parameter of ' + ('addAnimation(animationSource, options)) has to be a function instead of "' + animationSource + '"');
 	            if (sourceMap) {
-	              error += '\nYou provided a sourceMap so the animationSource also can' + (' be a string key of theese: [' + Object.keys(sourceMap) + ']');
+	              error += '\nYou provided a sourceMap so the animationSource also can' + (' be a string key of these: [' + Object.keys(sourceMap) + ']');
 	            }
 	            var _name = Object.getPrototypeOf(Object.getPrototypeOf(_this)).constructor.name;
 	            error += '\nCheck out the addAnimation() call in ' + _name;
@@ -229,7 +231,12 @@ var ReactGSAPEnhancer =
 	          args[_key3] = arguments[_key3];
 	        }
 
-	        return (0, _attachRefs2['default'])(_get(Object.getPrototypeOf(GSAPEnhancer.prototype), 'render', this).apply(this, args), this.__itemTree);
+	        var element = _get(Object.getPrototypeOf(GSAPEnhancer.prototype), 'render', this).apply(this, args);
+	        if ((0, _react.isValidElement)(element)) {
+	          return (0, _attachRefs2['default'])(element, this.__itemTree);
+	        } else {
+	          return element;
+	        }
 	      }
 	    }, {
 	      key: 'componentDidUpdate',
@@ -354,6 +361,12 @@ var ReactGSAPEnhancer =
 
 /***/ },
 /* 3 */
+/***/ function(module, exports) {
+
+	module.exports = React;
+
+/***/ },
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -365,7 +378,7 @@ var ReactGSAPEnhancer =
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _react = __webpack_require__(4);
+	var _react = __webpack_require__(3);
 
 	var _react2 = _interopRequireDefault(_react);
 
@@ -386,9 +399,8 @@ var ReactGSAPEnhancer =
 	  if (itemMap.has(key)) {
 	    item = itemMap.get(key);
 	  } else {
-	    item = itemMap.set(key, {
-	      children: new Map()
-	    }).get(key);
+	    item = { children: new Map() };
+	    itemMap.set(key, item);
 	  }
 
 	  if (!item.ref) {
@@ -427,12 +439,6 @@ var ReactGSAPEnhancer =
 	}
 
 	module.exports = exports['default'];
-
-/***/ },
-/* 4 */
-/***/ function(module, exports) {
-
-	module.exports = React;
 
 /***/ },
 /* 5 */
