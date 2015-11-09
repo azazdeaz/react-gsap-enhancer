@@ -20,9 +20,8 @@ See also: https://github.com/azazdeaz/react-gsap-enhancer/issues/3`)
     item = itemMap.get(key)
   }
   else {
-    item = itemMap.set(key, {
-      children: new Map(),
-    }).get(key)
+    item = {children: new Map()}
+    itemMap.set(key, item)
   }
 
   if (!item.ref) {
