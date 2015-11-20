@@ -17,7 +17,7 @@ A [React] component enhancer for applying [GSAP] animations on components withou
  - CodePen
   - [Material Login Dialog](http://codepen.io/azazdeaz/pen/yYavVK?editors=001)
 
-###Why? 
+###Why?
 We have great tools (like [react-motion], or [Animated]) to animate the state and props of our React components but if you ever needed to create a longer animation sequence with React you can still feel the desire to reach out for a tool like [GSAP] which makes it easy to compose your animation and apply it on the DOM with its super performance and bulit in polyfills. Unfortunately, if you let anything to mutate the DOM of a component, React can break on the next update because is suppose that the DOM looks exacly the same like after the last update. This tool is a work around for this problem.
 
 ###How it works?
@@ -25,7 +25,7 @@ It's pretty simple: in every render cycle:
  - after each render save the attributes of the rendered DOM elements than start/restart the added animations.
  - before each render stop the animations and restore the saved attributes (so React will find the DOM as it was after the update)
 
->In this way you can even update a style of an element (like ```transform: 'translateX(${mouse.x})'```) while you animating the same style relative to its original value (like: ```.to(node, 1, {x: '+=300', yoyo: true}```) 
+>In this way you can even update a style of an element (like ```transform: 'translateX(${mouse.x})'```) while you animating the same style relative to its original value (like: ```.to(node, 1, {x: '+=300', yoyo: true}```)
 
 >[Check it out!](http://azazdeaz.github.io/react-gsap-enhancer/#/demo/update-and-animate-transform)
 
@@ -77,10 +77,10 @@ and later in a component you can use it like:
 ```javascript
 ...
 handleClick() {
-  var animation = this.addAnimation(moveAnimation)
+  var controller = this.addAnimation(moveAnimation)
 ...
 ```
-the ```addAnimation()``` returns an object that has the same API like the original GSAP Animation so you are free to control it like:
+the ```addAnimation()``` returns a [controller object](#controller) that has the same API like the original GSAP Animation so you are free to control it like:
 ```javascript
 ...
 handleStartLoad() {
@@ -95,21 +95,77 @@ handleProgress(progress) {
 
 ###API
 
-#####methods added to the component
- - ```addAnimation(animationSource[, options]) -> animation```: Creates an animation with the given source, adds it to the component, and also returns it. The options will be passed to the animationSource.
- - ```removeAnimation(animation)```:  Removes the given animation and all the changes it caused on the component.
+#####addAnimation()
+ - ```enhancedCompoent.addAnimation(animationSource[, options]) -> controller```: Add an animation to the component with the given source and returns a Controller for it. The options will be passed to the animationSource.
 
-#####```animation```
-Wraps the GSAP Animation returned from the ```animationSource```. It provides has the same API as the wrapped animation.
+#####```controller```
+Wraps the GSAP Animation returned from the ```animationSource```. It's exposing the following GSAP API methods:  
+*For TweenMax and TweenLite:*  
+> [delay](http://greensock.com/docs/#/HTML5/GSAP/TweenMax/delay/)\*,
+[duration](http://greensock.com/docs/#/HTML5/GSAP/TweenMax/duration/)\*,
+[eventCallback](http://greensock.com/docs/#/HTML5/GSAP/TweenMax/eventCallback/),
+[invalidate](http://greensock.com/docs/#/HTML5/GSAP/TweenMax/invalidate/),
+[isActive](http://greensock.com/docs/#/HTML5/GSAP/TweenMax/isActive/),
+[pause](http://greensock.com/docs/#/HTML5/GSAP/TweenMax/pause/),
+[paused](http://greensock.com/docs/#/HTML5/GSAP/TweenMax/paused/),
+[play](http://greensock.com/docs/#/HTML5/GSAP/TweenMax/play/),
+[progress](http://greensock.com/docs/#/HTML5/GSAP/TweenMax/progress/),
+[restart](http://greensock.com/docs/#/HTML5/GSAP/TweenMax/restart/),
+[resume](http://greensock.com/docs/#/HTML5/GSAP/TweenMax/resume/),
+[reverse](http://greensock.com/docs/#/HTML5/GSAP/TweenMax/reverse/),
+[reversed](http://greensock.com/docs/#/HTML5/GSAP/TweenMax/reversed/),
+[seek](http://greensock.com/docs/#/HTML5/GSAP/TweenMax/seek/),
+[startTime](http://greensock.com/docs/#/HTML5/GSAP/TweenMax/startTime/)\*,
+[time](http://greensock.com/docs/#/HTML5/GSAP/TweenMax/time/),
+[timeScale](http://greensock.com/docs/#/HTML5/GSAP/TweenMax/timeScale/),
+[totalDuration](http://greensock.com/docs/#/HTML5/GSAP/TweenMax/totalDuration/)\*,
+[totalProgress](http://greensock.com/docs/#/HTML5/GSAP/TweenMax/totalProgress/)\*,
+[totalTime](http://greensock.com/docs/#/HTML5/GSAP/TweenMax/totalTime/)\*,
+
+*For TimelineMax and TimelineLite:*  
+> [currentLabel](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/currentLabel/),
+[duration](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/duration/)\*,
+[endTime](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/endTime/)\*,
+[eventCallback](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/eventCallback/),
+[from](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/from/),
+[fromTo](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/fromTo/),
+[getLabelAfter](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/getLabelAfter/),
+[getLabelBefore](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/getLabelBefore/),
+[getLabelArray](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/getLabelArray/),
+[getLabelTime](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/getLabelTime/),
+[invalidate](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/invalidate/),
+[isActive](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/isActive/),
+[pause](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/pause/),
+[paused](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/paused/),
+[play](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/play/),
+[progress](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/progress/),
+[restart](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/restart/),
+[resume](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/resume/),
+[reverse](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/reverse/),
+[reversed](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/reversed/),
+[seek](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/seek/),
+[startTime](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/startTime/)\*,
+[time](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/time/),
+[timeScale](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/timeScale/),
+[totalDuration](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/totalDuration/)\*,
+[totalProgress](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/totalProgress/)\*,
+[totalTime](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/totalTime/)\*,
+
+**Notes:**
+  - Some of the methods above doesn't available for TweenLite and TimelineLite. Please check the GSAP docs for more detailes.
+  - controller.kill() will also remove all the effects the animation made on your component.
+
+***\**** Trough the controller you can only get values with these methods.
+
 ```javascript
-var animation = this.addAnimation(animationSource)
-animation.timeScale(2).play()
+var controller = this.addAnimation(animationSource)
+controller.timeScale(2).play()
 ```
 
 #####```animationSource```
  - ```({target, options}) -> GSAP Animation```
 
-A function that returns a GSAP Animation. 
+A function that returns a GSAP Animation.
 ```javascript
 function animationSource(utils) {
   return TweenMax.to(utils.target, 1, {x: 100})
@@ -151,3 +207,33 @@ I'm looking forward for your feedback!
 [Animated]: https://facebook.github.io/react-native/docs/animations.html#animated
 [GSAP]: http://greensock.com/
 [React]: https://github.com/facebook/react
+
+
+
+[tl-currentLabel]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/currentLabel/
+[tl-duration]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/duration/ --get
+[tl-endTime]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/endTime/ --get
+[tl-eventCallback]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/eventCallback/
+[tl-from]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/from/
+[tl-fromTo]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/fromTo/
+[tl-getLabelAfter]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/getLabelAfter/
+[tl-getLabelBefore]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/getLabelBefore/
+[tl-getLabelArray]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/getLabelArray/
+[tl-getLabelTime]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/getLabelTime/
+[tl-invalidate]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/invalidate/
+[tl-isActive]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/isActive/
+[tl-pause]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/pause/
+[tl-paused]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/paused/
+[tl-play]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/play/
+[tl-progress]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/progress/
+[tl-restart]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/restart/
+[tl-resume]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/resume/
+[tl-reverse]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/reverse/
+[tl-reversed]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/reversed/
+[tl-seek]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/seek/
+[tl-startTime]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/startTime/ --get
+[tl-time]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/time/
+[tl-timeScale]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/timeScale/
+[tl-totalDuration]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/totalDuration/ --get
+[tl-totalProgress]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/totalProgress/ --get
+[tl-totalTime]: http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/totalTime/ --get

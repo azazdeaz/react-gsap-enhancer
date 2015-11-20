@@ -33,7 +33,6 @@ describe('gsap-enhancer', () => {
     const GSAPComponent = GSAP(BaseComponent)
     const enhancedComponent = new GSAPComponent()
     assert.isFunction(enhancedComponent.addAnimation)
-    assert.isFunction(enhancedComponent.removeAnimation)
   })
 
   it('throws throws the React error message for invaid render() return value', () => {
@@ -53,12 +52,15 @@ describe('gsap-enhancer', () => {
     }
     const GSAPComponent = GSAP(BaseComponent)
     const enhancedComponent = new GSAPComponent()
-    const animation = enhancedComponent.addAnimation(() => {})
+    const controller = enhancedComponent.addAnimation(() => {})
     it('addAnimation()', () => {
-      assert.isObject(animation)
+      assert.isObject(controller)
     })
-    it('removeAnimation()', () => {
-      enhancedComponent.removeAnimation(animation)
+    it('controller.kill()', () => {
+      controller.kill()
+    })
+    it('removeAnimation(controller) (!deprecated)', () => {
+      enhancedComponent.removeAnimation(controller)
     })
   })
 
@@ -80,15 +82,6 @@ describe('gsap-enhancer', () => {
     const GSAPComponent = GSAP({animName(){}})(BaseComponent)
     const enhancedComponent = new GSAPComponent()
     assert.throws(() => enhancedComponent.addAnimation(), 'animName')
-  })
-
-  it('throws for calling removeAnimation with non Animation instance', () => {
-    class BaseComponent extends Component {
-      render() {}
-    }
-    const GSAPComponent = GSAP({animName(){}})(BaseComponent)
-    const enhancedComponent = new GSAPComponent()
-    assert.throws(() => enhancedComponent.removeAnimation('wrong value'), 'wrong value')
   })
 
   it('calls the overridden lifecycle methods of the enhanced component', () => {

@@ -4,7 +4,14 @@ var spies = require('chai-spies')
 chai.use(spies)
 chai.should()
 
-var Animation = require('../../src/Animation')
+var Controller = require('../../src/Controller')
+
+function wrapWarn() {
+  const ori = console.warn
+  const spy = chai.spy()
+  console.warn = spy
+  return [spy, () => console.warn = ori]
+}
 
 function createMockGSAPAnimation() {
   var mock = {}
@@ -22,13 +29,13 @@ function createMockGSAPAnimation() {
   return mock
 }
 
-describe('Animation', () => {
+describe('Controller', () => {
   it('is a function', () => {
-    assert.isFunction(Animation)
+    assert.isFunction(Controller)
   })
 
   it('is instantiable', () => {
-    assert.isObject(new Animation())
+    assert.isObject(new Controller())
   })
 
   describe('on attach', () => {
@@ -43,65 +50,74 @@ describe('Animation', () => {
       })
       return createMockGSAPAnimation()
     })
-    const animation = new Animation(animationSource, _options, _target)
-    animation.attach()
-    it('calls the animation source', () => {
+    const controller = new Controller(animationSource, _options, _target)
+    controller.attach()
+    it('calls the controller source', () => {
       animationSource.should.have.been.called.once()
     })
 
     it('throws for invalid animationSource', () => {
-      assert.throws(() => new Animation(() => {}).attach())
+      assert.throws(() => new Controller(() => {}).attach())
     })
   })
 
-  it('implements GSAP Animation methods', () => {
-    const animation = new Animation()
-    assert.isFunction(animation.play)
+  it('implements GSAP Controller methods', () => {
+    const controller = new Controller()
+    assert.isFunction(controller.play)
   })
 
-  it('throws on calling invalid GSAP Animation methods', () => {
-    const animation = new Animation(createMockGSAPAnimation)
-    animation.attach()
-    assert.throws(() => animation.yoyo())
+  it('throws on calling invalid controller methods', () => {
+    const controller = new Controller(createMockGSAPAnimation)
+    controller.attach()
+    assert.throws(() => controller.yoyo())
   })
 
-  it('keeps GSAP Animation methods chainable', () => {
-    const animation = new Animation(createMockGSAPAnimation)
-    animation.attach()
-    assert.strictEqual(animation.play(), animation)
+  it('warns on calling only getter controller methods with arguments', () => {
+    const [warn, redoWarn] = wrapWarn()
+    const controller = new Controller(createMockGSAPAnimation)
+    controller.attach()
+    controller.delay(6)
+    warn.should.have.been.called.once()
+    redoWarn()
   })
 
-  it('returns value for non chainable GSAP Animation methods', () => {
-    const animation = new Animation(createMockGSAPAnimation)
-    animation.attach()
-    assert.isBoolean(animation.paused())
+  it('keeps GSAP Controller methods chainable', () => {
+    const controller = new Controller(createMockGSAPAnimation)
+    controller.attach()
+    assert.strictEqual(controller.play(), controller)
+  })
+
+  it('returns value for non chainable GSAP Controller methods', () => {
+    const controller = new Controller(createMockGSAPAnimation)
+    controller.attach()
+    assert.isBoolean(controller.paused())
   })
 
   it('delays GSAP command calls until attach gets called', () => {
     const play = chai.spy()
-    const animation = new Animation(() => ({play}))
-    animation.play()
+    const controller = new Controller(() => ({play}))
+    controller.play()
     play.should.have.been.called.exactly(0)
-    animation.attach()
+    controller.attach()
     play.should.have.been.called.once()
   })
 
   it('doesn\'t recall animationSource on repeaced attach', () => {
     const animationSource = chai.spy(() => createMockGSAPAnimation())
-    const animation = new Animation(animationSource)
-    animation.attach()
-    animation.attach()
+    const controller = new Controller(animationSource)
+    controller.attach()
+    controller.attach()
     animationSource.should.have.been.called.once()
   })
 
   it('calls pause for paused GSAP Animations on reattach', () => {
     const gsapAnimation = createMockGSAPAnimation()
     const animationSource = chai.spy(() => gsapAnimation)
-    const animation = new Animation(animationSource)
-    animation.attach()
-    animation.pause()
+    const controller = new Controller(animationSource)
+    controller.attach()
+    controller.pause()
     gsapAnimation.pause.should.have.been.called.once()
-    animation.attach()
+    controller.attach()
     gsapAnimation.pause.should.have.been.called.twice()
   })
 
@@ -109,9 +125,9 @@ describe('Animation', () => {
     it('properly before attach', () => {
       const animationSource1 = chai.spy(() => createMockGSAPAnimation())
       const animationSource2 = chai.spy(() => createMockGSAPAnimation())
-      const animation = new Animation(animationSource1)
-      animation.replaceAnimationSource(animationSource2)
-      animation.attach()
+      const controller = new Controller(animationSource1)
+      controller.replaceAnimationSource(animationSource2)
+      controller.attach()
       animationSource1.should.have.been.called.exactly(0)
       animationSource2.should.have.been.called.once()
     })
@@ -119,10 +135,10 @@ describe('Animation', () => {
     it('properly after attach', () => {
       const animationSource1 = chai.spy(() => createMockGSAPAnimation())
       const animationSource2 = chai.spy(() => createMockGSAPAnimation())
-      const animation = new Animation(animationSource1, null, null, () => {})
-      animation.attach()
-      animation.replaceAnimationSource(animationSource2)
-      animation.attach()
+      const controller = new Controller(animationSource1, null, null, () => {})
+      controller.attach()
+      controller.replaceAnimationSource(animationSource2)
+      controller.attach()
       animationSource1.should.have.been.called.once()
       animationSource2.should.have.been.called.once()
     })
@@ -131,9 +147,9 @@ describe('Animation', () => {
       const animationSource1 = () => createMockGSAPAnimation()
       const animationSource2 = () => createMockGSAPAnimation()
       const onNeedReattachAllAninmations = chai.spy()
-      const animation = new Animation(animationSource1, null, null, onNeedReattachAllAninmations)
-      animation.attach()
-      animation.replaceAnimationSource(animationSource2)
+      const controller = new Controller(animationSource1, null, null, onNeedReattachAllAninmations)
+      controller.attach()
+      controller.replaceAnimationSource(animationSource2)
       onNeedReattachAllAninmations.should.have.been.called.once()
     })
   })

@@ -1,6 +1,6 @@
 import {isValidElement} from 'react'
 import attachRefs from './attachRefs'
-import Animation from './Animation'
+import Controller from './Controller'
 import createTarget from './createTarget'
 import {
   reattachAll,
@@ -54,7 +54,7 @@ function enhance (animationSourceMap, ComposedComponent) {
       }
 
       const target = createTarget(this.__itemTree)
-      const animation = new Animation(
+      const controller = new Controller(
         animationSource,
         options,
         target,
@@ -62,30 +62,27 @@ function enhance (animationSourceMap, ComposedComponent) {
           this.__itemTree,
           this.__runningAnimations
         ),
+        () => {
+          this.__runningAnimations.delete(controller)
+          //rerender the component without the animation
+          this.forceUpdate()
+        }
       )
-      this.__runningAnimations.add(animation)
+      this.__runningAnimations.add(controller)
       //the animation will be attached on the next render so force the update
       this.forceUpdate()
 
-      return animation
+      return controller
     }
 
-    removeAnimation(animation) {
+    removeAnimation(controller) {
       if (__DEV__) {
-        if (!(animation instanceof Animation)) {
-          const name = Object.getPrototypeOf(Object.getPrototypeOf(this)).constructor.name
-          throw Error(
-            `[react-gsap-enhancer] animation has to be an instance of Animation`
-            + ` but you gave "${animation}"`
-            + `\nCheck out the removeAnimation() call in ${name}`
-          )
-        }
+        console.warn(
+          '[react-gsap-enhancer] component.removeAnimation(component)'
+          + 'is deprecated. Use just component.kill() instead!'
+        )
       }
-
-      animation.kill()
-      this.__runningAnimations.delete(animation)
-      //rerender the component without the animation
-      this.forceUpdate()
+      controller.kill()
     }
 
     componentDidMount(...args) {
