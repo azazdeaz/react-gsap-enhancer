@@ -42,7 +42,7 @@ function radDiff(a, b) {
   return r * sign
 }
 
-class Center {
+class Center extends React.Component {
   render() {
     const {children, style, onClick} = this.props
 
@@ -65,26 +65,14 @@ export default class Demo extends React.Component {
     router: React.PropTypes.func
   }
 
-  constructor(params) {
-    super(params)
-    this.state = {
-      demoName: this.props.params.name
-    }
-  }
-
-  componentDidMount() {
-    window.onNameParamChange = name => {
-      this.setState({demoName: name})
-    }
-  }
   render() {
-    var {demoName} = this.state
+    const {name} = this.props.routeParams
 
     return <Playground
-      key = {demoName}
+      key = {name}
       noRender = {false}
       es6Console = {false}
-      codeText = {demoSources[demoName]}
+      codeText = {demoSources[name]}
       scope = {{
         React,
         GSAP,
