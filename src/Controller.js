@@ -53,7 +53,12 @@ export default class Controller {
           throw Error(`[react-gsap-enhancer] The return value of the animation `
             + `source doesn't seems to be a GSAP Animation`
             + `\nCheck out this animation source: \n${this._animationSource}`
-            + `\nbecause it returned this value: ${this._gsapAnimation}`)
+            + `\nbecause it returned this value: ${this._gsapAnimation}`
+            + `\n\n`
+            + `If you're using something like TweenMax.staggerTo() witch returns`
+            + ` an array of GSAP Animations please use Timeline (like`
+            + ` TimelineMax.staggerTo()) instead. It has the same effect`
+            + ` but returns one object.`)
         }
       }
     }
@@ -78,7 +83,7 @@ const EXPOSED_METHODS = [
   'fromTo', 'getLabelAfter', 'getLabelArray', 'getLabelBefore', 'getLabelTime',
   'invalidate', 'isActive', 'pause', 'paused', 'play', 'progress', 'restart',
   'resume', 'reverse', 'reversed', 'seek', 'startTime', 'time', 'timeScale',
-  'totalDuration', 'totalProgress', 'totalTime'
+  'totalDuration', 'totalProgress', 'totalTime', 'tweenFromTo', 'tweenTo'
 ]
 
 const ONLY_GETTER_METHODS = [
@@ -116,11 +121,15 @@ function bindAPI() {
           }
 
           result = onlyGetter
-            ? this._gsapAnimation[fnName](...args)
-            : this._gsapAnimation[fnName]()
+            ? this._gsapAnimation[fnName]()
+            : this._gsapAnimation[fnName](...args)
         }
         else {
-          throw Error(`Animation source has no method: '${fnName}'`)
+          throw Error(
+            `[react-gsap-enhancer] Animation source has no method: '${fnName}.'`
+            + `\nYou maybe tryed to use an only TweenMax method on TweenLite instance`
+            + `\nCheck GSAP docs for more detailes: http://greensock.com/docs/#/HTML5/GSAP/`
+          )
         }
         return result === this._gsapAnimation ? this : result
       }

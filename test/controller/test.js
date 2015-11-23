@@ -21,6 +21,7 @@ function createMockGSAPAnimation() {
     paused = true
     return mock
   })
+  mock.delay = chai.spy(() => 0)
   mock.paused = chai.spy(() => paused)
   mock.invalidate = chai.spy(() => mock)
   mock.restart = chai.spy(() => mock)
@@ -38,9 +39,11 @@ describe('Controller', () => {
     assert.isObject(new Controller())
   })
 
-  describe('on attach', () => {
+  describe('- attach and detach', () => {
     const _options = {}
     const _target = {}
+    const remove = chai.spy()
+    const mockGSAPAnimation = createMockGSAPAnimation()
     const animationSource = chai.spy(({target, options}) => {
       it('pass target to the animationSource function', () => {
         assert.strictEqual(_target, target)
@@ -48,12 +51,28 @@ describe('Controller', () => {
       it('pass options to the animationSource function', () => {
         assert.strictEqual(_options, options)
       })
-      return createMockGSAPAnimation()
+      return mockGSAPAnimation
     })
-    const controller = new Controller(animationSource, _options, _target)
+    const controller = new Controller(
+      animationSource,
+      _options,
+      _target,
+      null,
+      remove)
+
     controller.attach()
+    controller.kill()
     it('calls the controller source', () => {
       animationSource.should.have.been.called.once()
+    })
+
+    describe('on controller.kill()', () => {
+      describe('calls the kill method of the GSAP Animation', () => {
+        mockGSAPAnimation.kill.should.have.been.called.once()
+      })
+      describe('calls the passed remove function', () => {
+        remove.should.have.been.called.once()
+      })
     })
 
     it('throws for invalid animationSource', () => {
@@ -70,6 +89,12 @@ describe('Controller', () => {
     const controller = new Controller(createMockGSAPAnimation)
     controller.attach()
     assert.throws(() => controller.yoyo())
+  })
+
+  it('throws on calling controller method that isnt supported by the animation source', () => {
+    const controller = new Controller(createMockGSAPAnimation)
+    controller.attach()
+    assert.throws(() => controller.seek(1))
   })
 
   it('warns on calling only getter controller methods with arguments', () => {
