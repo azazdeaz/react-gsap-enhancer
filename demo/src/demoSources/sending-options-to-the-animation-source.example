@@ -13,7 +13,7 @@ function createAnim(utils) {
 
 var Demo = GSAP()(React.createClass({
   handleNavigateClick: function(e) {
-    var rootNode = React.findDOMNode(this)
+    var rootNode = ReactDOM.findDOMNode(this)
     var {top, left} = rootNode.getBoundingClientRect()
     this.addAnimation(createAnim, {
       x: e.clientX - left - 40,
@@ -52,4 +52,4 @@ var Demo = GSAP()(React.createClass({
 
 
 
-React.render(<Demo/>, mountNode)
+ReactDOM.render(<Demo/>, mountNode)

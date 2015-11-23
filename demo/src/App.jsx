@@ -4,16 +4,10 @@ import map from 'lodash/collection/map'
 import findIndex from 'lodash/array/findIndex'
 import startCase from 'lodash/string/startCase'
 
-import {AppBar, Styles, IconButton, DropDownMenu, MenuItem} from 'material-ui'
-// var theme = new Styles.ThemeManager()
-// theme.setTheme(theme.types.DARK)
-//
-// theme.setComponentThemes({
-//   appBar: {
-//     color: '#121212',
-//     // textColor: '#88ce02',
-//   }
-// })
+import {AppBar, IconButton, DropDownMenu, MenuItem} from 'material-ui'
+import RawTheme from 'material-ui/lib/styles/raw-themes/dark-raw-theme'
+import ThemeManager from 'material-ui/lib/styles/theme-manager'
+import ThemeDecorator from 'material-ui/lib/styles/theme-decorator'
 
 var menuItems = [
   { type: MenuItem.Types.SUBHEADER, text: 'Demos:' },
@@ -22,20 +16,12 @@ var menuItems = [
   })
 ]
 
+@ThemeDecorator(ThemeManager.getMuiTheme(RawTheme))
 export default class App extends React.Component {
-  // static childContextTypes = {
-  //   muiTheme: React.PropTypes.object
-  // }
 
   static contextTypes = {
     router: React.PropTypes.func
   }
-
-  // getChildContext() {
-  //   return {
-  //     muiTheme: theme.getCurrentTheme()
-  //   }
-  // }
 
   showNav = () => {
     this.refs.leftNav.toggle()

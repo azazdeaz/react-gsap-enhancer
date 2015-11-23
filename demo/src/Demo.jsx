@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import GSAP from 'react-gsap-enhancer'
 import Radium from 'radium'
 import Playground from '@azazdeaz/component-playground'
@@ -75,6 +76,7 @@ export default class Demo extends React.Component {
       codeText = {demoSources[name]}
       scope = {{
         React,
+        ReactDOM,
         GSAP,
         Radium,
         Spring,

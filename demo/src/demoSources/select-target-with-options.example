@@ -50,7 +50,7 @@ class Demo extends React.Component {
   }
 
   handleMiddleContainerRef = (component) => {
-    this.middleContainerNode = React.findDOMNode(component)
+    this.middleContainerNode = ReactDOM.findDOMNode(component)
   }
 
   render () {
@@ -100,4 +100,4 @@ class Demo extends React.Component {
   }
 }
 
-React.render(<Demo/>, mountNode)
+ReactDOM.render(<Demo/>, mountNode)

@@ -48,4 +48,4 @@ class Demo extends React.Component {
   }
 }
 
-React.render(<Demo/>, mountNode)
+ReactDOM.render(<Demo/>, mountNode)

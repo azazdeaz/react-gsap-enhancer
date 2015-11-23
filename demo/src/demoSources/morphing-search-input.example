@@ -117,7 +117,7 @@ class Demo extends React.Component {
         <div style={styles.background} onClick={this.handleOpenClick}/>
         <input
           type = 'text'
-          ref = {component => this.inputNode = React.findDOMNode(component)}
+          ref = {component => this.inputNode = ReactDOM.findDOMNode(component)}
           onFocus = {() => this.anim.tweenTo('open')}
           onBlur = {() => this.anim.tweenTo('collapse')}
           key = 'input'
@@ -130,4 +130,4 @@ class Demo extends React.Component {
   }
 }
 
-React.render(<Demo/>, mountNode)
+ReactDOM.render(<Demo/>, mountNode)

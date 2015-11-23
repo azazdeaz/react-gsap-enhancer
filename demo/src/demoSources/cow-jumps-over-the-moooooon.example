@@ -79,7 +79,7 @@ class Demo extends React.Component {
       <div key="boundingBox" style={styles.boundingBox}></div>
       <h1 key="h1" style={styles.h1}>Throw the cow to make it go over the mooooooon</h1>
       <svg key='svg' viewBox="0 0 642.1 646.6" style={styles.svg}>
-        <g key="moon" ref={component => this.deMoon = React.findDOMNode(component)}>
+        <g key="moon" ref={component => this.deMoon = ReactDOM.findDOMNode(component)}>
           <circle fill="#93959E" cx="305.5" cy="350.4" r="135.7" />
           <circle fill="#D2D3D4" cx="291.1" cy="333.7" r="105.4" />
           <circle fill="#D2D3D4" cx="346.2" cy="253.8" r="25.4" />
@@ -268,4 +268,4 @@ const styles = {
   }
 }
 
-React.render(<Demo/>, mountNode)
+ReactDOM.render(<Demo/>, mountNode)

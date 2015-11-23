@@ -3,7 +3,8 @@
 function createRevealAnim({target}) {
   var items = target.find('list').findAllInChildren()
 
-  return TweenMax.staggerFrom(items, 1, {opacity: 0, scale: .3}, .12)
+  return new TimelineMax()
+  	.staggerFrom(items, 1, {opacity: 0, scale: .3}, .12)
 }
 
 @GSAP()
@@ -37,7 +38,7 @@ class Demo extends React.Component {
     return <Center>
       <ul key='list' style={ulStyle}>
         {items.map(function (text, idx) {
-          return <li style={getLiStyle(idx)}>
+          return <li key={idx} style={getLiStyle(idx)}>
             {text}
           </li>
         })}
@@ -46,4 +47,4 @@ class Demo extends React.Component {
   }
 }
 
-React.render(<Demo/>, mountNode)
+ReactDOM.render(<Demo/>, mountNode)

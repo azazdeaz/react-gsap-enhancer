@@ -163,7 +163,7 @@ class Demo extends React.Component {
           <polygon name="star" opacity="0.5" fill="#ECB447" points="1.2,0 1.6,0.8 2.4,0.9 1.8,1.5 1.9,2.3 1.2,1.9 0.5,2.3 0.6,1.5 0,0.9 0.8,0.8 " />
           <polygon name="star" opacity="0.5" fill="#ECB447" points="1.2,0 1.6,0.8 2.4,0.9 1.8,1.5 1.9,2.3 1.2,1.9 0.5,2.3 0.6,1.5 0,0.9 0.8,0.8 " />
           <g key="starContainer"></g>
-          <g key="satellite" ref = {component => this.satelliteNode = React.findDOMNode(component)}>
+          <g key="satellite" ref = {component => this.satelliteNode = ReactDOM.findDOMNode(component)}>
             <g key="pulses" stroke="#2d2d2d">
               <path class="satellitePulse" fill="none" strokeWidth="1.5814" strokeLinejoin="round" strokeMiterlimit="10" d="M156.3,131.8
           c-2.8,2.8-7.2,2.8-10,0" />
@@ -345,4 +345,4 @@ class Demo extends React.Component {
   }
 }
 
-React.render(<Demo/>, mountNode)
+ReactDOM.render(<Demo/>, mountNode)

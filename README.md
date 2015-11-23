@@ -150,6 +150,8 @@ Wraps the GSAP Animation returned from the ```animationSource```. It's exposing 
 [totalDuration](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/totalDuration/)\*,
 [totalProgress](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/totalProgress/)\*,
 [totalTime](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/totalTime/)\*,
+[tweenFromTo](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/tweenFromTo/),
+[tweenTo](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/tweenTo/),
 
 **Notes:**
   - Some of the methods above doesn't available for TweenLite and TimelineLite. Please check the GSAP docs for more detailes.
