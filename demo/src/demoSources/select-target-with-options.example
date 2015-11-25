@@ -1,8 +1,8 @@
 //pass options to the animation source
 
 function emitAnim({target, options}) {
-  var emitter = target.find('emitter')
-  var point = target.find(options.key)
+  var emitter = target.find({name: 'emitter'})
+  var point = target.find({name: options.name})
 
   return new TimelineMax()
     .set(point, {
@@ -38,9 +38,9 @@ class Demo extends React.Component {
 
   handleEmit = (e) => {
     var {top, left} = this.middleContainerNode.getBoundingClientRect()
-    var key = `point${this.state.points.length}`
+    var name = `point${this.state.points.length}`
     var newPoint = {
-      key,
+      name,
       color: _.sample(COLORS),
       x: e.clientX - left - 40,
       y: e.clientY - top - 40,
@@ -88,10 +88,10 @@ class Demo extends React.Component {
       <span style={textStyle}>Click somewhere!</span>
       <Center>
         <div style={middleContainerStyle} ref={this.handleMiddleContainerRef}>
-          <div key='emitter' style={pointStyle}/>
+          <div name='emitter' style={pointStyle}/>
           {this.state.points.map(point => {
             return <div
-              key = {point.key}
+              name = {point.name}
               style = {{...pointStyle, backgroundColor: point.color}}/>
           })}
         </div>

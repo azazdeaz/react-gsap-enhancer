@@ -61,20 +61,20 @@ function hoverAnim({target}) {
   return new TimelineMax({paused: true})
     // .pause()
     .add('red')
-    .to(target.find('big'), duration, {
+    .to(target.find({name: 'big'}), duration, {
       rotation: '+=180',
       borderBottomColor: '#2ECC40',
       borderLeftColor: '#3D9970',
     }, 'red')
-    .to(target.find('middle'), duration, {
+    .to(target.find({name: 'middle'}), duration, {
       rotation: '-=180',
       borderRightColor: '#F8D245',
       borderTopColor: 'transparent',
     }, 'red')
-    .to(target.find('small'), duration, {rotation: '+=90'}, 'red')
-    .to(target.find('last'), duration / 4, {scaleY: 0}, 'red')
-    .set(target.find('last'), {left: 12})
-    .to(target.find('last'), duration / 4, {scaleY: 1})
+    .to(target.find({name: 'small'}), duration, {rotation: '+=90'}, 'red')
+    .to(target.find({name: 'last'}), duration / 4, {scaleY: 0}, 'red')
+    .set(target.find({name: 'last'}), {left: 12})
+    .to(target.find({name: 'last'}), duration / 4, {scaleY: 1})
     .add('green')
 }
 
@@ -85,14 +85,14 @@ class Parrot extends React.Component {
   }
   render() {
     return <Center style={{backgroundColor: '#27283B'}}>
-      <div key='parrot' style={styles.parrot}
+      <div name='parrot' style={styles.parrot}
         onMouseEnter = {() => this.hoverAnim.tweenTo('green')}
         onMouseLeave = {() => this.hoverAnim.tweenTo('red')}>
 
-        <div key='big' style={styles.big}/>
-        <div key='middle' style={styles.middle}/>
-        <div key='small' style={styles.small}/>
-        <div key='last' style={styles.last}>
+        <div name='big' style={styles.big}/>
+        <div name='middle' style={styles.middle}/>
+        <div name='small' style={styles.small}/>
+        <div name='last' style={styles.last}>
           •
         </div>
       </div>

@@ -2,6 +2,7 @@
   "globals": {
     "__WIP__": true,
     "React": true,
+    "ReactDOM": true,
     "Radium": true,
     "GSAP": true,
     "customDrag": true,

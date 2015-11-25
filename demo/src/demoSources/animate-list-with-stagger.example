@@ -1,7 +1,7 @@
 //animate selected targets with stagger
 
 function createRevealAnim({target}) {
-  var items = target.find('list').findAllInChildren()
+  var items = target.find({name: 'list'}).findAllInChildren()
 
   return new TimelineMax()
   	.staggerFrom(items, 1, {opacity: 0, scale: .3}, .12)
@@ -36,9 +36,9 @@ class Demo extends React.Component {
     var items = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight']
 
     return <Center>
-      <ul key='list' style={ulStyle}>
+      <ul name='list' style={ulStyle}>
         {items.map(function (text, idx) {
-          return <li key={idx} style={getLiStyle(idx)}>
+          return <li name={idx} style={getLiStyle(idx)}>
             {text}
           </li>
         })}

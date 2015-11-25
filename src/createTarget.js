@@ -4,8 +4,8 @@ function find(selection, selector) {
   selection.forEach(item => {
     let match
 
-    recurseChildren(item, (childItem, key) => {
-      if (!match && testSelector(key, childItem, selector)) {
+    recurseChildren(item, childItem => {
+      if (!match && testSelector(childItem, selector)) {
         match = childItem
       }
     })
@@ -21,8 +21,8 @@ function find(selection, selector) {
 function findAll(selection, selector) {
   const result = []
 
-  selection.forEach(item => recurseChildren(item, (childItem, key) => {
-    if (testSelector(key, childItem, selector)) {
+  selection.forEach(item => recurseChildren(item, childItem => {
+    if (testSelector(childItem, selector)) {
       result.push(childItem)
     }
   }))
@@ -34,8 +34,8 @@ function findInChildren(selection, selector) {
 
   selection.forEach(item => {
     let match
-    iterateChildren(item, (childItem, key) => {
-      if (!match && testSelector(key, childItem, selector)) {
+    iterateChildren(item, childItem => {
+      if (!match && testSelector(childItem, selector)) {
         match = childItem
       }
     })
@@ -51,8 +51,8 @@ function findInChildren(selection, selector) {
 function findAllInChildren(selection, selector) {
   const result = []
 
-  selection.forEach(item => iterateChildren(item, (childItem, key) => {
-    if (testSelector(key, childItem, selector)) {
+  selection.forEach(item => iterateChildren(item, childItem => {
+    if (testSelector(childItem, selector)) {
       result.push(childItem)
     }
   }))
@@ -73,27 +73,23 @@ function isMounted(item) {
   return !!item.node
 }
 
-function testSelector(key, childItem, selector = {}) {
-  if (typeof selector === 'string') {
-    selector = {key: selector}
-  }
-  const props = {...childItem.props, key}
+function testSelector(childItem, selector = {}) {
   return Object.keys(selector).every(selectorKey => {
-    return selector[selectorKey] === props[selectorKey]
+    return selector[selectorKey] === childItem.props[selectorKey]
   })
 }
 
 function iterateChildren(item, callback) {
-  item.children.forEach((childItem, key) => {
+  item.children.forEach(childItem => {
     if (isMounted(childItem)) {
-      callback(childItem, key)
+      callback(childItem)
     }
   })
 }
 
 function recurseChildren(item, callback) {
-  iterateChildren(item, (childItem, key) => {
-    callback(childItem, key)
+  iterateChildren(item, childItem => {
+    callback(childItem)
     recurseChildren(childItem, callback)
   })
 }

@@ -1,8 +1,8 @@
 //based on http://codepen.io/pixelass/pen/PqMpYL
 function createAnim({target}) {
-  var input = target.find('input')
-  var crossTB = target.find('crossTB')
-  var crossBT = target.find('crossBT')
+  var input = target.find({name: 'input'})
+  var crossTB = target.find({name: 'crossTB'})
+  var crossBT = target.find({name: 'crossBT'})
 
   return new TimelineMax()
     .set(input, {
@@ -120,11 +120,11 @@ class Demo extends React.Component {
           ref = {component => this.inputNode = ReactDOM.findDOMNode(component)}
           onFocus = {() => this.anim.tweenTo('open')}
           onBlur = {() => this.anim.tweenTo('collapse')}
-          key = 'input'
+          name = 'input'
           style = {styles.input}/>
-        <div key='crossTB' style={styles.cross}/>
-        <div key='crossBT' style={styles.cross}/>
-        <div key='close' style={styles.close} onMouseDown={this.handleSideClick}/>
+        <div name='crossTB' style={styles.cross}/>
+        <div name='crossBT' style={styles.cross}/>
+        <div name='close' style={styles.close} onMouseDown={this.handleSideClick}/>
       </div>
     </Center>
   }

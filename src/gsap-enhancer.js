@@ -107,6 +107,7 @@ function enhance (animationSourceMap, ComposedComponent) {
         return attachRefs(element, this.__itemTree)
       }
       else {
+        //let React throwing an error for invalid element
         return element
       }
     }

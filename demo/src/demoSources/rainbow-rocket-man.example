@@ -1,9 +1,9 @@
 //based on http://codepen.io/chrisgannon/pen/EjVyXN
 function createAnim({target}) {
-  var astronaut = target.find('astronaut')
-  var astronautPulses = astronaut.find('pulses').findAllInChildren()
-  var satellite = target.find('satesllite')
-  var satellitePulses = satellite.find('pulses').findAllInChildren()
+  var astronaut = target.find({name: 'astronaut'})
+  var astronautPulses = astronaut.find({name: 'pulses'}).findAllInChildren()
+  var satellite = target.find({name: 'satesllite'})
+  var satellitePulses = satellite.find({name: 'pulses'}).findAllInChildren()
   var stars = target.findAll({name: 'star'})
   var speedLines = target.findAll({name: 'speedLine'})
   var bubbles = target.findAll({name: 'bubble'})
@@ -146,7 +146,7 @@ class Demo extends React.Component {
   render () {
     return <Center style={{backgroundColor: '#1d1d1d'}}>
       <div
-          key = "container"
+          name = "container"
           onMouseMove = {this.handleMouseMove}
           style = {{
             width: 600,
@@ -154,7 +154,7 @@ class Demo extends React.Component {
             overflow: 'hidden',
             backgroundColor: '#1d1d1d'
       }}>
-        <svg key="svg" style={{overflow: 'visible'}}>
+        <svg name="svg" style={{overflow: 'visible'}}>
           <polygon name="star" opacity="0.5" fill="#ECB447" points="1.2,0 1.6,0.8 2.4,0.9 1.8,1.5 1.9,2.3 1.2,1.9 0.5,2.3 0.6,1.5 0,0.9 0.8,0.8 " />
           <polygon name="star" opacity="0.5" fill="#ECB447" points="1.2,0 1.6,0.8 2.4,0.9 1.8,1.5 1.9,2.3 1.2,1.9 0.5,2.3 0.6,1.5 0,0.9 0.8,0.8 " />
           <polygon name="star" opacity="0.5" fill="#ECB447" points="1.2,0 1.6,0.8 2.4,0.9 1.8,1.5 1.9,2.3 1.2,1.9 0.5,2.3 0.6,1.5 0,0.9 0.8,0.8 " />
@@ -162,9 +162,9 @@ class Demo extends React.Component {
           <polygon name="star" opacity="0.5" fill="#ECB447" points="1.2,0 1.6,0.8 2.4,0.9 1.8,1.5 1.9,2.3 1.2,1.9 0.5,2.3 0.6,1.5 0,0.9 0.8,0.8 " />
           <polygon name="star" opacity="0.5" fill="#ECB447" points="1.2,0 1.6,0.8 2.4,0.9 1.8,1.5 1.9,2.3 1.2,1.9 0.5,2.3 0.6,1.5 0,0.9 0.8,0.8 " />
           <polygon name="star" opacity="0.5" fill="#ECB447" points="1.2,0 1.6,0.8 2.4,0.9 1.8,1.5 1.9,2.3 1.2,1.9 0.5,2.3 0.6,1.5 0,0.9 0.8,0.8 " />
-          <g key="starContainer"></g>
-          <g key="satellite" ref = {component => this.satelliteNode = ReactDOM.findDOMNode(component)}>
-            <g key="pulses" stroke="#2d2d2d">
+          <g name="starContainer"></g>
+          <g name="satellite" ref = {component => this.satelliteNode = ReactDOM.findDOMNode(component)}>
+            <g name="pulses" stroke="#2d2d2d">
               <path class="satellitePulse" fill="none" strokeWidth="1.5814" strokeLinejoin="round" strokeMiterlimit="10" d="M156.3,131.8
           c-2.8,2.8-7.2,2.8-10,0" />
               <path class="satellitePulse" fill="none" strokeWidth="1.5814" strokeLinejoin="round" strokeMiterlimit="10" d="M158.6,134
@@ -200,9 +200,9 @@ class Demo extends React.Component {
           <rect x="315" y="263.3" clipPath="url(#rainbowClip)" fill="#7D6AAD" width="10" height="212.7" />
 
 
-          <g key="astronaut">
+          <g name="astronaut">
 
-            <g key="pulses" opacity="0.2" stroke="#ededed">
+            <g name="pulses" opacity="0.2" stroke="#ededed">
               <path class="pulse" fill="none" strokeWidth="3" strokeLinejoin="round" strokeMiterlimit="10" d="M289.9,188.7
               c5.2-5.2,13.7-5.2,18.9,0" />
               <path class="pulse" fill="none" strokeWidth="3" strokeLinejoin="round" strokeMiterlimit="10" d="M285.6,184.5
@@ -268,7 +268,7 @@ class Demo extends React.Component {
             <path fill="none" stroke="#E6E6E6" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" d="
           M323.5,240.6c2.4,3.5,2.4,7.8,0,12.7 M275.8,240.6c-2.4,3.5-2.4,7.8,0,12.7" />
 
-        <g key="jetBubbles">
+        <g name="jetBubbles">
               <g id="greyJets" fill="#2d2d2d">
                 <circle name="bubble" cx="289" cy="489" r="23" />
                 <circle name="bubble" cx="270" cy="470" r="20" />

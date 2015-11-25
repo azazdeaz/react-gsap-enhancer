@@ -38,7 +38,7 @@ class Demo extends React.Component {
       transform: `translate(${x}px, ${y}px)`
     }
 
-    return <div key='box' style={style}/>
+    return <div name='box' style={style}/>
   }
 }
 

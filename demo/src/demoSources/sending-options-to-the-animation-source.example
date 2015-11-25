@@ -1,7 +1,7 @@
 //pass options to the animation source
 //this source only using in ES5 syntax and JSX
 function createAnim(utils) {
-  var box = utils.target.find('box')
+  var box = utils.target.find({name: 'box'})
 
   return new TimelineMax()
     .to(box, 0.44, {
@@ -45,7 +45,7 @@ var Demo = GSAP()(React.createClass({
 
     return <div onClick={this.handleNavigateClick} style={containerStyle}>
       <span style={textStyle}>Click somewhere!</span>
-      <div key='box' style={style}/>
+      <div name='box' style={style}/>
     </div>
   }
 }))
