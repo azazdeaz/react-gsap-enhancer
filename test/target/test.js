@@ -36,6 +36,7 @@ const tree1 = createFakeTree({
         children: {
           bar: {
             purple: true,
+            yellow: 'not',
             red: 'dark',
             node: barNode,
           }
@@ -93,15 +94,9 @@ describe('find', () => {
     targetsEqual(result, [rootNode])
   })
 
-  it('selects properly by key', () => {
-    const target = createTarget(tree1)
-    const result = target.find({key: 'foo'})
-    targetsEqual(result, [fooNode])
-  })
-
   it('selects the first match', () => {
     const target = createTarget(tree1)
-    const result = target.find({key: 'foo'})
+    const result = target.find({purple: true})
     targetsEqual(result, [fooNode])
   })
 
@@ -109,12 +104,6 @@ describe('find', () => {
     const target = createTarget(tree1)
     const result = target.find({purple: true})
     targetsEqual(result, [fooNode])
-  })
-
-  it('selects properly by string (key) selector', () => {
-    const target = createTarget(tree1)
-    const result = target.find('bar')
-    targetsEqual(result, [barNode])
   })
 
   it('only select the first match', () => {
@@ -133,22 +122,10 @@ describe('findAll', () => {
     targetsEqual(result, [fooNode, barNode, quxNode, bazNode])
   })
 
-  it('selects properly by key', () => {
-    const target = createTarget(tree1)
-    const result = target.findAll({key: 'qux'})
-    targetsEqual(result, [quxNode])
-  })
-
   it('selects properly by multiple props', () => {
     const target = createTarget(tree1)
     const result = target.findAll({purple: true, red: 'dark'})
     targetsEqual(result, [barNode, bazNode])
-  })
-
-  it('selects properly by string (key) selector', () => {
-    const target = createTarget(tree1)
-    const result = target.findAll('baz')
-    targetsEqual(result, [bazNode])
   })
 
   it('selects all the matches', () => {
@@ -167,19 +144,9 @@ describe('findInChildren', () => {
     targetsEqual(result, [fooNode])
   })
 
-  it('selects properly by key', () => {
-    const result = rootTarget.findInChildren({key: 'foo'})
-    targetsEqual(result, [fooNode])
-  })
-
   it('selects the first match', () => {
     const result = rootTarget.findInChildren({purple: true})
     targetsEqual(result, [fooNode])
-  })
-
-  it('selects properly by string (key) selector', () => {
-    const result = rootTarget.findInChildren('baz')
-    targetsEqual(result, [bazNode])
   })
 
   it('can\'t select items deeper in the structure', () => {
@@ -205,16 +172,6 @@ describe('findAllInChildren', () => {
   it('selects properly with no options', () => {
     const result = rootTarget.findAllInChildren()
     targetsEqual(result, [fooNode, quxNode, bazNode])
-  })
-
-  it('selects properly by key', () => {
-    const result = rootTarget.findAllInChildren({key: 'foo'})
-    targetsEqual(result, [fooNode])
-  })
-
-  it('selects properly by string (key) selector', () => {
-    const result = rootTarget.findAllInChildren('qux')
-    targetsEqual(result, [quxNode])
   })
 
   it('can\'t select items deeper in the structure', () => {
@@ -256,7 +213,7 @@ describe('findWithCommands', () => {
     const target = createTarget(tree1)
     const result = target.findWithCommands([{
       type: 'find',
-      selector: {key: 'qux'}
+      selector: {red: 'light'}
     }])
     targetsEqual(result, [quxNode])
   })
@@ -311,7 +268,7 @@ describe('findWithCommands', () => {
       },
       {
         type: 'find',
-        selector: 'bar'
+        selector: {yellow: 'not'}
       }
     ])
     targetsEqual(result, [barNode])
