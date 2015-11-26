@@ -7,7 +7,7 @@
 
 A [React] component enhancer for applying [GSAP] animations on components without side effects.
 
-**Note:** From v0.2 react-gsap-enhancer requires react v0.14+. Check out [this release notes](https://github.com/azazdeaz/react-gsap-enhancer/releases/tag/untagged-f19580741111f21a1881) for upgrading from v0.1.x.
+**Note:** From v0.2 react-gsap-enhancer requires react v0.14+. Check out [this release notes](https://github.com/azazdeaz/react-gsap-enhancer/releases/tag/v0.2.0) for upgrading from v0.1.x.
 
 ### Demos
  - Playground
