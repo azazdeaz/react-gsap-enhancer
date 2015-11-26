@@ -79,7 +79,7 @@ function enhance (animationSourceMap, ComposedComponent) {
       if (__DEV__) {
         console.warn(
           '[react-gsap-enhancer] component.removeAnimation(controller)'
-          + 'is deprecated. Use just controller.kill() instead!'
+          + ' is deprecated. Use just controller.kill() instead!'
         )
       }
       controller.kill()
