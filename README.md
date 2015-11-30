@@ -7,6 +7,8 @@
 
 A [React] component enhancer for applying [GSAP] animations on components without side effects.
 
+*Developed as part of the [Animachine project](https://github.com/animachine/animachine).*
+
 **Note:** From v0.2 react-gsap-enhancer requires react v0.14+. Check out [this release notes](https://github.com/azazdeaz/react-gsap-enhancer/releases/tag/v0.2.0) for upgrading from v0.1.x.
 
 ### Demos
