@@ -9,7 +9,9 @@ A [React] component enhancer for applying [GSAP] animations on components withou
 
 *Developed as part of the [Animachine project](https://github.com/animachine/animachine).*
 
-**Note:** From v0.2 react-gsap-enhancer requires react v0.14+. Check out [this release notes](https://github.com/azazdeaz/react-gsap-enhancer/releases/tag/v0.2.0) for upgrading from v0.1.x.
+**Requirements:** 
+ - From v0.2 react-gsap-enhancer requires **[react v0.14+][react-npm]**. Check out [this release notes](https://github.com/azazdeaz/react-gsap-enhancer/releases/tag/v0.2.0) for upgrading from v0.1.x.
+ - **GSAP v1.18+** ([*NPM*][gsap-npm], [*CDN*][gsap-cdn])
 
 ### Demos
  - Playground
@@ -214,3 +216,6 @@ I'm looking forward for your feedback!
 [Animated]: https://facebook.github.io/react-native/docs/animations.html#animated
 [GSAP]: http://greensock.com/
 [React]: https://github.com/facebook/react
+[react-npm]: https://www.npmjs.com/package/react
+[gsap-npm]: https://www.npmjs.com/package/gsap
+[gsap-cdn]: https://cdnjs.com/libraries/gsap
