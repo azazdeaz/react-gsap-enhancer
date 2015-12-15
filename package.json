@@ -1,12 +1,13 @@
 {
   "name": "react-gsap-enhancer",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Use the full power of React and GSAP together",
   "main": "lib/index.js",
   "directories": {
     "example": "examples"
   },
   "scripts": {
+    "start": "gulp",
     "coverage": "babel-node node_modules/.bin/isparta cover --report text --report lcov node_modules/.bin/_mocha -- --reporter dot",
     "lib": "rm -rf lib && babel ./src --out-dir lib  --source-maps --source-maps",
     "lib-watch": "npm run lib && babel ./src --out-dir lib  --source-maps --source-maps --watch",
