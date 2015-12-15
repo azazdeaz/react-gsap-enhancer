@@ -14,6 +14,7 @@ export default class Controller {
     this._commandsWaitingForAttach = []
   }
 
+  //Not documented. For internal usage. (animachine)
   replaceAnimationSource(animationSource) {
     if (this._gsapAnimation) {
       this._gsapAnimation.kill()
@@ -33,7 +34,7 @@ export default class Controller {
       this._gsapAnimation
         .invalidate()
         .restart()
-        .time(time)
+        .time(time, true) //suppress events - http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/time/
 
       if (paused) {
         this._gsapAnimation.pause()

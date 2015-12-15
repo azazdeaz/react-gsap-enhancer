@@ -8,6 +8,9 @@ function createAnim(utils) {
       x: utils.options.x,
       y: utils.options.y,
       ease: Elastic.easeOut,
+      onComplete: function () {
+        console.log('complete - anim')
+      }
     })
 }
 
