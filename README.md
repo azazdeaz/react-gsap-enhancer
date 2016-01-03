@@ -33,7 +33,10 @@ It's pretty simple: in every render cycle:
 
 >In this way you can even update a style of an element (like ```transform: 'translateX(${mouse.x})'```) while you animating the same style relative to its original value (like: ```.to(node, 1, {x: '+=300', yoyo: true}```)
 
->[Check it out!](http://azazdeaz.github.io/react-gsap-enhancer/#/demo/update-and-animate-transform)
+>[Check it out!](http://azazdeaz.github.io/react-gsap-enhancer/#/demo/update-and-animate-transform) 
+
+---
+>For simple use cases **you might not need this tool anyway**. See [this egghead.io tutorial](https://egghead.io/lessons/react-using-tweenmax-with-react).
 
 ### Usage
 First you have to enhance the component with react-gsap-enhancer:
