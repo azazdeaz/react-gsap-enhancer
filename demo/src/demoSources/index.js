@@ -8,6 +8,7 @@ let demos = {
   'rainbow-rocket-man': require('raw!./rainbow-rocket-man.example'),
   'animate-list-with-stagger': require('raw!./animate-list-with-stagger.example'),
   'add-events-with-controller': require('raw!./add-events-with-controller.example'),
+  'using-transition-group': require('raw!./using-transition-group.example'),
 }
 
 if (__WIP__) {

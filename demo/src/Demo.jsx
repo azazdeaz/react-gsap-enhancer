@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import TransitionGroup from 'react-addons-transition-group'
 import GSAP from 'react-gsap-enhancer'
 import Radium from 'radium'
 import Playground from '@azazdeaz/component-playground'
@@ -85,6 +86,7 @@ export default class Demo extends React.Component {
         GS_GREEN: '#88ce02',
         Center,
         _,
+        TransitionGroup,
       }}/>
   }
 }

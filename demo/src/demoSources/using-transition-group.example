@@ -1,0 +1,107 @@
+//use react-addons-transition-group to handle the
+// enter and leave animations of the component
+function appearAnim(utils) {
+  return new TimelineMax()
+    .from(utils.target, 0.7, {
+      scale: 0,
+      ease: Back.easeOut,
+      onComplete: utils.options.callback,
+    })
+}
+
+function leaveAnim(utils) {
+  return new TimelineMax()
+    .to(utils.target, 0.5, {
+      scale: 0,
+      ease: Sine.easeOut,
+      onComplete: utils.options.callback,
+    })
+}
+
+var COLORS = ['#0074D9', '#FF851B', '#FF4136', '#85144b', '#2ECC40']
+
+var Circle = GSAP()(React.createClass({
+  componentWillEnter: function(callback) {
+    this.addAnimation(appearAnim, {callback: callback})
+  },
+  componentWillLeave: function(callback) {
+    console.log('componentWillLeave', callback)
+    this.addAnimation(leaveAnim, {callback: callback})
+  },
+  handleClick: function(e) {
+    e.stopPropagation()
+    this.props.onClick(this.props.id)
+  },
+  render: function() {
+    var r = 40
+    var style = {
+      position: 'absolute',
+      left: this.props.x - r,
+      top: this.props.y - r,
+      backgroundColor: this.props.color,
+      width: r * 2,
+      height: r * 2,
+      borderRadius: r,
+    }
+
+    return <div style={style} onClick={this.handleClick}/>
+  }
+}))
+
+var nextId = 0
+var Demo = React.createClass({
+  getInitialState: function() {
+    return {circles: []}
+  },
+  handleClick: function(e) {
+    var rootNode = ReactDOM.findDOMNode(this)
+    var {top, left} = rootNode.getBoundingClientRect()
+    var newCircle = {
+      id: nextId++,
+      color: _.sample(COLORS),
+      x: e.clientX - left,
+      y: e.clientY - top,
+    }
+    this.setState({circles: this.state.circles.concat(newCircle)})
+  },
+  handleRemoveRequest: function(id) {
+    const circles = this.state.circles
+    const circle = _.find(circles, {id: id})
+    this.setState({circles: _.without(circles, circle)})
+  },
+  render: function() {
+    var containerStyle = {
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+    }
+    var textStyle = {
+      position: 'absolute',
+      width: '100%',
+      color: '#555',
+      fontSize: '30px',
+      fontFamily: '"Signika Negative",sans-serif',
+      fontWeight: '300',
+      textAlign: 'center',
+      padding: '30px 0 20px',
+    }
+    var handleRemoveRequest = this.handleRemoveRequest
+    
+    return <div onClick={this.handleClick} style={containerStyle}>
+      <span style={textStyle}>Click to add and remove circles!</span>
+      <TransitionGroup>
+        {this.state.circles.map(function(circle) {
+          return (
+            <Circle
+              key={circle.id}
+              {...circle}
+              onClick={handleRemoveRequest}
+            />
+          )
+        })}
+      </TransitionGroup>
+    </div>
+  }
+})
+
+ReactDOM.render(<Demo/>, mountNode)

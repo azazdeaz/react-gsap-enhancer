@@ -16,7 +16,8 @@ gulp.task('gh-pages', ['build-demo'], function() {
 gulp.task('build-demo', function(callback) {
   var myConfig = Object.create(demoWebpackConfig)
   myConfig.plugins = [new webpack.DefinePlugin({
-    __WIP__: 'false'
+    __WIP__: 'false',
+    __DEV__: 'true',
   })]
 
 	webpack(myConfig, function(err, stats) {
