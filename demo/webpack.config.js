@@ -37,6 +37,7 @@ module.exports = {
     ]
   },
   plugins: [new webpack.DefinePlugin({
-    __WIP__: 'true'
+    __WIP__: 'true',
+    __DEV__: 'true',
   })]
 }
