@@ -31,14 +31,13 @@ export default class Controller {
     if (this._gsapAnimation) {
       let time = this._gsapAnimation.time()
       let paused = this._gsapAnimation.paused()
+      let reversed = this._gsapAnimation.reversed()
       this._gsapAnimation
         .invalidate()
         .restart()
         .time(time, true) //suppress events - http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/time/
-
-      if (paused) {
-        this._gsapAnimation.pause()
-      }
+        .paused(paused)
+        .reversed(reversed)
     }
     else {
       this._gsapAnimation = this._animationSource({

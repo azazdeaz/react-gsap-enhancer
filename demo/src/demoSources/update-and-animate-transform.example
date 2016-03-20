@@ -2,7 +2,7 @@
 //while it's also animating(y, scale, rotate)
 
 function createAnim({target}) {
-  var box = target
+  var box = target.find({name: 'box'})
 
   return new TimelineMax({repeat: -1})
     .to(box, 1, {scale: 1.23, y: '+=120'})
@@ -28,6 +28,10 @@ class Demo extends React.Component {
     this.jumpAnim = this.addAnimation(createAnim)
   }
 
+  handleClick = () => {
+    this.jumpAnim.paused(!this.jumpAnim.paused())
+  }
+
   render () {
     var {x, y} = this.state
 
@@ -38,7 +42,18 @@ class Demo extends React.Component {
       transform: `translate(${x}px, ${y}px)`
     }
 
-    return <div name='box' style={style}/>
+    var containerStyle = {
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+    }
+
+    return (
+      <div onClick={this.handleClick} style={containerStyle}>
+        <Text>Click to pause!</Text>
+        <div name='box' style={style}/>
+      </div>
+    )
   }
 }
 

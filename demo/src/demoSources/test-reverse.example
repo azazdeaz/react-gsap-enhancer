@@ -1,0 +1,75 @@
+@GSAP
+class Child extends React.Component {
+
+   componentWillReceiveProps(nextProps) {
+      if (! this.props.animStart && nextProps.animStart) {
+         console.log('start')
+         this.animStart = this.addAnimation(this.createAnimStart);
+      }
+
+      if (! this.props.animEnd && nextProps.animEnd) {
+         console.log('reserve')
+         this.animStart.reverse(); // Doesn't work
+         // this.animStart.restart(); // Restart works fine
+      }
+   }
+
+   createAnimStart = (utils) => {
+      return new TimelineMax().to(utils.target, 5, {
+         top: 0,
+         left: -82,
+         ease: Sine.easeOut,
+      });
+   };
+
+   render() {
+      return <div style={style.block} onClick={this.props.handleClick}>
+         Click me to reverse!
+      </div>
+   }
+}
+
+class App extends React.Component {
+   state = {
+      animStart: false,
+      animEnd: false,
+   };
+
+   componentDidMount() {
+      this.setState({animStart: true});
+   }
+
+   handleClick = () => {
+     console.log('click')
+      this.setState({animEnd: true});
+   };
+
+   render() {
+      return <Child
+        style={style.mount}
+        animStart={this.state.animStart}
+        animEnd={this.state.animEnd}
+        handleClick={this.handleClick}
+      />
+   }
+}
+
+const style = {
+  block: {
+    position: 'absolute',
+    left: '200px',
+    top: '10px',
+    width: '123px',
+    height: '123px',
+    backgroundColor: '#FF4136',
+    color: '#7F0600',
+    padding: 12,
+    fontFamily: 'sans-serif',
+  },
+  mount: {
+    position: 'relative',
+    left: '100px',
+  },
+}
+
+ReactDOM.render(<App/>, mountNode)

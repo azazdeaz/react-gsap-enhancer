@@ -62,6 +62,26 @@ class Center extends React.Component {
   }
 }
 
+class Text extends React.Component {
+  render() {
+    var style = {
+      position: 'absolute',
+      width: '100%',
+      color: '#555',
+      fontSize: '30px',
+      fontFamily: '"Signika Negative",sans-serif',
+      fontWeight: '300',
+      textAlign: 'center',
+      padding: '30px 0 20px',
+    }
+    return (
+      <span style={style}>
+        {this.props.children}
+      </span>
+    )
+  }
+}
+
 export default class Demo extends React.Component {
   static contextTypes = {
     router: React.PropTypes.func
@@ -85,6 +105,7 @@ export default class Demo extends React.Component {
         radDiff,
         GS_GREEN: '#88ce02',
         Center,
+        Text,
         _,
         TransitionGroup,
       }}/>

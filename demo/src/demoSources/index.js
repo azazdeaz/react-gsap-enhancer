@@ -15,6 +15,7 @@ if (__WIP__) {
   demos = {
     ...demos,
     'remount-target': require('raw!./remount-target.example'),
+    'test-reverse': require('raw!./test-reverse.example'),
   }
 }
 

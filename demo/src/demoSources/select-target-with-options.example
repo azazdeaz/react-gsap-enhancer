@@ -64,16 +64,6 @@ class Demo extends React.Component {
       width: 80,
       height: 80,
     }
-    var textStyle = {
-      position: 'absolute',
-      width: '100%',
-      color: '#555',
-      fontSize: '30px',
-      fontFamily: '"Signika Negative",sans-serif',
-      fontWeight: '300',
-      textAlign: 'center',
-      padding: '30px 0 20px',
-    }
     var pointStyle = {
       position: 'absolute',
       backgroundColor: GS_GREEN,
@@ -85,7 +75,7 @@ class Demo extends React.Component {
     }
 
     return <div onClick={this.handleEmit} style={containerStyle}>
-      <span style={textStyle}>Click somewhere!</span>
+      <Text>Click somewhere!</Text>
       <Center>
         <div style={middleContainerStyle} ref={this.handleMiddleContainerRef}>
           <div name='emitter' style={pointStyle}/>
