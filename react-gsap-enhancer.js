@@ -47,43 +47,56 @@ var ReactGSAPEnhancer =
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
-	function _interopRequire(obj) { return obj && obj.__esModule ? obj['default'] : obj; }
-
 	var _gsapEnhancer = __webpack_require__(1);
 
-	exports['default'] = _interopRequire(_gsapEnhancer);
+	Object.defineProperty(exports, 'default', {
+	  enumerable: true,
+	  get: function get() {
+	    return _interopRequireDefault(_gsapEnhancer).default;
+	  }
+	});
 
 	var _createTarget = __webpack_require__(151);
 
-	exports.createTarget = _interopRequire(_createTarget);
+	Object.defineProperty(exports, 'createTarget', {
+	  enumerable: true,
+	  get: function get() {
+	    return _interopRequireDefault(_createTarget).default;
+	  }
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	exports.default = function (animationSourceMap) {
+	  if (animationSourceMap && animationSourceMap.prototype && animationSourceMap.prototype.render) {
+	    var ComposedComponent = animationSourceMap;
+	    return enhance(undefined, ComposedComponent);
+	  } else {
+	    return enhance.bind(undefined, animationSourceMap);
+	  }
+	};
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	var _react = __webpack_require__(3);
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(2);
-
-	var _attachRefs = __webpack_require__(3);
+	var _attachRefs = __webpack_require__(4);
 
 	var _attachRefs2 = _interopRequireDefault(_attachRefs);
 
@@ -97,50 +110,47 @@ var ReactGSAPEnhancer =
 
 	var _utils = __webpack_require__(152);
 
-	exports['default'] = function (animationSourceMap) {
-	  if (animationSourceMap && animationSourceMap.prototype && animationSourceMap.prototype.render) {
-	    var ComposedComponent = animationSourceMap;
-	    return enhance(undefined, ComposedComponent);
-	  } else {
-	    return enhance.bind(undefined, animationSourceMap);
-	  }
-	};
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	function enhance(animationSourceMap, ComposedComponent) {
-	  var GSAPEnhancer = (function (_ComposedComponent) {
+	  var GSAPEnhancer = function (_ComposedComponent) {
 	    _inherits(GSAPEnhancer, _ComposedComponent);
 
 	    function GSAPEnhancer(props) {
-	      var _this = this;
-
 	      _classCallCheck(this, GSAPEnhancer);
 
-	      _get(Object.getPrototypeOf(GSAPEnhancer.prototype), 'constructor', this).call(this, props);
+	      var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(GSAPEnhancer).call(this, props));
 
-	      this.addAnimation = function (animationSource, options) {
+	      _this.addAnimation = function (animationSource, options) {
 	        //if the animation is in the source map the if from there
 	        var sourceMap = _this.__animationSourceMap;
 	        if (sourceMap && sourceMap[animationSource]) {
 	          animationSource = sourceMap[animationSource];
 	        }
 
-	        if (true) {
+	        if (process.env.NODE_ENV !== 'production') {
 	          if (typeof animationSource !== 'function') {
 	            var error = '[react-gsap-enhancer] animationSource (the first parameter of ' + ('addAnimation(animationSource, options)) has to be a function instead of "' + animationSource + '"');
 	            if (sourceMap) {
 	              error += '\nYou provided a sourceMap so the animationSource also can' + (' be a string key of these: [' + Object.keys(sourceMap) + ']');
 	            }
-	            var _name = Object.getPrototypeOf(Object.getPrototypeOf(_this)).constructor.name;
-	            error += '\nCheck out the addAnimation() call in ' + _name;
+	            var name = Object.getPrototypeOf(Object.getPrototypeOf(_this)).constructor.name;
+	            error += '\nCheck out the addAnimation() call in ' + name;
 	            throw Error(error);
 	          }
 	        }
 
-	        var target = (0, _createTarget2['default'])(_this.__itemTree);
-	        var controller = new _Controller2['default'](animationSource, options, target, function () {
+	        var target = (0, _createTarget2.default)(_this.__itemTree);
+	        var controller = new _Controller2.default(animationSource, options, target, function () {
 	          return (0, _utils.reattachAll)(_this.__itemTree, _this.__runningAnimations);
 	        }, function () {
-	          _this.__runningAnimations['delete'](controller);
+	          _this.__runningAnimations.delete(controller);
 	          //rerender the component without the animation
 	          _this.forceUpdate();
 	        });
@@ -151,46 +161,16 @@ var ReactGSAPEnhancer =
 	        return controller;
 	      };
 
-	      this.__itemTree = new Map();
-	      this.__runningAnimations = new Set();
-	      this.__animationSourceMap = animationSourceMap;
+	      _this.__itemTree = new Map();
+	      _this.__runningAnimations = new Set();
+	      _this.__animationSourceMap = animationSourceMap;
+	      return _this;
 	    }
-
-	    //TODO test this
-	    // Class inheritance uses Object.create and because of __proto__ issues
-	    // with IE <10 any static properties of the superclass aren't inherited and
-	    // so need to be manually populated
-	    // See http://babeljs.io/docs/advanced/caveats/#classes-10-and-below-
-	    // var staticKeys = [
-	    //   'defaultProps',
-	    //   'propTypes',
-	    //   'contextTypes',
-	    //   'childContextTypes'
-	    // ]
-	    //
-	    // staticKeys.forEach((key) => {
-	    //   if (ComposedComponent.hasOwnProperty(key)) {
-	    //     GSAPEnhancer[key] = ComposedComponent[key]
-	    //   }
-	    // })
-
-	    //TODO test this
-	    // if (process.env.NODE_ENV !== 'production') {
-	    //   // This fixes React Hot Loader by exposing the original components top level
-	    //   // prototype methods on the enhanced prototype as discussed in
-	    //   // https://github.com/FormidableLabs/radium/issues/219
-	    //   Object.keys(ComposedComponent.prototype).forEach(key => {
-	    //     if (!GSAPEnhancer.prototype.hasOwnProperty(key)) {
-	    //       var descriptor = Object.getOwnPropertyDescriptor(ComposedComponent.prototype, key)
-	    //       Object.defineProperty(GSAPEnhancer.prototype, key, descriptor)
-	    //     }
-	    //   })
-	    // }
 
 	    _createClass(GSAPEnhancer, [{
 	      key: 'removeAnimation',
 	      value: function removeAnimation(controller) {
-	        if (true) {
+	        if (process.env.NODE_ENV !== 'production') {
 	          console.warn('[react-gsap-enhancer] component.removeAnimation(controller)' + ' is deprecated. Use just controller.kill() instead!');
 	        }
 	        controller.kill();
@@ -201,11 +181,13 @@ var ReactGSAPEnhancer =
 	        (0, _utils.saveRenderedStyles)(this.__itemTree);
 
 	        if (_get(Object.getPrototypeOf(GSAPEnhancer.prototype), 'componentDidMount', this)) {
+	          var _get2;
+
 	          for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
 	            args[_key] = arguments[_key];
 	          }
 
-	          _get(Object.getPrototypeOf(GSAPEnhancer.prototype), 'componentDidMount', this).apply(this, args);
+	          (_get2 = _get(Object.getPrototypeOf(GSAPEnhancer.prototype), 'componentDidMount', this)).call.apply(_get2, [this].concat(args));
 	        }
 	      }
 	    }, {
@@ -214,23 +196,27 @@ var ReactGSAPEnhancer =
 	        (0, _utils.restoreRenderedStyles)(this.__itemTree);
 
 	        if (_get(Object.getPrototypeOf(GSAPEnhancer.prototype), 'componentWillUpdate', this)) {
+	          var _get3;
+
 	          for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
 	            args[_key2] = arguments[_key2];
 	          }
 
-	          _get(Object.getPrototypeOf(GSAPEnhancer.prototype), 'componentWillUpdate', this).apply(this, args);
+	          (_get3 = _get(Object.getPrototypeOf(GSAPEnhancer.prototype), 'componentWillUpdate', this)).call.apply(_get3, [this].concat(args));
 	        }
 	      }
 	    }, {
 	      key: 'render',
 	      value: function render() {
+	        var _get4;
+
 	        for (var _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
 	          args[_key3] = arguments[_key3];
 	        }
 
-	        var element = _get(Object.getPrototypeOf(GSAPEnhancer.prototype), 'render', this).apply(this, args);
+	        var element = (_get4 = _get(Object.getPrototypeOf(GSAPEnhancer.prototype), 'render', this)).call.apply(_get4, [this].concat(args));
 	        if ((0, _react.isValidElement)(element)) {
-	          return (0, _attachRefs2['default'])(element, this.__itemTree);
+	          return (0, _attachRefs2.default)(element, this.__itemTree);
 	        } else {
 	          //let React throwing an error for invalid element
 	          return element;
@@ -243,216 +229,57 @@ var ReactGSAPEnhancer =
 	        (0, _utils.attachAll)(this.__runningAnimations);
 
 	        if (_get(Object.getPrototypeOf(GSAPEnhancer.prototype), 'componentDidUpdate', this)) {
+	          var _get5;
+
 	          for (var _len4 = arguments.length, args = Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
 	            args[_key4] = arguments[_key4];
 	          }
 
-	          _get(Object.getPrototypeOf(GSAPEnhancer.prototype), 'componentDidUpdate', this).apply(this, args);
+	          (_get5 = _get(Object.getPrototypeOf(GSAPEnhancer.prototype), 'componentDidUpdate', this)).call.apply(_get5, [this].concat(args));
 	        }
 	      }
 	    }]);
 
 	    return GSAPEnhancer;
-	  })(ComposedComponent);
+	  }(ComposedComponent);
+
+	  //TODO test this
+	  // Class inheritance uses Object.create and because of __proto__ issues
+	  // with IE <10 any static properties of the superclass aren't inherited and
+	  // so need to be manually populated
+	  // See http://babeljs.io/docs/advanced/caveats/#classes-10-and-below-
+	  // var staticKeys = [
+	  //   'defaultProps',
+	  //   'propTypes',
+	  //   'contextTypes',
+	  //   'childContextTypes'
+	  // ]
+	  //
+	  // staticKeys.forEach((key) => {
+	  //   if (ComposedComponent.hasOwnProperty(key)) {
+	  //     GSAPEnhancer[key] = ComposedComponent[key]
+	  //   }
+	  // })
+
+	  //TODO test this
+	  // if (process.env.NODE_ENV !== 'production') {
+	  //   // This fixes React Hot Loader by exposing the original components top level
+	  //   // prototype methods on the enhanced prototype as discussed in
+	  //   // https://github.com/FormidableLabs/radium/issues/219
+	  //   Object.keys(ComposedComponent.prototype).forEach(key => {
+	  //     if (!GSAPEnhancer.prototype.hasOwnProperty(key)) {
+	  //       var descriptor = Object.getOwnPropertyDescriptor(ComposedComponent.prototype, key)
+	  //       Object.defineProperty(GSAPEnhancer.prototype, key, descriptor)
+	  //     }
+	  //   })
+	  // }
 
 	  return GSAPEnhancer;
 	}
-	module.exports = exports['default'];
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 2 */
-/***/ function(module, exports) {
-
-	module.exports = React;
-
-/***/ },
-/* 3 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports['default'] = attachRefs;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(4);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	function attachRefs(element, itemMap) {
-	  var idx = arguments.length <= 2 || arguments[2] === undefined ? 0 : arguments[2];
-	  var key = element.key;
-	  var previousRef = element.ref;
-
-	  if (key === null) {
-	    key = idx;
-	  }
-
-	  if (typeof previousRef === 'string') {
-	    throw Error('[react-gsap-enhancer] On one of the elements you have used a ' + ('string ref ("' + previousRef + '") but react-gsap-enhancer can only handle ') + 'callback refs. Please migrate the string refs to callback refs in the ' + 'enhanced component.\nExample: change <div ref=\'foo\'/> to <div ref={comp => this.foo = comp}/>\nSee also: https://github.com/azazdeaz/react-gsap-enhancer/issues/3');
-	  }
-
-	  var item;
-	  if (itemMap.has(key)) {
-	    item = itemMap.get(key);
-	  } else {
-	    item = { children: new Map() };
-	    itemMap.set(key, item);
-	  }
-
-	  if (!item.ref) {
-	    item.ref = function (component) {
-	      var node = _reactDom2['default'].findDOMNode(component);
-	      item.props = element.props;
-	      item.node = node;
-
-	      if (typeof previousRef === 'function') {
-	        previousRef(component);
-	      }
-	    };
-	  }
-
-	  var originalChildren = element.props.children;
-	  var children = undefined;
-	  if (typeof originalChildren !== 'object') {
-	    children = originalChildren;
-	  } else if ((0, _react.isValidElement)(originalChildren)) {
-	    children = cloneChild(originalChildren);
-	  } else {
-	    children = _react.Children.map(originalChildren, function (child, childIdx) {
-	      return cloneChild(child, childIdx);
-	    });
-	  }
-
-	  function cloneChild(child, childIdx) {
-	    if (_react2['default'].isValidElement(child)) {
-	      return attachRefs(child, item.children, childIdx);
-	    } else {
-	      return child;
-	    }
-	  }
-
-	  return _react2['default'].cloneElement(element, { ref: item.ref, children: children });
-	}
-
-	module.exports = exports['default'];
-
-/***/ },
-/* 4 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	module.exports = __webpack_require__(5);
-
-
-/***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule ReactDOM
-	 */
-
-	/* globals __REACT_DEVTOOLS_GLOBAL_HOOK__*/
-
-	'use strict';
-
-	var ReactCurrentOwner = __webpack_require__(7);
-	var ReactDOMTextComponent = __webpack_require__(8);
-	var ReactDefaultInjection = __webpack_require__(73);
-	var ReactInstanceHandles = __webpack_require__(47);
-	var ReactMount = __webpack_require__(30);
-	var ReactPerf = __webpack_require__(20);
-	var ReactReconciler = __webpack_require__(52);
-	var ReactUpdates = __webpack_require__(56);
-	var ReactVersion = __webpack_require__(148);
-
-	var findDOMNode = __webpack_require__(93);
-	var renderSubtreeIntoContainer = __webpack_require__(149);
-	var warning = __webpack_require__(27);
-
-	ReactDefaultInjection.inject();
-
-	var render = ReactPerf.measure('React', 'render', ReactMount.render);
-
-	var React = {
-	  findDOMNode: findDOMNode,
-	  render: render,
-	  unmountComponentAtNode: ReactMount.unmountComponentAtNode,
-	  version: ReactVersion,
-
-	  /* eslint-disable camelcase */
-	  unstable_batchedUpdates: ReactUpdates.batchedUpdates,
-	  unstable_renderSubtreeIntoContainer: renderSubtreeIntoContainer
-	};
-
-	// Inject the runtime into a devtools global hook regardless of browser.
-	// Allows for debugging when the hook is injected on the page.
-	/* eslint-enable camelcase */
-	if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== 'undefined' && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.inject === 'function') {
-	  __REACT_DEVTOOLS_GLOBAL_HOOK__.inject({
-	    CurrentOwner: ReactCurrentOwner,
-	    InstanceHandles: ReactInstanceHandles,
-	    Mount: ReactMount,
-	    Reconciler: ReactReconciler,
-	    TextComponent: ReactDOMTextComponent
-	  });
-	}
-
-	if (process.env.NODE_ENV !== 'production') {
-	  var ExecutionEnvironment = __webpack_require__(11);
-	  if (ExecutionEnvironment.canUseDOM && window.top === window.self) {
-
-	    // First check if devtools is not installed
-	    if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === 'undefined') {
-	      // If we're in Chrome or Firefox, provide a download link if not installed.
-	      if (navigator.userAgent.indexOf('Chrome') > -1 && navigator.userAgent.indexOf('Edge') === -1 || navigator.userAgent.indexOf('Firefox') > -1) {
-	        console.debug('Download the React DevTools for a better development experience: ' + 'https://fb.me/react-devtools');
-	      }
-	    }
-
-	    // If we're in IE8, check to see if we are in compatibility mode and provide
-	    // information on preventing compatibility mode
-	    var ieCompatibilityMode = document.documentMode && document.documentMode < 8;
-
-	    process.env.NODE_ENV !== 'production' ? warning(!ieCompatibilityMode, 'Internet Explorer is running in compatibility mode; please add the ' + 'following tag to your HTML to prevent this from happening: ' + '<meta http-equiv="X-UA-Compatible" content="IE=edge" />') : undefined;
-
-	    var expectedFeatures = [
-	    // shims
-	    Array.isArray, Array.prototype.every, Array.prototype.forEach, Array.prototype.indexOf, Array.prototype.map, Date.now, Function.prototype.bind, Object.keys, String.prototype.split, String.prototype.trim,
-
-	    // shams
-	    Object.create, Object.freeze];
-
-	    for (var i = 0; i < expectedFeatures.length; i++) {
-	      if (!expectedFeatures[i]) {
-	        console.error('One or more ES5 shim/shams expected by React are not available: ' + 'https://fb.me/react-warning-polyfills');
-	        break;
-	      }
-	    }
-	  }
-	}
-
-	module.exports = React;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
-
-/***/ },
-/* 6 */
 /***/ function(module, exports) {
 
 	// shim for using process in browser
@@ -547,6 +374,199 @@ var ReactGSAPEnhancer =
 	};
 	process.umask = function() { return 0; };
 
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	module.exports = React;
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	exports.default = attachRefs;
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(5);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function attachRefs(element, itemMap) {
+	  var idx = arguments.length <= 2 || arguments[2] === undefined ? 0 : arguments[2];
+	  var key = element.key;
+	  var previousRef = element.ref;
+
+	  if (key === null) {
+	    key = idx;
+	  }
+
+	  if (typeof previousRef === 'string') {
+	    throw Error('[react-gsap-enhancer] On one of the elements you have used a ' + ('string ref ("' + previousRef + '") but react-gsap-enhancer can only handle ') + 'callback refs. Please migrate the string refs to callback refs in the ' + 'enhanced component.\nExample: change <div ref=\'foo\'/> to <div ref={comp => this.foo = comp}/>\nSee also: https://github.com/azazdeaz/react-gsap-enhancer/issues/3');
+	  }
+
+	  var item;
+	  if (itemMap.has(key)) {
+	    item = itemMap.get(key);
+	  } else {
+	    item = { children: new Map() };
+	    itemMap.set(key, item);
+	  }
+
+	  if (!item.ref) {
+	    item.ref = function (component) {
+	      var node = _reactDom2.default.findDOMNode(component);
+	      item.props = element.props;
+	      item.node = node;
+
+	      if (typeof previousRef === 'function') {
+	        previousRef(component);
+	      }
+	    };
+	  }
+
+	  var originalChildren = element.props.children;
+	  var children = void 0;
+	  if ((typeof originalChildren === 'undefined' ? 'undefined' : _typeof(originalChildren)) !== 'object') {
+	    children = originalChildren;
+	  } else if ((0, _react.isValidElement)(originalChildren)) {
+	    children = cloneChild(originalChildren);
+	  } else {
+	    children = _react.Children.map(originalChildren, function (child, childIdx) {
+	      return cloneChild(child, childIdx);
+	    });
+	  }
+
+	  function cloneChild(child, childIdx) {
+	    if (_react2.default.isValidElement(child)) {
+	      return attachRefs(child, item.children, childIdx);
+	    } else {
+	      return child;
+	    }
+	  }
+
+	  return _react2.default.cloneElement(element, { ref: item.ref, children: children });
+	}
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = __webpack_require__(6);
+
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactDOM
+	 */
+
+	/* globals __REACT_DEVTOOLS_GLOBAL_HOOK__*/
+
+	'use strict';
+
+	var ReactCurrentOwner = __webpack_require__(7);
+	var ReactDOMTextComponent = __webpack_require__(8);
+	var ReactDefaultInjection = __webpack_require__(73);
+	var ReactInstanceHandles = __webpack_require__(47);
+	var ReactMount = __webpack_require__(30);
+	var ReactPerf = __webpack_require__(20);
+	var ReactReconciler = __webpack_require__(52);
+	var ReactUpdates = __webpack_require__(56);
+	var ReactVersion = __webpack_require__(148);
+
+	var findDOMNode = __webpack_require__(93);
+	var renderSubtreeIntoContainer = __webpack_require__(149);
+	var warning = __webpack_require__(27);
+
+	ReactDefaultInjection.inject();
+
+	var render = ReactPerf.measure('React', 'render', ReactMount.render);
+
+	var React = {
+	  findDOMNode: findDOMNode,
+	  render: render,
+	  unmountComponentAtNode: ReactMount.unmountComponentAtNode,
+	  version: ReactVersion,
+
+	  /* eslint-disable camelcase */
+	  unstable_batchedUpdates: ReactUpdates.batchedUpdates,
+	  unstable_renderSubtreeIntoContainer: renderSubtreeIntoContainer
+	};
+
+	// Inject the runtime into a devtools global hook regardless of browser.
+	// Allows for debugging when the hook is injected on the page.
+	/* eslint-enable camelcase */
+	if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== 'undefined' && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.inject === 'function') {
+	  __REACT_DEVTOOLS_GLOBAL_HOOK__.inject({
+	    CurrentOwner: ReactCurrentOwner,
+	    InstanceHandles: ReactInstanceHandles,
+	    Mount: ReactMount,
+	    Reconciler: ReactReconciler,
+	    TextComponent: ReactDOMTextComponent
+	  });
+	}
+
+	if (process.env.NODE_ENV !== 'production') {
+	  var ExecutionEnvironment = __webpack_require__(11);
+	  if (ExecutionEnvironment.canUseDOM && window.top === window.self) {
+
+	    // First check if devtools is not installed
+	    if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === 'undefined') {
+	      // If we're in Chrome or Firefox, provide a download link if not installed.
+	      if (navigator.userAgent.indexOf('Chrome') > -1 && navigator.userAgent.indexOf('Edge') === -1 || navigator.userAgent.indexOf('Firefox') > -1) {
+	        console.debug('Download the React DevTools for a better development experience: ' + 'https://fb.me/react-devtools');
+	      }
+	    }
+
+	    // If we're in IE8, check to see if we are in compatibility mode and provide
+	    // information on preventing compatibility mode
+	    var ieCompatibilityMode = document.documentMode && document.documentMode < 8;
+
+	    process.env.NODE_ENV !== 'production' ? warning(!ieCompatibilityMode, 'Internet Explorer is running in compatibility mode; please add the ' + 'following tag to your HTML to prevent this from happening: ' + '<meta http-equiv="X-UA-Compatible" content="IE=edge" />') : undefined;
+
+	    var expectedFeatures = [
+	    // shims
+	    Array.isArray, Array.prototype.every, Array.prototype.forEach, Array.prototype.indexOf, Array.prototype.map, Date.now, Function.prototype.bind, Object.keys, String.prototype.split, String.prototype.trim,
+
+	    // shams
+	    Object.create, Object.freeze];
+
+	    for (var i = 0; i < expectedFeatures.length; i++) {
+	      if (!expectedFeatures[i]) {
+	        console.error('One or more ES5 shim/shams expected by React are not available: ' + 'https://fb.me/react-warning-polyfills');
+	        break;
+	      }
+	    }
+	  }
+	}
+
+	module.exports = React;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 7 */
@@ -714,7 +734,7 @@ var ReactGSAPEnhancer =
 	});
 
 	module.exports = ReactDOMTextComponent;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 9 */
@@ -849,7 +869,7 @@ var ReactGSAPEnhancer =
 	});
 
 	module.exports = DOMChildrenOperations;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 10 */
@@ -1000,7 +1020,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = Danger;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 11 */
@@ -1131,7 +1151,7 @@ var ReactGSAPEnhancer =
 	}
 
 	module.exports = createNodesFromMarkup;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 13 */
@@ -1284,7 +1304,7 @@ var ReactGSAPEnhancer =
 	}
 
 	module.exports = toArray;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 15 */
@@ -1340,7 +1360,7 @@ var ReactGSAPEnhancer =
 	}
 
 	module.exports = invariant;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 16 */
@@ -1441,7 +1461,7 @@ var ReactGSAPEnhancer =
 	}
 
 	module.exports = getMarkupWrap;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 17 */
@@ -1575,7 +1595,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = keyMirror;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 20 */
@@ -1677,7 +1697,7 @@ var ReactGSAPEnhancer =
 	}
 
 	module.exports = ReactPerf;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 21 */
@@ -2091,7 +2111,7 @@ var ReactGSAPEnhancer =
 	});
 
 	module.exports = DOMPropertyOperations;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 25 */
@@ -2331,7 +2351,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = DOMProperty;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 26 */
@@ -2425,7 +2445,7 @@ var ReactGSAPEnhancer =
 	}
 
 	module.exports = warning;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 28 */
@@ -2571,7 +2591,7 @@ var ReactGSAPEnhancer =
 	});
 
 	module.exports = ReactDOMIDOperations;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 30 */
@@ -3427,7 +3447,7 @@ var ReactGSAPEnhancer =
 	});
 
 	module.exports = ReactMount;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 31 */
@@ -4138,7 +4158,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = EventPluginHub;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 34 */
@@ -4364,7 +4384,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = EventPluginRegistry;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 35 */
@@ -4572,7 +4592,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = EventPluginUtils;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 36 */
@@ -4655,7 +4675,7 @@ var ReactGSAPEnhancer =
 	}
 
 	module.exports = ReactErrorUtils;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 37 */
@@ -4720,7 +4740,7 @@ var ReactGSAPEnhancer =
 	}
 
 	module.exports = accumulateInto;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 38 */
@@ -5222,7 +5242,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = ReactElement;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 45 */
@@ -5252,7 +5272,7 @@ var ReactGSAPEnhancer =
 	}
 
 	module.exports = canDefineProperty;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 46 */
@@ -5613,7 +5633,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = ReactInstanceHandles;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 48 */
@@ -6088,7 +6108,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = ReactOwner;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 55 */
@@ -6351,7 +6371,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = ReactUpdateQueue;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 56 */
@@ -6580,7 +6600,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = ReactUpdates;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 57 */
@@ -6679,7 +6699,7 @@ var ReactGSAPEnhancer =
 	PooledClass.addPoolingTo(CallbackQueue);
 
 	module.exports = CallbackQueue;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 58 */
@@ -6804,7 +6824,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = PooledClass;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 59 */
@@ -7041,7 +7061,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = Transaction;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 60 */
@@ -7067,7 +7087,7 @@ var ReactGSAPEnhancer =
 	}
 
 	module.exports = emptyObject;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 61 */
@@ -7303,7 +7323,7 @@ var ReactGSAPEnhancer =
 	}
 
 	module.exports = instantiateReactComponent;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 65 */
@@ -8003,7 +8023,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = ReactCompositeComponent;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 66 */
@@ -8060,7 +8080,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = ReactComponentEnvironment;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 67 */
@@ -8117,7 +8137,7 @@ var ReactGSAPEnhancer =
 	}
 
 	module.exports = ReactPropTypeLocationNames;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 69 */
@@ -8321,7 +8341,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = ReactNativeComponent;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 72 */
@@ -8690,7 +8710,7 @@ var ReactGSAPEnhancer =
 	}
 
 	module.exports = validateDOMNesting;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 73 */
@@ -8793,7 +8813,7 @@ var ReactGSAPEnhancer =
 	module.exports = {
 	  inject: inject
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 74 */
@@ -9344,7 +9364,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = EventPropagators;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 76 */
@@ -9710,7 +9730,7 @@ var ReactGSAPEnhancer =
 	PooledClass.addPoolingTo(SyntheticEvent, PooledClass.fourArgumentPooler);
 
 	module.exports = SyntheticEvent;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 80 */
@@ -10856,7 +10876,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = ReactBrowserComponentMixin;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 93 */
@@ -10911,7 +10931,7 @@ var ReactGSAPEnhancer =
 	}
 
 	module.exports = findDOMNode;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 94 */
@@ -11951,7 +11971,7 @@ var ReactGSAPEnhancer =
 	assign(ReactDOMComponent.prototype, ReactDOMComponent.Mixin, ReactMultiChild.Mixin);
 
 	module.exports = ReactDOMComponent;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 96 */
@@ -12204,7 +12224,7 @@ var ReactGSAPEnhancer =
 	});
 
 	module.exports = CSSPropertyOperations;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 99 */
@@ -12822,7 +12842,7 @@ var ReactGSAPEnhancer =
 	}
 
 	module.exports = ReactDOMInput;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 108 */
@@ -12962,7 +12982,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = LinkedValueUtils;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 109 */
@@ -13463,7 +13483,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = ReactDOMOption;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 112 */
@@ -13845,7 +13865,7 @@ var ReactGSAPEnhancer =
 	}
 
 	module.exports = traverseAllChildren;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 114 */
@@ -14039,7 +14059,7 @@ var ReactGSAPEnhancer =
 	}
 
 	module.exports = ReactDOMSelect;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 115 */
@@ -14158,7 +14178,7 @@ var ReactGSAPEnhancer =
 	}
 
 	module.exports = ReactDOMTextarea;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 116 */
@@ -14660,7 +14680,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = ReactMultiChild;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 117 */
@@ -14788,7 +14808,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = ReactChildReconciler;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 118 */
@@ -14842,7 +14862,7 @@ var ReactGSAPEnhancer =
 	}
 
 	module.exports = flattenChildren;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 119 */
@@ -15203,7 +15223,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = EventListener;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 122 */
@@ -16066,7 +16086,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = ReactClass;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 125 */
@@ -16194,7 +16214,7 @@ var ReactGSAPEnhancer =
 	}
 
 	module.exports = ReactComponent;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 126 */
@@ -16318,7 +16338,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = ReactNoopUpdateQueue;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 127 */
@@ -17771,7 +17791,7 @@ var ReactGSAPEnhancer =
 	};
 
 	module.exports = SimpleEventPlugin;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 135 */
@@ -18956,19 +18976,19 @@ var ReactGSAPEnhancer =
 /* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var Controller = (function () {
+	var Controller = function () {
 	  function Controller(animationSource, options, target, onNeedReattachAllAninmations, remove) {
 	    _classCallCheck(this, Controller);
 
@@ -18981,6 +19001,7 @@ var ReactGSAPEnhancer =
 	  }
 
 	  //Not documented. For internal usage. (animachine)
+
 
 	  _createClass(Controller, [{
 	    key: 'replaceAnimationSource',
@@ -19012,7 +19033,7 @@ var ReactGSAPEnhancer =
 	          options: this._options
 	        });
 
-	        if (true) {
+	        if (process.env.NODE_ENV !== 'production') {
 	          if (!this._gsapAnimation || typeof this._gsapAnimation.play !== 'function') {
 	            throw Error('[react-gsap-enhancer] The return value of the animation ' + 'source doesn\'t seems to be a GSAP Animation' + ('\nCheck out this animation source: \n' + this._animationSource) + ('\nbecause it returned this value: ' + this._gsapAnimation) + '\n\n' + 'If you\'re using something like TweenMax.staggerTo() witch returns' + ' an array of GSAP Animations please use Timeline (like' + ' TimelineMax.staggerTo()) instead. It has the same effect' + ' but returns one object.');
 	          }
@@ -19036,9 +19057,10 @@ var ReactGSAPEnhancer =
 	  }]);
 
 	  return Controller;
-	})();
+	}();
 
-	exports['default'] = Controller;
+	exports.default = Controller;
+
 
 	var EXPOSED_METHODS = ['currentLabel', 'delay', 'duration', 'endTime', 'eventCallback', 'from', 'fromTo', 'getLabelAfter', 'getLabelArray', 'getLabelBefore', 'getLabelTime', 'invalidate', 'isActive', 'pause', 'paused', 'play', 'progress', 'restart', 'resume', 'reverse', 'reversed', 'seek', 'startTime', 'time', 'timeScale', 'totalDuration', 'totalProgress', 'totalTime', 'tweenFromTo', 'tweenTo'];
 
@@ -19055,7 +19077,7 @@ var ReactGSAPEnhancer =
 	        args[_key] = arguments[_key];
 	      }
 
-	      var result = undefined;
+	      var result = void 0;
 	      var onlyGetter = ONLY_GETTER_METHODS.indexOf(fnName) !== -1;
 
 	      if (!this._gsapAnimation) {
@@ -19064,7 +19086,7 @@ var ReactGSAPEnhancer =
 	      } else if (typeof this._gsapAnimation[fnName] === 'function') {
 	        var _gsapAnimation;
 
-	        if (true) {
+	        if (process.env.NODE_ENV !== 'production') {
 	          if (onlyGetter && args.length !== 0) {
 	            console.warn('[react-gsap-enhancer] controller.' + fnName + ' is only a getter ' + 'but it looks like you tried to use as a getter by calling ' + ('it with the following arguments: "' + args + '"'));
 	          }
@@ -19079,7 +19101,7 @@ var ReactGSAPEnhancer =
 	  });
 	}
 	bindAPI();
-	module.exports = exports['default'];
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 151 */
@@ -19090,13 +19112,13 @@ var ReactGSAPEnhancer =
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports["default"] = convertToTarget;
-	exports["default"] = createTarget;
+	exports.default = convertToTarget;
+	exports.default = createTarget;
 	function find(selection, selector) {
 	  var result = [];
 
 	  selection.forEach(function (item) {
-	    var match = undefined;
+	    var match = void 0;
 
 	    recurseChildren(item, function (childItem) {
 	      if (!match && testSelector(childItem, selector)) {
@@ -19129,7 +19151,7 @@ var ReactGSAPEnhancer =
 	  var result = [];
 
 	  selection.forEach(function (item) {
-	    var match = undefined;
+	    var match = void 0;
 	    iterateChildren(item, function (childItem) {
 	      if (!match && testSelector(childItem, selector)) {
 	        match = childItem;
@@ -19226,8 +19248,6 @@ var ReactGSAPEnhancer =
 	  return target.find();
 	}
 
-	module.exports = exports["default"];
-
 /***/ },
 /* 152 */
 /***/ function(module, exports) {
@@ -19242,7 +19262,6 @@ var ReactGSAPEnhancer =
 	exports.attachAll = attachAll;
 	exports.restoreRenderedStyles = restoreRenderedStyles;
 	exports.saveRenderedStyles = saveRenderedStyles;
-
 	function walkItemTree(itemTree, callback) {
 	  function walk(map) {
 	    map.forEach(function (item) {
@@ -19277,9 +19296,9 @@ var ReactGSAPEnhancer =
 	    });
 	    //remove the attributes added after the render
 	    for (var i = 0; i < item.node.attributes.length; ++i) {
-	      var _name = item.node.attributes[i].name;
-	      if (savedAttributeNames.indexOf(_name) === -1) {
-	        item.node.removeAttribute(_name);
+	      var name = item.node.attributes[i].name;
+	      if (savedAttributeNames.indexOf(name) === -1) {
+	        item.node.removeAttribute(name);
 	        --i;
 	      }
 	    }
@@ -19291,9 +19310,9 @@ var ReactGSAPEnhancer =
 	    item.savedAttributes = {};
 	    for (var i = 0; i < item.node.attributes.length; ++i) {
 	      var attribute = item.node.attributes[i];
-	      var _name2 = attribute.name;
+	      var name = attribute.name;
 	      var value = attribute.value;
-	      item.savedAttributes[_name2] = value;
+	      item.savedAttributes[name] = value;
 	    }
 	    item.node._gsTransform = null;
 	    item.node._gsTweenID = null;
