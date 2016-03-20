@@ -1,5 +1,5 @@
 var assert = require('chai').assert
-var createTarget = require('../../src/createTarget')
+import createTarget from '../../src/createTarget'
 
 function createFakeTree(rootDesign) {
   function create(design) {

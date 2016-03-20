@@ -1,6 +1,6 @@
 var React = require('react')
 var Component = React.Component
-var GSAP = require('../../src/gsap-enhancer')
+import GSAP from '../../src/gsap-enhancer'
 var chai = require('chai')
 var spies = require('chai-spies')
 var assert = chai.assert

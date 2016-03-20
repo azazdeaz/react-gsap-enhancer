@@ -16,8 +16,7 @@ var menuItems = [
   })
 ]
 
-@ThemeDecorator(ThemeManager.getMuiTheme(RawTheme))
-export default class App extends React.Component {
+class App extends React.Component {
 
   static contextTypes = {
     router: React.PropTypes.func
@@ -65,3 +64,5 @@ export default class App extends React.Component {
     )
   }
 }
+
+export default ThemeDecorator(ThemeManager.getMuiTheme(RawTheme))(App)

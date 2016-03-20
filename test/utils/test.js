@@ -1,10 +1,10 @@
-var FakeNode = require('./FakeNode')
-var {
+import FakeNode from './FakeNode'
+import {
   walkItemTree,
   reattachAll,
   restoreRenderedStyles,
   saveRenderedStyles
-} = require('../../src/utils')
+} from '../../src/utils'
 var chai = require('chai')
 var spies = require('chai-spies')
 var assert = chai.assert

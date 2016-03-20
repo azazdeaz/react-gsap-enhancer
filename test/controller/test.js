@@ -4,7 +4,7 @@ var spies = require('chai-spies')
 chai.use(spies)
 chai.should()
 
-var Controller = require('../../src/Controller')
+import Controller from '../../src/Controller'
 
 function wrapWarn() {
   const ori = console.warn
@@ -16,17 +16,19 @@ function wrapWarn() {
 function createMockGSAPAnimation() {
   var mock = {}
   var paused = false
+  var reversed = false
   mock.time = chai.spy((v) => v === undefined ? 0 : mock)
   mock.pause = chai.spy(() => {
     paused = true
     return mock
   })
   mock.delay = chai.spy(() => 0)
-  mock.paused = chai.spy(() => paused)
   mock.invalidate = chai.spy(() => mock)
   mock.restart = chai.spy(() => mock)
   mock.kill = chai.spy(() => mock)
   mock.play = chai.spy(() => mock)
+  mock.paused = chai.spy(v => {if (v === undefined) return paused; else {paused = v; return mock;}})
+  mock.reversed = chai.spy(v => {if (v === undefined) return reversed; else {reversed = v; return mock;}})
   return mock
 }
 
@@ -143,7 +145,7 @@ describe('Controller', () => {
     controller.pause()
     gsapAnimation.pause.should.have.been.called.once()
     controller.attach()
-    gsapAnimation.pause.should.have.been.called.twice()
+    gsapAnimation.paused.should.have.been.called.with(true)
   })
 
   describe('replace animation source', () => {

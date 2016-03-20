@@ -1,7 +1,7 @@
 var React = require('react')
 var ReactDOM = require('react-dom')
 var assert = require('chai').assert
-var attachRefs = require('../../src/attachRefs')
+import attachRefs from '../../src/attachRefs'
 
 describe('attachRefs', () => {
   const oriFindDOMNode = ReactDOM.findDOMNode
