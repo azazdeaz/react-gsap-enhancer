@@ -154,5 +154,9 @@ function enhance (animationSourceMap, ComposedComponent) {
   //   })
   // }
 
+  const composedName = ComposedComponent.displayName || ComposedComponent.name || 'Component'
+  const displayName = `GSAP(${composedName})`
+  Object.defineProperty(GSAPEnhancer, 'displayName', { value: displayName })
+
   return GSAPEnhancer
 }

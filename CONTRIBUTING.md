@@ -16,4 +16,7 @@
 **Test coverage:**
   - ```npm run coverage```
 
+**Lint:**
+  - ```npm run lint```
+
 Please follow ```.eslintrc```.

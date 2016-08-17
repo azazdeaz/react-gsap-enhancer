@@ -117,4 +117,49 @@ describe('gsap-enhancer', () => {
     didUpdate.should.have.been.called.once.with('baz')
     render.should.have.been.called.once.with('taz')
   })
+
+  describe('displayName', () => {
+    it('sets the name correctly with ES6 Class', () => {
+      class BaseComponent extends Component {
+        render() {}
+      }
+      const enhancedComponent = GSAP()(BaseComponent)
+      assert(enhancedComponent.displayName === 'GSAP(BaseComponent)')
+    })
+
+    it('sets the name correctly with static displayName ES6', () => {
+      class BaseComponent extends Component {
+        static get displayName() { return 'DisplayName' }
+        render() {}
+      }
+      const enhancedComponent = GSAP()(BaseComponent)
+      assert(enhancedComponent.displayName === 'GSAP(DisplayName)')
+    })
+
+    it('sets the name correctly with static property displayName ES7', () => {
+      class BaseComponent extends Component {
+        static displayName = 'DisplayName'
+        render() {}
+      }
+      const enhancedComponent = GSAP()(BaseComponent)
+      assert(enhancedComponent.displayName === 'GSAP(DisplayName)')
+    })
+
+    it('sets the name correctly with React.createClass and displayName', () => {
+      const BaseComponent = React.createClass({
+        displayName: 'DisplayName',
+        render: function() {}
+      })
+      const enhancedComponent = GSAP()(BaseComponent)
+      assert(enhancedComponent.displayName === 'GSAP(DisplayName)')
+    })
+
+    it('sets the name correctly with React.createClass', () => {
+      const BaseComponent = React.createClass({
+        render: function() {}
+      })
+      const enhancedComponent = GSAP()(BaseComponent)
+      assert(enhancedComponent.displayName === 'GSAP(BaseComponent)')
+    })
+  })
 })
