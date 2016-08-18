@@ -274,6 +274,10 @@ var ReactGSAPEnhancer =
 	  //   })
 	  // }
 
+	  var composedName = ComposedComponent.displayName || ComposedComponent.name || 'Component';
+	  var displayName = 'GSAP(' + composedName + ')';
+	  Object.defineProperty(GSAPEnhancer, 'displayName', { value: displayName });
+
 	  return GSAPEnhancer;
 	}
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
