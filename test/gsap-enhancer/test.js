@@ -161,5 +161,18 @@ describe('gsap-enhancer', () => {
       const enhancedComponent = GSAP()(BaseComponent)
       assert(enhancedComponent.displayName === 'GSAP(BaseComponent)')
     })
+
+    it('is writable and configurable so that it can be overwritten', () => {
+      class BaseComponent extends Component {
+        render() {}
+      }
+      const enhancedComponent = GSAP()(BaseComponent)
+      const descriptor = Object.getOwnPropertyDescriptor(enhancedComponent, 'displayName')
+
+      assert(descriptor.configurable === true)
+      assert(descriptor.writable === true)
+      enhancedComponent.displayName = 'NewDisplayName'
+      assert(enhancedComponent.displayName === 'NewDisplayName')
+    })
   })
 })
