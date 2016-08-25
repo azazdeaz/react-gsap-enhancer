@@ -106,7 +106,7 @@ handleProgress(progress) {
 ### API
 
 ##### addAnimation()
- - ```enhancedCompoent.addAnimation(animationSource[, options]) -> controller```: Add an animation to the component with the given source and returns a Controller for it. The options will be passed to the animationSource.
+ - ```enhancedComponent.addAnimation(animationSource[, options]) -> controller```: Add an animation to the component with the given source and returns a Controller for it. The options will be passed to the animationSource.
 
 ##### ```controller```
 Wraps the GSAP Animation returned from the ```animationSource```. It's exposing the following GSAP API methods:  
