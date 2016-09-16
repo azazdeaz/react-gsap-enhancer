@@ -1,4 +1,5 @@
-# react-gsap-enhancer [![Build Status](https://img.shields.io/travis/azazdeaz/react-gsap-enhancer.svg?style=flat-square)](https://travis-ci.org/azazdeaz/react-gsap-enhancer) [![Coveralls branch](https://img.shields.io/coveralls/azazdeaz/react-gsap-enhancer/master.svg?style=flat-square)](https://coveralls.io/github/azazdeaz/react-gsap-enhancer) [![npm](https://img.shields.io/npm/dm/react-gsap-enhancer.svg?style=flat-square)](https://www.npmjs.com/package/react-gsap-enhancer)
+# react-gsap-enhancer [![Build Status](https://img.shields.io/travis/azazdeaz/react-gsap-enhancer.svg?style=flat-square)](https://travis-ci.org/azazdeaz/react-gsap-enhancer) [![Coveralls branch](https://img.shields.io/coveralls/azazdeaz/react-gsap-enhancer/master.svg?style=flat-square)](https://coveralls.io/github/azazdeaz/react-gsap-enhancer)  [![npm](https://img.shields.io/npm/dm/react-gsap-enhancer.svg?style=flat-square)](https://www.npmjs.com/package/react-gsap-enhancer) ![maintainance](https://img.shields.io/badge/actively%20maintained-%3A\(%20sorry-red.svg?style=flat-square)
+
 
 [![Join the chat at https://gitter.im/azazdeaz/react-gsap-enhancer](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/azazdeaz/react-gsap-enhancer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -6,6 +7,8 @@
 |---------------|------------|------------------------------|---------------|-----------|
 
 A [React] component enhancer for applying [GSAP] animations on components without side effects.
+
+>For simple use cases **you might not need this tool**. See [this egghead.io tutorial](https://egghead.io/lessons/react-using-tweenmax-with-react).
 
 *Developed as part of the [Animachine project](https://github.com/animachine/animachine).*
 
@@ -35,9 +38,6 @@ It's pretty simple: in every render cycle:
 >In this way you can even update a style of an element (like ```transform: 'translateX(${mouse.x})'```) while you animating the same style relative to its original value (like: ```.to(node, 1, {x: '+=300', yoyo: true}```)
 
 >[Check it out!](http://azazdeaz.github.io/react-gsap-enhancer/#/demo/update-and-animate-transform) 
-
----
->For simple use cases **you might not need this tool anyway**. See [this egghead.io tutorial](https://egghead.io/lessons/react-using-tweenmax-with-react).
 
 ### Usage
 First you have to enhance the component with react-gsap-enhancer:
