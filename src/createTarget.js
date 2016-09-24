@@ -94,7 +94,7 @@ function recurseChildren(item, callback) {
   })
 }
 
-export default function convertToTarget(selection) {
+function convertToTarget(selection) {
   const target = selection.map(item => item.node).filter(node => !!node)
 
   target.find = selector => find(selection, selector)
