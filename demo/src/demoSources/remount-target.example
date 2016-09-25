@@ -4,7 +4,6 @@ function createAnim({target}) {
     .to(target, 1, {scale: 1, y: '-=120'})
 }
 
-@GSAP()
 class Demo extends React.Component {
   constructor(props) {
     super(props)
@@ -48,4 +47,5 @@ class Demo extends React.Component {
   }
 }
 
-ReactDOM.render(<Demo/>, mountNode)
+const GSAPDemo = GSAP()(Demo)
+ReactDOM.render(<GSAPDemo/>, mountNode)

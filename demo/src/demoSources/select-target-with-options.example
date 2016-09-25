@@ -29,7 +29,6 @@ function emitAnim({target, options}) {
 
 var COLORS = ['#0074D9', '#FF851B', '#FF4136', '#85144b', '#2ECC40']
 
-@GSAP()
 class Demo extends React.Component {
   constructor(props) {
     super(props)
@@ -90,4 +89,5 @@ class Demo extends React.Component {
   }
 }
 
-ReactDOM.render(<Demo/>, mountNode)
+const GSAPDemo = GSAP()(Demo)
+ReactDOM.render(<GSAPDemo/>, mountNode)

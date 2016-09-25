@@ -39,11 +39,6 @@ function astronautAnim({target}) {
     .add('woah')
 }
 
-@customDrag(dragOptions, connect => ({
-  dragRef: connect.getDragRef()
-}))
-@GSAP()
-@Radium
 class Demo extends React.Component {
   constructor() {
     super()
@@ -127,7 +122,7 @@ class Demo extends React.Component {
         </g>
 
         <Spring defaultValue={{val: 0}} endValue={{val: cowRad, config: [210, 20]}}>
-          {interpolated => <Cow
+          {interpolated => <GSAPCow
             ref = {dragRef}
             position = {interpolated.val}
             flying = {interpolated.val !== cowRad}/>}
@@ -137,6 +132,14 @@ class Demo extends React.Component {
     </div>
   }
 }
+
+const GSAPDemo = customDrag(dragOptions, connect => ({
+  dragRef: connect.getDragRef()
+}))(
+  GSAP()(
+    Radium(Demo)
+  )
+)
 
 function gloriaAnim({target}) {
   var gloria = target.find({name: 'gloria'})
@@ -166,7 +169,6 @@ function cowGears({target}) {
     .add('gears-in')
 }
 
-@GSAP()
 class Cow extends React.Component {
   componentDidMount() {
     this.blinkAnim = this.addAnimation(blinkAnim)
@@ -212,6 +214,8 @@ class Cow extends React.Component {
     </g>
   }
 }
+
+const GSAPCow = GSAP()(Cow)
 
 const SMALL = '@media screen and (max-width: 1400px)'
 const LARGE = '@media screen and (min-width: 1200px)'
@@ -268,4 +272,4 @@ const styles = {
   }
 }
 
-ReactDOM.render(<Demo/>, mountNode)
+ReactDOM.render(<GSAPDemo/>, mountNode)

@@ -14,6 +14,12 @@ function createAnim(utils) {
 }
 
 var Demo = GSAP()(React.createClass({
+  getInitialState() {
+    return {
+      colorsSwapped: false
+    }
+  },
+
   componentDidMount: function() {
     var anim1 = this.addAnimation(createAnim, {name: 'box1', y: -123})
     var anim2 = this.addAnimation(createAnim, {name: 'box2', y: 123})
@@ -27,6 +33,12 @@ var Demo = GSAP()(React.createClass({
       anim1.restart()
     })
     anim1.play()
+  },
+
+  swapColors() {
+    this.setState({
+      colorsSwapped: !this.state.colorsSwapped
+    })
   },
 
   render: function() {
@@ -44,10 +56,19 @@ var Demo = GSAP()(React.createClass({
       }
     }
 
-    return <Center>
-      <div name='box1' style={style('#0074D9')}/>
-      <div name='box2' style={style('#FF851B')}/>
-    </Center>
+    const [color1, color2] = this.state.colorsSwapped
+      ? ['#0074D9', '#FF851B']
+      : ['#FF851B', '#0074D9']
+
+    return (
+      <div>
+        <Text>Click to swap colors!</Text>
+        <Center onClick={this.swapColors}>
+          <div name='box1' style={style(color1)}/>
+          <div name='box2' style={style(color2)}/>
+        </Center>
+      </div>
+    )
   }
 }))
 

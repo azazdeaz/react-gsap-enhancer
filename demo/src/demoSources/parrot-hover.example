@@ -78,7 +78,6 @@ function hoverAnim({target}) {
     .add('green')
 }
 
-@GSAP()
 class Parrot extends React.Component {
   componentDidMount() {
     this.hoverAnim = this.addAnimation(hoverAnim)
@@ -100,4 +99,5 @@ class Parrot extends React.Component {
   }
 }
 
-ReactDOM.render(<Parrot/>, mountNode)
+const GSAPParrot = GSAP()(Parrot)
+ReactDOM.render(<GSAPParrot/>, mountNode)

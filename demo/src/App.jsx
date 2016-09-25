@@ -5,12 +5,13 @@ import findIndex from 'lodash/array/findIndex'
 import startCase from 'lodash/string/startCase'
 
 import {AppBar, IconButton, DropDownMenu, MenuItem} from 'material-ui'
-import RawTheme from 'material-ui/lib/styles/raw-themes/dark-raw-theme'
-import ThemeManager from 'material-ui/lib/styles/theme-manager'
-import ThemeDecorator from 'material-ui/lib/styles/theme-decorator'
+
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
 var menuItems = [
-  { type: MenuItem.Types.SUBHEADER, text: 'Demos:' },
+  // { type: MenuItem.Types.SUBHEADER, text: 'Demos:' },
   ...map(demoSources, (source, name) => {
     return { route: '/demo/' + name, text: startCase(name), name }
   })
@@ -26,8 +27,8 @@ class App extends React.Component {
     this.refs.leftNav.toggle()
   }
 
-  handleNavChange = (e, idx, payload) => {
-    this.props.history.pushState(null, payload.route)
+  handleNavChange = (_, __, route) => {
+    this.props.history.pushState(null, route)
   }
 
   handleClickGithub = () => {
@@ -37,32 +38,40 @@ class App extends React.Component {
   render () {
     const {params} = this.props
     return (
-      <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100vh',
-        }}>
-        <AppBar
-          title="Demos for react-gsap-enhancer"
-          iconElementLeft={
-            <IconButton
-              iconClassName='fa fa-github'
-              onClick={this.handleClickGithub}/>
-          }>
-          <DropDownMenu
-            selectedIndex = {findIndex(menuItems, item => {
-              var {name} = params
-              return item.name === name
-            })}
-            onChange = {this.handleNavChange}
-            menuItems = {menuItems} />
-        </AppBar>
-        <div style={{display: 'flex', flex: 1}}>
-          {this.props.children}
+      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+        <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100vh',
+          }}>
+          <AppBar
+            title="Demos for react-gsap-enhancer"
+            iconElementLeft={
+              <IconButton
+                iconClassName='fa fa-github'
+                onClick={this.handleClickGithub}/>
+            }>
+            <DropDownMenu
+              value = {menuItems.find(item => {
+                var {name} = params
+                return item.name === name
+              }).route}
+              onChange={this.handleNavChange}
+            >
+              {menuItems.map(item => <MenuItem
+                key={item.route}
+                primaryText={item.text}
+                value={item.route}
+              />)}
+            </DropDownMenu>
+          </AppBar>
+          <div style={{display: 'flex', flex: 1}}>
+            {this.props.children}
+          </div>
         </div>
-      </div>
+      </MuiThemeProvider>
     )
   }
 }
 
-export default ThemeDecorator(ThemeManager.getMuiTheme(RawTheme))(App)
+export default App

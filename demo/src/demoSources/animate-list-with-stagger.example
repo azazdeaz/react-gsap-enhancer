@@ -7,7 +7,7 @@ function createRevealAnim({target}) {
   	.staggerFrom(items, 1, {opacity: 0, scale: .3}, .12)
 }
 
-@GSAP()
+
 class Demo extends React.Component {
   componentDidMount() {
     this.addAnimation(createRevealAnim)
@@ -47,4 +47,5 @@ class Demo extends React.Component {
   }
 }
 
-ReactDOM.render(<Demo/>, mountNode)
+const GSAPDemo = GSAP()(Demo)
+ReactDOM.render(<GSAPDemo/>, mountNode)
