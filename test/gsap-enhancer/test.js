@@ -1,4 +1,5 @@
 var React = require('react')
+var {renderToString} = require('react-dom/server')
 var Component = React.Component
 import GSAP from '../../src/gsap-enhancer'
 var chai = require('chai')
@@ -35,14 +36,13 @@ describe('gsap-enhancer', () => {
     assert.isFunction(enhancedComponent.addAnimation)
   })
 
-  it('throws throws the React error message for invaid render() return value', () => {
+  it('throws the React error message for invaid render() return value', () => {
     class BaseComponent extends Component {
       render() {}
     }
     const GSAPComponent = GSAP(BaseComponent)
     assert.throws(
-      () => React.renderToString(<GSAPComponent/>),
-      'A valid ReactComponent must be returned.'
+      () => renderToString(<GSAPComponent/>)
     )
   })
 

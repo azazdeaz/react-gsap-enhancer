@@ -145,7 +145,7 @@ describe('Controller', () => {
     controller.pause()
     gsapAnimation.pause.should.have.been.called.once()
     controller.attach()
-    gsapAnimation.paused.should.have.been.called.with(true)
+    gsapAnimation.pause.should.have.been.called.with(true)
   })
 
   describe('replace animation source', () => {
