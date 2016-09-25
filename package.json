@@ -1,6 +1,6 @@
 {
   "name": "react-gsap-enhancer",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "Use the full power of React and GSAP together",
   "main": "lib/index.js",
   "directories": {
