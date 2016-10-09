@@ -163,7 +163,7 @@ Wraps the GSAP Animation returned from the ```animationSource```. It's exposing 
 [tweenTo](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/tweenTo/),
 
 **Notes:**
-  - Some of the methods above doesn't available for TweenLite and TimelineLite. Please check the GSAP docs for more detailes.
+  - Some of the methods above aren't available for TweenLite and TimelineLite. Please check the GSAP docs for more detailes.
   - controller.kill() will also remove all the effects the animation made on your component.
   - As you can see the editor methods (like ```.to()``` or ```.add()```) aren't exposed by the controller so you can only use them inside the [animationSource](#animationsource) function while you construct the animation.
 
