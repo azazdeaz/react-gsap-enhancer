@@ -8,7 +8,7 @@
 
 A [React] component enhancer for applying [GSAP] animations on components without side effects.
 
->For simple use cases **you might not need this tool**. See [this egghead.io tutorial](https://egghead.io/lessons/react-using-tweenmax-with-react).
+>For simple use cases, **you might not need this tool**. See [this egghead.io tutorial](https://egghead.io/lessons/react-using-tweenmax-with-react).
 
 *Developed as part of the [Animachine project](https://github.com/animachine/animachine).*
 
@@ -27,14 +27,14 @@ A [React] component enhancer for applying [GSAP] animations on components withou
   - [Material Login Dialog](http://codepen.io/azazdeaz/pen/yYavVK?editors=001)
 
 ### Why?
-We have great tools (like [react-motion], or [Animated]) to animate the state and props of our React components but if you ever needed to create a longer animation sequence with React you can still feel the desire to reach out for a tool like [GSAP] which makes it easy to compose your animation and apply it on the DOM with its super performance and bulit in polyfills. Unfortunately, if you let anything to mutate the DOM of a component, React can break on the next update because is suppose that the DOM looks exacly the same like after the last update. This tool is a work around for this problem.
+We have great tools (like [react-motion], or [Animated]) to animate the state and props of our React components, but if you ever needed to create a longer animation sequence with React you can still feel the desire to reach out for a tool like [GSAP] which makes it easy to compose your animation and apply it on the DOM with its super performance and bulit in polyfills. Unfortunately, if you let anything mutate the DOM of a component, React can break on the next update because it is supposed that the DOM looks exacly the same like after the last update. This tool is a workaround for this problem.
 
 ### How it works?
 It's pretty simple: in every render cycle:
- - after each render save the attributes of the rendered DOM elements than start/restart the added animations.
- - before each render stop the animations and restore the saved attributes (so React will find the DOM as it was after the update)
+ - after each render, save the attributes of the rendered DOM elements then start/restart the added animations.
+ - before each render, stop the animations and restore the saved attributes (so React will find the DOM as it was after the update)
 
->In this way you can even update a style of an element (like ```transform: 'translateX(${mouse.x})'```) while you animating the same style relative to its original value (like: ```.to(node, 1, {x: '+=300', yoyo: true}```)
+>In this way, you can even update a style of an element (like ```transform: 'translateX(${mouse.x})'```) while animating the same style relative to its original value (like: ```.to(node, 1, {x: '+=300', yoyo: true}```)
 
 >[Check it out!](http://azazdeaz.github.io/react-gsap-enhancer/#/demo/update-and-animate-transform) 
 
@@ -74,7 +74,7 @@ function moveAnimation(utils) {
   return TweenMax.to(utils.target, 1, {x: '+=123'})
 }
 ```
-the utils.target refers to the root node of the component but you can select any of it's children by they props in the good old jQuery style:
+the utils.target refers to the root node of the component but you can select any of it's children by their props in the good old jQuery style:
 ```javascript
 function moveAnimation({target}) {//just ES6 syntax sugar
   var footer = target.find({type: 'footer'})
@@ -105,7 +105,7 @@ handleProgress(progress) {
 ### API
 
 ##### addAnimation()
- - ```enhancedComponent.addAnimation(animationSource[, options]) -> controller```: Add an animation to the component with the given source and returns a Controller for it. The options will be passed to the animationSource.
+ - ```enhancedComponent.addAnimation(animationSource[, options]) -> controller```: Adds an animation to the component with the given source and returns a Controller for it. The options will be passed to the animationSource.
 
 ##### ```controller```
 Wraps the GSAP Animation returned from the ```animationSource```. It's exposing the following GSAP API methods:  
@@ -163,11 +163,11 @@ Wraps the GSAP Animation returned from the ```animationSource```. It's exposing 
 [tweenTo](http://greensock.com/docs/#/HTML5/GSAP/TimelineMax/tweenTo/),
 
 **Notes:**
-  - Some of the methods above doesn't available for TweenLite and TimelineLite. Please check the GSAP docs for more detailes.
+  - Some of the methods above aren't available for TweenLite and TimelineLite. Please check the GSAP docs for more details.
   - controller.kill() will also remove all the effects the animation made on your component.
-  - As you can see the editor methods (like ```.to()``` or ```.add()```) aren't exposed by the controller so you can only use them inside the [animationSource](#animationsource) function while you construct the animation.
+  - As you can see, the editor methods (like ```.to()``` or ```.add()```) aren't exposed by the controller so you can only use them inside the [animationSource](#animationsource) function while you construct the animation.
 
-***\**** Trough the controller you can only get values with these methods.
+***\**** Through the controller, you can only get values with these methods.
 
 ```javascript
 var controller = this.addAnimation(animationSource)
@@ -186,7 +186,7 @@ this.addAnimation(animationSource)
 ```
 
 ##### ```target```
-jQuery like object that refers to the root component and lets select its children with chainable find methods and [selectors](#selector).
+jQuery-like object that refers to the root component and lets select its children with chainable find methods and [selectors](#selector).
  - ```target.find(selector)```: returns with the first match
  - ```target.findAll(selector)```: returns with all the matches
  - ```target.findInChildren(selector)```: returns with the first match in the direct children
@@ -199,7 +199,7 @@ function animationSource(utils) {
 ```
 
 ##### ```options```
-Arbitrary object. Passed to the [addAnimation](#methods-added-to-the-component) call as the second argument and and will be passed to the [animationSource](#animationsource)
+Arbitrary object. Passed to the [addAnimation](#methods-added-to-the-component) call as the second argument and will be passed to the [animationSource](#animationsource)
 ```javascript
 this.addAnimation(animationSource, {offset: this.props.offset})
 
@@ -211,9 +211,9 @@ function animationSource(utils) {
 ```
 
 ##### ```selector```
-Selectors are usually simple objects and the "find" functions are using it to select the elements with matching props. Ie. ```{key: 'head'}```, ```{color: 'red'}```, and ```{key: 'head', color:  'red}``` are all matches to ```<div key='head' color='red'/>```.
+Selectors are usually simple objects and the "find" functions are using it to select the elements with matching props, i.e. ```{key: 'head'}```, ```{color: 'red'}```, and ```{key: 'head', color:  'red}``` are all matches to ```<div key='head' color='red'/>```.
 
-I'm looking forward for your feedback!
+I'm looking forward to your feedback!
 
 [react-motion]: https://github.com/chenglou/react-motion
 [Animated]: https://facebook.github.io/react-native/docs/animations.html#animated
