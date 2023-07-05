@@ -27,7 +27,7 @@ A [React] component enhancer for applying [GSAP] animations on components withou
   - [Material Login Dialog](http://codepen.io/azazdeaz/pen/yYavVK?editors=001)
 
 ### Why?
-We have great tools (like [react-motion], or [Animated]) to animate the state and props of our React components, but if you ever needed to create a longer animation sequence with React you can still feel the desire to reach out for a tool like [GSAP] which makes it easy to compose your animation and apply it on the DOM with its super performance and bulit in polyfills. Unfortunately, if you let anything mutate the DOM of a component, React can break on the next update because it is supposed that the DOM looks exacly the same like after the last update. This tool is a workaround for this problem.
+We have great tools (like [react-motion], or [Animated]) to animate the state and props of our React components, but if you ever needed to create a longer animation sequence with React you can still feel the desire to reach out for a tool like [GSAP] which makes it easy to compose your animation and apply it on the DOM with its super performance and bulit-in polyfills. Unfortunately, if you let anything mutate the DOM of a component, React can break on the next update because it is supposed that the DOM looks exacly the same like after the last update. This tool is a workaround for this problem.
 
 ### How it works?
 It's pretty simple: in every render cycle:
